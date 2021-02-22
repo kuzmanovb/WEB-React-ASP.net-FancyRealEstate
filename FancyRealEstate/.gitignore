@@ -232,6 +232,6 @@ _Pvt_Extensions
 .fake/
 
 # Custom ignores
-appsettings
+appsettings.json
 appsettings.Production.json
 appsettings.Development.json

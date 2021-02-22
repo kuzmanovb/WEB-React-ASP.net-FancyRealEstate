@@ -353,6 +353,6 @@ MigrationBackup/
 .ionide/
 
 # Custom ignores
-appsettings
+appsettings.json
 appsettings.Production.json
 appsettings.Development.json
