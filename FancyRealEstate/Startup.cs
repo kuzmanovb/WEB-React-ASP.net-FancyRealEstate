@@ -33,7 +33,6 @@ namespace FancyRealEstate
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
@@ -43,6 +42,19 @@ namespace FancyRealEstate
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            // Configure identity password options
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 0;
+            });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
