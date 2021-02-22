@@ -30,6 +30,5 @@ namespace FancyRealEstate.Data
 
 		public DbSet<Feature> Features { get; set; }
 
-		public DbSet<Seller> Sellers { get; set; }
 	}
 }
