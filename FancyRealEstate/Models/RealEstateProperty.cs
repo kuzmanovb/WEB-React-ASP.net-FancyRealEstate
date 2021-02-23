@@ -28,6 +28,8 @@ namespace FancyRealEstate.Models
 
         public TypeOfDeal TypeOfDeal { get; set; }
 
+        public bool IsPromotion { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
