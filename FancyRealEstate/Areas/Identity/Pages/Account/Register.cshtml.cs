@@ -60,7 +60,6 @@ namespace FancyRealEstate.Areas.Identity.Pages.Account
             [Display(Name ="Phone Numbert")]
             public string PhoneNumber { get; set; }
 
-
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
