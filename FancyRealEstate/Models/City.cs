@@ -7,13 +7,13 @@ namespace FancyRealEstate.Models
     {
         public City()
         {
-            this.RealEstateProperties = new List<RealEstateProperty>();
+            this.Addresses = new List<Address>();
         }
         public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
-        public virtual ICollection<RealEstateProperty> RealEstateProperties { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }
