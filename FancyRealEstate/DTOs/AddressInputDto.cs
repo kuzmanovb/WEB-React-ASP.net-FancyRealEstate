@@ -5,17 +5,15 @@ using System.Threading.Tasks;
 
 namespace FancyRealEstate.DTOs
 {
-    public class AddressDto
+    public class AddressInputDto
     {
-        public int Id { get; set; }
-
         public string Street { get; set; }
 
         public string BuildingNumber { get; set; }
 
-        public string District { get; set; }
+        public int DistrictId { get; set; }
 
-        public string City { get; set; }
+        public int CityId { get; set; }
 
     }
 }

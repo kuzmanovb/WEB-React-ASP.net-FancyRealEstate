@@ -7,7 +7,7 @@ namespace FancyRealEstate.DTOs
 {
     public class FeatureDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public bool Internet { get; set; }
 
