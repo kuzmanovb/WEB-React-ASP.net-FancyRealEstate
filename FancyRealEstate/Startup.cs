@@ -1,5 +1,7 @@
 using FancyRealEstate.Data;
 using FancyRealEstate.Models;
+using FancyRealEstate.Services;
+using FancyRealEstate.Services.Contracts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +57,11 @@ namespace FancyRealEstate
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 0;
             });
+
+            // Application services
+            services.AddTransient<ICitiesService, CitiesService>();
+            services.AddTransient<IDistrictsService, DistrictsService>();
+            services.AddTransient<IAddressesService, AddressesService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
