@@ -1,8 +1,9 @@
 ﻿namespace FancyRealEstate.Services
 {
-    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using FancyRealEstate.Data;
     using FancyRealEstate.Models;
     using FancyRealEstate.Services.Contracts;
@@ -20,26 +21,35 @@
         {
             var newCity = new City { Name = name };
 
-            await db.AddAsync(newCity);
-            await db.SaveChangesAsync();
+            await this.db.AddAsync(newCity);
+            await this.db.SaveChangesAsync();
 
             return newCity.Id;
         }
 
+        public ICollection<string> GetAllCityName()
+        {
+            var cities = this.db.Cities.Select(x => x.Name ).ToArray();
+
+            return cities;
+        }
+
+        public City GetCityByName(string name)
+        {
+            var city = this.db.Cities.Where(c => c.Name == name).FirstOrDefault();
+
+            return city;
+        }
+
         public async Task DeleteCityAsync(string name)
         {
-            var city = db.Cities.Where(c => c.Name == name).FirstOrDefault();
+            var city = this.db.Cities.Where(c => c.Name == name).FirstOrDefault();
 
             if (city != null)
             {
                 this.db.Cities.Remove(city);
                 await this.db.SaveChangesAsync();
             }
-        }
-
-        public Task<string> GetCityByIdAsync(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }
