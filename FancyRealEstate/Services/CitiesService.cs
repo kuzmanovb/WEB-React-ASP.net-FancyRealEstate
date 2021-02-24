@@ -29,9 +29,9 @@
 
         public ICollection<string> GetAllCityName()
         {
-            var cities = this.db.Cities.Select(x => x.Name ).ToArray();
+            var allCities = this.db.Cities.Select(x => x.Name ).ToArray();
 
-            return cities;
+            return allCities;
         }
 
         public City GetCityByName(string name)
