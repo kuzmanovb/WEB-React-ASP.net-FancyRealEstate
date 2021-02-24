@@ -2,7 +2,7 @@
 
 namespace FancyRealEstate.Services.Contracts
 {
-    interface IDistrictService
+    interface IDistrictяService
     {
         Task<int> CreateDistrictAsync(string name);
 
