@@ -19,7 +19,7 @@
         }
 
         [HttpGet("{name}")]
-        public IActionResult GetCityByName(string name)
+        public IActionResult GetByName(string name)
         {
             var currentCity = this.citiesService.GetCityByName(name);
 
@@ -32,7 +32,7 @@
         }
 
         [HttpPost("{name}")]
-        public async Task<IActionResult> CreateCity(string name)
+        public async Task<IActionResult> Create(string name)
         {
             var currentCity = this.citiesService.GetCityByName(name);
 
@@ -52,7 +52,7 @@
         }
 
         [HttpDelete("{name}")]
-        public async Task<IActionResult> DeleteCity(string name)
+        public async Task<IActionResult> Delete(string name)
         {
             var currentCity = this.citiesService.GetCityByName(name);
 
