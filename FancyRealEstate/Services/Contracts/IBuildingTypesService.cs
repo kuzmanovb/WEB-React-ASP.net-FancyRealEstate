@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FancyRealEstate.Services.Contracts
 {
-    interface IBuildingTypeService
+    interface IBuildingTypesService
     {
         Task<int> CreateBuildingTypeAsync(string name);
 
