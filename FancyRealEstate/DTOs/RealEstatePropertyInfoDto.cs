@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FancyRealEstate.DTOs
+﻿namespace FancyRealEstate.DTOs
 {
+    using System;
+    using System.Collections.Generic;
+
     public class RealEstatePropertyInfo
     {
         public int Id { get; set; }

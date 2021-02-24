@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-
-namespace FancyRealEstate.Services.Contracts
+﻿namespace FancyRealEstate.Services.Contracts
 {
-    interface IDistrictяService
+    using System.Threading.Tasks;
+
+    public interface IDistrictsService
     {
         Task<int> CreateDistrictAsync(string name);
 

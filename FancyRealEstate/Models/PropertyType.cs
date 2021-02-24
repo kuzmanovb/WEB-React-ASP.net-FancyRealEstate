@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace FancyRealEstate.Models
+﻿namespace FancyRealEstate.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class PropertyType
     {
         public PropertyType()
         {
             this.RealEstatePropertys = new List<RealEstateProperty>();
         }
-      
+
         public int Id { get; set;}
 
         [Required]

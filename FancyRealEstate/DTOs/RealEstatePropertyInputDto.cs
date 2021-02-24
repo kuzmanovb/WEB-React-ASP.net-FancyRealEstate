@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace FancyRealEstate.DTOs
+﻿namespace FancyRealEstate.DTOs
 {
+    using System.Collections.Generic;
+
     public class RealEstatePropertyInputDto
     {
         public int Size { get; set; }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FancyRealEstate.Services.Contracts
+﻿namespace FancyRealEstate.Services.Contracts
 {
-    interface IBuildingTypesService
+    using System.Threading.Tasks;
+
+    public interface IBuildingTypesService
     {
         Task<int> CreateBuildingTypeAsync(string name);
 

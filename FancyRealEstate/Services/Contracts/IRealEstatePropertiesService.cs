@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FancyRealEstate.Services.Contracts
+﻿namespace FancyRealEstate.Services.Contracts
 {
-    interface IRealEstatePropertiesService
+    using System.Threading.Tasks;
+
+    public interface IRealEstatePropertiesService
     {
         Task CreateRealEstatePropery();
     }

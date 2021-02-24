@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace FancyRealEstate.Services.Contracts
+﻿namespace FancyRealEstate.Services.Contracts
 {
-    interface IImagesService
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    public interface IImagesService
     {
         Task CreateImageAsync(string url, int propertyId);
 

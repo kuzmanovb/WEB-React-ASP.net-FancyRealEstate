@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace FancyRealEstate.Models
+﻿namespace FancyRealEstate.Models
 {
+    using System.Collections.Generic;
+
     public class Feature
     {
         public Feature()
         {
             this.RealEstateProperties = new List<RealEstateProperty>();
         }
+
         public int Id { get; set; }
 
         public bool Internet { get; set; }

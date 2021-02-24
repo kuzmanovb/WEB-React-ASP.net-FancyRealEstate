@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-
-namespace FancyRealEstate.Services.Contracts
+﻿namespace FancyRealEstate.Services.Contracts
 {
-    interface ICityService
+    using System.Threading.Tasks;
+
+    public interface ICitiesService
     {
         Task<int> CreateSityAsync(string name);
 

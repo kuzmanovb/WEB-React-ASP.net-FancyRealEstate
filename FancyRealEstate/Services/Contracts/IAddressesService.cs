@@ -1,8 +1,8 @@
-﻿using FancyRealEstate.DTOs;
-using System.Threading.Tasks;
-
-namespace FancyRealEstate.Services.Contracts
+﻿namespace FancyRealEstate.Services.Contracts
 {
+    using System.Threading.Tasks;
+    using FancyRealEstate.DTOs;
+
     public interface IAddressesService
     {
         Task<int> CreateAddress(AddressInputDto input);
