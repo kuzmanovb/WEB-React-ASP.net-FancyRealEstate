@@ -14,6 +14,5 @@
         ICollection<string> GetAllCityName();
 
         Task DeleteCityAsync(string name);
-
     }
 }
