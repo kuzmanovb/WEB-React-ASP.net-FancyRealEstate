@@ -29,7 +29,7 @@
 
         public ICollection<string> GetAllCityName()
         {
-            var allCities = this.db.Cities.Select(x => x.Name).OrderBy(x => x).ToArray();
+            var allCities = this.db.Cities.OrderBy(b => b.Name).Select(x => x.Name).ToArray();
 
             return allCities;
         }
