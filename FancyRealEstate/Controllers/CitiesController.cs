@@ -18,6 +18,13 @@
             this.citiesService = citiesService;
         }
 
+        public IActionResult GetAllCities()
+        {
+            var allCities = this.citiesService.GetAllCityName();
+
+            return this.Ok(allCities);
+        }
+
         [HttpGet("{name}")]
         public IActionResult GetByName(string name)
         {
