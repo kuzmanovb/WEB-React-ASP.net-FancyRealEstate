@@ -43,7 +43,7 @@
 
         public string Email { get; set; }
 
-        public  ICollection<string> ImagesUrl { get; set; }
+        public ICollection<string> ImagesUrl { get; set; }
 
         public bool Internet { get; set; }
 
