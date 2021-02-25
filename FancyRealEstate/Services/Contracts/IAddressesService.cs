@@ -5,11 +5,11 @@
 
     public interface IAddressesService
     {
-        Task<int> CreateAddress(AddressInputDto input);
+        Task<int> CreateAddressAsync(AddressInputDto input);
 
-        Task<AddressInfoDto> GetAddressesByIdAsync(int id);
+        AddressInfoDto GetAddressesById(int id);
 
-        Task UpdateAddressAsync(AddressInputDto input);
+        Task UpdateAddressAsync(AddressInfoDto input);
 
         Task DeleteAddressAsync(int id);
 
