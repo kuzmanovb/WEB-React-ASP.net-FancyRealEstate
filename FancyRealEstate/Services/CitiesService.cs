@@ -41,7 +41,7 @@
             return city;
         }
 
-        public async Task DeleteCityAsync(string name)
+        public async Task<bool> DeleteCityAsync(string name)
         {
             var city = this.db.Cities.Where(c => c.Name == name).FirstOrDefault();
 
@@ -49,7 +49,11 @@
             {
                 this.db.Cities.Remove(city);
                 await this.db.SaveChangesAsync();
+
+                return true;
             }
+
+            return false;
         }
     }
 }
