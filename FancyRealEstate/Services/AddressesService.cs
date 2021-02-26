@@ -50,6 +50,7 @@
                 .Where(a => a.Id == id)
                 .Select(x => new AddressInfoDto
                 {
+                    Id = x.Id,
                     Street = x.Street,
                     BuildingNumber = x.BuildingNumber,
                     District = x.District.Name,
