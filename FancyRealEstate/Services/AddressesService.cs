@@ -64,7 +64,7 @@
 
         public async Task UpdateAddressAsync(AddressInfoDto input)
         {
-            var currentAddreass = this.db.Addresses.Where(a => a.Id == input.Id).FirstOrDefault();
+            var currentAddreass = this.db.Addresses.FirstOrDefault(a => a.Id == input.Id);
             var disrtictId = this.districtsService.GetDistrictByName(input.District).Id;
             var cityId = this.citiesService.GetCityByName(input.City).Id;
 
@@ -94,7 +94,7 @@
 
         public async Task<bool> DeleteAddressAsync(int id)
         {
-            var currentAddreass = this.db.Addresses.Where(a => a.Id == id).FirstOrDefault();
+            var currentAddreass = this.db.Addresses.FirstOrDefault(a => a.Id == id);
 
             if (currentAddreass != null)
             {
