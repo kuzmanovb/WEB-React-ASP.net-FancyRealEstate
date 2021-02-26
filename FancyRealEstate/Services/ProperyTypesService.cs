@@ -42,7 +42,7 @@
             return currentPropertyType;
         }
 
-        public async Task DeletePropertyTypeAsync(string name)
+        public async Task<bool> DeletePropertyTypeAsync(string name)
         {
             var currentPropertyType = this.db.PropertyTypes.Where(p => p.Name == name).FirstOrDefault();
 
@@ -50,7 +50,10 @@
             {
                 this.db.PropertyTypes.Remove(currentPropertyType);
                 await this.db.SaveChangesAsync();
+                return true;
             }
+
+            return false;
         }
     }
 }
