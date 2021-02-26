@@ -36,14 +36,14 @@
 
         public City GetCityByName(string name)
         {
-            var city = this.db.Cities.Where(c => c.Name == name).FirstOrDefault();
+            var city = this.db.Cities.FirstOrDefault(c => c.Name == name);
 
             return city;
         }
 
         public async Task<bool> DeleteCityAsync(string name)
         {
-            var city = this.db.Cities.Where(c => c.Name == name).FirstOrDefault();
+            var city = this.db.Cities.FirstOrDefault(c => c.Name == name);
 
             if (city != null)
             {
