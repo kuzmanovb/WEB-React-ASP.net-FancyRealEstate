@@ -64,16 +64,14 @@
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var currentAddress = this.addressesService.GetAddressesById(id);
+            var result = await this.addressesService.DeleteAddressAsync(id);
 
-            if (currentAddress == null)
+            if (result)
             {
-                return this.BadRequest();
+                return this.Ok();
             }
 
-            await this.addressesService.DeleteAddressAsync(id);
-
-            return this.Ok();
+            return this.BadRequest();
         }
     }
 }
