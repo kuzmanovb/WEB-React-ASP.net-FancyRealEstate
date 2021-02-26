@@ -36,14 +36,14 @@
 
         public BuildingType GetBuildingTypeByName(string name)
         {
-            var buildingType = this.db.BuildingTypes.Where(b => b.Name == name).FirstOrDefault();
+            var buildingType = this.db.BuildingTypes.FirstOrDefault(b => b.Name == name);
 
             return buildingType;
         }
 
         public async Task<bool> DeleteBuildingTypeAsync(string name)
         {
-            var buildingType = this.db.BuildingTypes.Where(b => b.Name == name).FirstOrDefault();
+            var buildingType = this.db.BuildingTypes.FirstOrDefault(b => b.Name == name);
 
             if (buildingType != null)
             {
