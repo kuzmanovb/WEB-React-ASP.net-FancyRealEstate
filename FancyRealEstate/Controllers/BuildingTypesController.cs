@@ -62,16 +62,14 @@
         [HttpDelete("{name}")]
         public async Task<IActionResult> Delete(string name)
         {
-            var currentBuildingType = this.buildingTypesService.GetBuildingTypeByName(name);
+            var result = await this.buildingTypesService.DeleteBuildingTypeAsync(name);
 
-            if (currentBuildingType == null)
+            if (result)
             {
-                return this.NotFound();
+                return this.Ok();
             }
 
-            await this.buildingTypesService.DeleteBuildingTypeAsync(name);
-
-            return this.Ok();
+            return this.NotFound();
         }
     }
 }

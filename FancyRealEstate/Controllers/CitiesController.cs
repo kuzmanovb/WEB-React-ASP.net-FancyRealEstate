@@ -62,16 +62,14 @@
         [HttpDelete("{name}")]
         public async Task<IActionResult> Delete(string name)
         {
-            var currentCity = this.citiesService.GetCityByName(name);
+            var result = await this.citiesService.DeleteCityAsync(name);
 
-            if (currentCity == null)
+            if (result)
             {
-                return this.NotFound();
+                return this.Ok();
             }
 
-            await this.citiesService.DeleteCityAsync(name);
-
-            return this.Ok();
+            return this.NotFound();
         }
     }
 }

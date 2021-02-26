@@ -63,16 +63,14 @@
         [HttpDelete("{name}")]
         public async Task<IActionResult> Delete(string name)
         {
-            var currrentDistrinct = this.districtsService.GetDistrictByName(name);
+            var result = await this.districtsService.DeleteDistrictAsync(name);
 
-            if (currrentDistrinct == null)
+            if (result)
             {
-                return this.BadRequest();
+                return this.Ok();
             }
 
-            await this.districtsService.DeleteDistrictAsync(name);
-
-            return this.Ok();
+            return this.BadRequest();
         }
     }
 }
