@@ -29,7 +29,7 @@
 
         public ICollection<string> GetAllBuildingTypeName()
         {
-            var allBuildingTypes = this.db.BuildingTypes.Select(b => b.Name).OrderBy(x => x).ToArray();
+            var allBuildingTypes = this.db.BuildingTypes.OrderBy(x => x.Name).Select(b => b.Name).ToArray();
 
             return allBuildingTypes;
         }

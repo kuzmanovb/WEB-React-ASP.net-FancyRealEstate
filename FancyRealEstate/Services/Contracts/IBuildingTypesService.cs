@@ -14,6 +14,5 @@
         ICollection<string> GetAllBuildingTypeName();
 
         Task DeleteBuildingTypeAsync(string name);
-
     }
 }
