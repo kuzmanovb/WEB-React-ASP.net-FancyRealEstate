@@ -7,7 +7,7 @@
     {
         public District()
         {
-            this.Addresses = new List<Address>();
+            this.Addresses = new HashSet<Address>();
         }
 
         public int Id { get; set; }

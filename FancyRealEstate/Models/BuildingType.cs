@@ -7,7 +7,7 @@
     {
         public BuildingType()
         {
-            this.RealEstatePropertys = new List<RealEstateProperty>();
+            this.RealEstatePropertys = new HashSet<RealEstateProperty>();
         }
 
         public int Id { get; set; }

@@ -8,7 +8,7 @@
     {
         public RealEstateProperty()
         {
-            this.Images = new List<Image>();
+            this.Images = new HashSet<Image>();
         }
 
         public int Id { get; set; }
