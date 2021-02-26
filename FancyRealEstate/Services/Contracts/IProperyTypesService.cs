@@ -12,6 +12,6 @@
 
         ICollection<string> GetAllPropertyTypeName();
 
-        Task DeletePropertyTypeAsync(string name);
+        Task<bool> DeletePropertyTypeAsync(string name);
     }
 }
