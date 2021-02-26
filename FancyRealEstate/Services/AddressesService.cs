@@ -55,6 +55,7 @@
                     BuildingNumber = x.BuildingNumber,
                     District = x.District.Name,
                     City = x.City.Name,
+                    RealEstatePropertyId = x.RealEstateProperties.Id,
                 })
                 .FirstOrDefault();
 

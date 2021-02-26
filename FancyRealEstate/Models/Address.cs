@@ -4,11 +4,6 @@
 
     public class Address
     {
-        public Address()
-        {
-            this.RealEstateProperties = new HashSet<RealEstateProperty>();
-        }
-
         public int Id { get; set; }
 
         public string Street { get; set; }
@@ -23,6 +18,6 @@
 
         public City City { get; set; }
 
-        public ICollection<RealEstateProperty> RealEstateProperties { get; set; }
+        public RealEstateProperty RealEstateProperties { get; set; }
     }
 }
