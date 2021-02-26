@@ -11,7 +11,7 @@
 
         Task<ICollection<string>> GetPromotionImagesUrAsync();
 
-        Task DeleteImageByIdAsync(int imageId, int propertyId);
+        Task<bool> DeleteImageByIdAsync(int imageId, int propertyId);
 
     }
 }

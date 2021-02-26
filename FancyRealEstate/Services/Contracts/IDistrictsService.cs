@@ -13,6 +13,6 @@
 
         ICollection<string> GetAllDistrict();
 
-        Task DeleteDistrictAsync(string name);
+        Task<bool> DeleteDistrictAsync(string name);
     }
 }

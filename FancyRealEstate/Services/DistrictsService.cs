@@ -41,7 +41,7 @@
             return district;
         }
 
-        public async Task DeleteDistrictAsync(string name)
+        public async Task<bool> DeleteDistrictAsync(string name)
         {
             var district = this.db.Districts.Where(d => d.Name == name).FirstOrDefault();
 
@@ -49,7 +49,11 @@
             {
                 this.db.Districts.Remove(district);
                 await this.db.SaveChangesAsync();
+
+                return true;
             }
+
+            return false;
         }
     }
 }
