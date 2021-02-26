@@ -36,14 +36,14 @@
 
         public District GetDistrictByName(string name)
         {
-            var district = this.db.Districts.Where(d => d.Name == name).FirstOrDefault();
+            var district = this.db.Districts.FirstOrDefault(d => d.Name == name);
 
             return district;
         }
 
         public async Task<bool> DeleteDistrictAsync(string name)
         {
-            var district = this.db.Districts.Where(d => d.Name == name).FirstOrDefault();
+            var district = this.db.Districts.FirstOrDefault(d => d.Name == name);
 
             if (district != null)
             {
