@@ -1,11 +1,11 @@
-﻿using FancyRealEstate.Models;
-using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-
-namespace FancyRealEstate.Data
+﻿namespace FancyRealEstate.Data
 {
+    using FancyRealEstate.Models;
+    using IdentityServer4.EntityFramework.Options;
+    using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
+
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         public ApplicationDbContext(
@@ -14,21 +14,19 @@ namespace FancyRealEstate.Data
         {
         }
 
-		public DbSet<RealEstateProperty> RealEstateProperties { get; set; }
+        public DbSet<RealEstateProperty> RealEstateProperties { get; set; }
 
-		public DbSet<PropertyType> PropertyTypes { get; set; }
+        public DbSet<PropertyType> PropertyTypes { get; set; }
 
-		public DbSet<BuildingType> BuildingTypes { get; set; }
+        public DbSet<BuildingType> BuildingTypes { get; set; }
 
-		public DbSet<Image> Images { get; set; }
+        public DbSet<Image> Images { get; set; }
 
-		public DbSet<District> Districts { get; set; }
+        public DbSet<District> Districts { get; set; }
 
-		public DbSet<City> Cities { get; set; }
+        public DbSet<City> Cities { get; set; }
 
-		public DbSet<Address> Addresses { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
-		public DbSet<Feature> Features { get; set; }
-
-	}
+    }
 }

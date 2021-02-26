@@ -29,14 +29,6 @@
 
         public bool IsPromotion { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
-
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
@@ -44,10 +36,6 @@
         public int AddressId { get; set; }
 
         public Address Address { get; set; }
-
-        public int FeatureId { get; set; }
-
-        public Feature Feature { get; set; }
 
         public int PropertyTypeId { get; set; }
 
@@ -57,7 +45,28 @@
 
         public BuildingType BuildingType { get; set; }
 
+        public bool Internet { get; set; }
+
+        public bool Heating { get; set; }
+
+        public bool SecuritySistem { get; set; }
+
+        public bool AirCondition { get; set; }
+
+        public bool Garage { get; set; }
+
+        public bool Elevator { get; set; }
+
+        public bool Renovated { get; set; }
+
         public virtual ICollection<Image> Images { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime? ModifiedOn { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }
