@@ -41,7 +41,7 @@
             return buildingType;
         }
 
-        public async Task DeleteBuildingTypeAsync(string name)
+        public async Task<bool> DeleteBuildingTypeAsync(string name)
         {
             var buildingType = this.db.BuildingTypes.Where(b => b.Name == name).FirstOrDefault();
 
@@ -49,7 +49,11 @@
             {
                 this.db.BuildingTypes.Remove(buildingType);
                 await this.db.SaveChangesAsync();
+
+                return true;
             }
+
+            return false;
         }
     }
 }
