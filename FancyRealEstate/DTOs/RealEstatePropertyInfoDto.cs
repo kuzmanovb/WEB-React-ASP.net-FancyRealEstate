@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class RealEstatePropertyInfo
+    public class RealEstatePropertyInfoDto
     {
         public int Id { get; set; }
 
@@ -19,15 +19,15 @@
 
         public string Street { get; set; }
 
-        public string District { get; set; }
+        public string DistrictName { get; set; }
 
-        public string City { get; set; }
+        public string CityName { get; set; }
 
         public string BuildingNumber { get; set; }
 
-        public string PropertyType { get; set; }
+        public string CurrentPropertyType { get; set; }
 
-        public int BuildingType { get; set; }
+        public string CurrentBuildingType { get; set; }
 
         public string Description { get; set; }
 
@@ -35,13 +35,13 @@
 
         public string TypeOfDeal { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
 
-        public string FullName { get; set; }
+        public string SellerFullName { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public string SellerPhoneNumber { get; set; }
 
-        public string Email { get; set; }
+        public string SellerEmail { get; set; }
 
         public ICollection<string> ImagesUrl { get; set; }
 
