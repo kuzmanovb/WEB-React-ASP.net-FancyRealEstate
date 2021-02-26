@@ -63,6 +63,7 @@ namespace FancyRealEstate
             services.AddTransient<IDistrictsService, DistrictsService>();
             services.AddTransient<IAddressesService, AddressesService>();
             services.AddTransient<IBuildingTypesService, BuildingTypesService>();
+            services.AddTransient<IProperyTypesService, ProperyTypesService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
