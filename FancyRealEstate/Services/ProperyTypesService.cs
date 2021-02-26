@@ -36,14 +36,14 @@
 
         public PropertyType GetPropertyTypeByName(string name)
         {
-            var currentPropertyType = this.db.PropertyTypes.Where(p => p.Name == name).FirstOrDefault();
+            var currentPropertyType = this.db.PropertyTypes.FirstOrDefault(p => p.Name == name);
 
             return currentPropertyType;
         }
 
         public async Task<bool> DeletePropertyTypeAsync(string name)
         {
-            var currentPropertyType = this.db.PropertyTypes.Where(p => p.Name == name).FirstOrDefault();
+            var currentPropertyType = this.db.PropertyTypes.FirstOrDefault(p => p.Name == name);
 
             if (currentPropertyType != null)
             {
