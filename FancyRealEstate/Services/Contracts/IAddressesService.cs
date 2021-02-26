@@ -11,7 +11,7 @@
 
         Task UpdateAddressAsync(AddressInfoDto input);
 
-        Task DeleteAddressAsync(int id);
+        Task<bool> DeleteAddressAsync(int id);
 
     }
 }

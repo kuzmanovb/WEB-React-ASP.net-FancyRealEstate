@@ -90,12 +90,18 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task DeleteAddressAsync(int id)
+        public async Task<bool> DeleteAddressAsync(int id)
         {
             var currentAddreass = this.db.Addresses.Where(a => a.Id == id).FirstOrDefault();
 
-            this.db.Remove(currentAddreass);
-            await this.db.SaveChangesAsync();
+            if (currentAddreass != null)
+            {
+                this.db.Remove(currentAddreass);
+                await this.db.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
     }
 }
