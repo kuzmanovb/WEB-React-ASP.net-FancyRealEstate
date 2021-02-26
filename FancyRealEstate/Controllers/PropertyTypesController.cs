@@ -40,7 +40,7 @@
             return this.Ok(currentPropertyType);
         }
 
-        [HttpPost]
+        [HttpPost("{name}")]
         public async Task<IActionResult> Create(string name)
         {
             var currentPropertyType = this.properyTypesService.GetPropertyTypeByName(name);
@@ -60,7 +60,7 @@
             return this.BadRequest();
         }
 
-        [HttpDelete]
+        [HttpDelete("{name}")]
         public async Task<IActionResult> Delete(string name)
         {
 
