@@ -53,7 +53,7 @@
 
             if (currentAddress == null)
             {
-                return this.BadRequest();
+                return this.NotFound();
             }
 
             await this.addressesService.UpdateAddressAsync(input);
