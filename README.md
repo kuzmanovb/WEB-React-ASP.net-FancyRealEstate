@@ -1,2 +1,2 @@
 # WEB-React-ASP.net-FancyRealEstate
- Defense project for React course at SoftUni
+ Defense project for React course at SoftUni (in progress)
