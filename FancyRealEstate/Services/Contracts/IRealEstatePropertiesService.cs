@@ -13,7 +13,11 @@
 
         ICollection<RealEstatePropertyInfoDto> GetPropertiesWithPredicate(Func<RealEstateProperty, bool> where);
 
+        ICollection<RealEstatePropertyInfoDto> GetSortedProperties(SortedRealestatePropertiesDto input);
+
         Task UpdatePropertyAsync(RealEstatePropertyInfoDto input);
+
+        Task<bool> SoftDeletePropertyAsync(int id);
 
         Task<bool> DeletePropertyAsync(int id);
     }

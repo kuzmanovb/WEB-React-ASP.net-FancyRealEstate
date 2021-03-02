@@ -1,17 +1,20 @@
-﻿using FancyRealEstate.Data;
-using FancyRealEstate.DTOs;
-using FancyRealEstate.Models;
-using FancyRealEstate.Models.Enum;
-using FancyRealEstate.Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FancyRealEstate.Services
+﻿namespace FancyRealEstate.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using FancyRealEstate.Data;
+    using FancyRealEstate.DTOs;
+    using FancyRealEstate.Models;
+    using FancyRealEstate.Models.Enum;
+    using FancyRealEstate.Services.Contracts;
+
     public class RealEstatePropertiesService : IRealEstatePropertiesService
     {
+        private const int NumberPropertyToPage = 9;
+
         private readonly ApplicationDbContext db;
         private readonly IAddressesService addressesService;
         private readonly IProperyTypesService properyTypesService;
@@ -69,6 +72,8 @@ namespace FancyRealEstate.Services
 
             return newRealEstateProperty.Id;
         }
+
+       
 
         public ICollection<RealEstatePropertyInfoDto> GetPropertiesWithPredicate(Func<RealEstateProperty, bool> where)
         {
@@ -221,12 +226,29 @@ namespace FancyRealEstate.Services
             await this.db.SaveChangesAsync();
         }
 
+        public async Task<bool> SoftDeletePropertyAsync(int id)
+        {
+            var currentProperty = this.db.RealEstateProperties.FirstOrDefault(p => p.Id == id);
+
+            if (currentProperty != null)
+            {
+
+                currentProperty.IsDeleted = true;
+                this.db.RealEstateProperties.Update(currentProperty);
+                await this.db.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<bool> DeletePropertyAsync(int id)
         {
             var currentProperty = this.db.RealEstateProperties.FirstOrDefault(p => p.Id == id);
 
             if (currentProperty != null)
             {
+                await this.addressesService.DeleteAddressAsync(currentProperty.AddressId);
                 this.db.RealEstateProperties.Remove(currentProperty);
                 await this.db.SaveChangesAsync();
                 return true;
