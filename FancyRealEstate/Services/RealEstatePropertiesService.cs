@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -75,7 +76,7 @@
 
         public ICollection<RealEstatePropertyInfoDto> GetSortedProperties(SortedRealestatePropertiesDto input)
         {
-
+            // ToDo add image gallery
             var minPrice = input.MinPrice;
             var maxPrice = input.MaxPrice != 0 ? input.MaxPrice : int.MaxValue;
 
@@ -155,11 +156,11 @@
                 .ToList();
 
             return sortedRealEstateProperties;
-
         }
 
         public ICollection<RealEstatePropertyInfoDto> GetPropertiesWithPredicate(Func<RealEstateProperty, bool> where)
         {
+            // ToDo add image gallery
             var allProperty = this.db.RealEstateProperties
                 .Where(where)
                 .Select(p => new RealEstatePropertyInfoDto
