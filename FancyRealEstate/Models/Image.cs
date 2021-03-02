@@ -11,6 +11,6 @@
 
         public int RealEstatePropertyId { get; set; }
 
-        public RealEstateProperty RealEstateProperty { get; set; }
+        public virtual RealEstateProperty RealEstateProperty { get; set; }
     }
 }

@@ -31,19 +31,19 @@
 
         public string UserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public int AddressId { get; set; }
 
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         public int PropertyTypeId { get; set; }
 
-        public PropertyType PropertyType { get; set; }
+        public virtual PropertyType PropertyType { get; set; }
 
         public int BuildingTypeId { get; set; }
 
-        public BuildingType BuildingType { get; set; }
+        public virtual BuildingType BuildingType { get; set; }
 
         public bool Internet { get; set; }
 

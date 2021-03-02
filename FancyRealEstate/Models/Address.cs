@@ -12,12 +12,12 @@
 
         public int DistrictId { get; set; }
 
-        public District District { get; set; }
+        public virtual District District { get; set; }
 
         public int CityId { get; set; }
 
-        public City City { get; set; }
+        public virtual City City { get; set; }
 
-        public RealEstateProperty RealEstateProperties { get; set; }
+        public virtual RealEstateProperty RealEstateProperties { get; set; }
     }
 }
