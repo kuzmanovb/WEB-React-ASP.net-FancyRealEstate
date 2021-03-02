@@ -63,9 +63,9 @@
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> SoftDelete(int id)
         {
-            var result = await this.realEstatePropertiesService.DeletePropertyAsync(id);
+            var result = await this.realEstatePropertiesService.SoftDeletePropertyAsync(id);
 
             if (result)
             {
