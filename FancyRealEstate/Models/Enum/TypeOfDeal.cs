@@ -2,7 +2,7 @@
 {
     public enum TypeOfDeal
     {
-        ForRent = 1,
-        ForSale = 2
+        Rent = 1,
+        Sale = 2,
     }
 }
