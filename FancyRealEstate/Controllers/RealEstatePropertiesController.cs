@@ -19,13 +19,14 @@
             this.realEstatePropertiesService = realEstatePropertiesService;
         }
 
+        // Get soft deleted "RealEstateProperties/id?isDeleted=true"
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(int id, bool isDeleted)
         {
 
-            var currentProperty = this.realEstatePropertiesService.GetPropertiesWithPredicate(x => x.Id == id);
+            var currentProperty = this.realEstatePropertiesService.GetPropertiesWithPredicate(x => x.Id == id && x.IsDeleted == isDeleted);
 
-            if (currentProperty == null)
+            if (currentProperty == null || currentProperty.Count == 0)
             {
                 return this.NotFound();
             }
@@ -45,7 +46,6 @@
 
             return this.BadRequest();
         }
-
 
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] RealEstatePropertyInfoDto input)
