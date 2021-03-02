@@ -73,7 +73,90 @@
             return newRealEstateProperty.Id;
         }
 
-       
+        public ICollection<RealEstatePropertyInfoDto> GetSortedProperties(SortedRealestatePropertiesDto input)
+        {
+
+            var minPrice = input.MinPrice;
+            var maxPrice = input.MaxPrice != 0 ? input.MaxPrice : int.MaxValue;
+
+            var realEstateProperties = this.db.RealEstateProperties.Where(x => x.IsDeleted == input.IsDeleted && x.Price >= input.MinPrice && x.Price <= input.MaxPrice);
+
+            if (!string.IsNullOrEmpty(input.City))
+            {
+                realEstateProperties = realEstateProperties.Where(x => x.Address.City.Name == input.City);
+            }
+
+            if (!string.IsNullOrEmpty(input.Destrict))
+            {
+                realEstateProperties = realEstateProperties.Where(x => x.Address.District.Name == input.Destrict);
+            }
+
+            if (!string.IsNullOrEmpty(input.Deal))
+            {
+                realEstateProperties = realEstateProperties.Where(x => x.TypeOfDeal == (TypeOfDeal)Enum.Parse(typeof(TypeOfDeal), input.Deal));
+            }
+
+            if (input.IsPromotion)
+            {
+                realEstateProperties = realEstateProperties.Where(x => x.IsPromotion == input.IsPromotion);
+            }
+
+            realEstateProperties = realEstateProperties.OrderBy(x => x.Address.City.Name).ThenBy(y => y.Address.District.Name);
+
+            if (input.SortByMinPrice)
+            {
+                realEstateProperties = realEstateProperties.OrderBy(x => x.Price);
+            }
+
+            if (input.SortByMaxPrice)
+            {
+                realEstateProperties = realEstateProperties.OrderByDescending(x => x.Price);
+            }
+
+            int skipProperty = 0;
+
+            if (input.Page > 1)
+            {
+                skipProperty = NumberPropertyToPage * (input.Page - 1);
+            }
+
+            var sortedRealEstateProperties = realEstateProperties
+                .Skip(skipProperty)
+                .Take(NumberPropertyToPage)
+                .Select(p => new RealEstatePropertyInfoDto
+                {
+                    Id = p.Id,
+                    Size = p.Size,
+                    Floor = p.Floor,
+                    TotalNumberOfFloor = p.TotalNumberOfFloor,
+                    Year = p.Year,
+                    Price = p.Price,
+                    Street = p.Address.Street,
+                    DistrictName = p.Address.District.Name,
+                    CityName = p.Address.City.Name,
+                    BuildingNumber = p.Address.BuildingNumber,
+                    CurrentPropertyType = p.PropertyType.Name,
+                    CurrentBuildingType = p.BuildingType.Name,
+                    Description = p.Description,
+                    TypeOfDeal = Enum.GetName(typeof(TypeOfDeal), p.TypeOfDeal),
+                    IsPromotion = p.IsPromotion,
+                    SellerFullName = p.User.FirstName + " " + p.User.LastName,
+                    SellerPhoneNumber = p.User.PhoneNumber,
+                    SellerEmail = p.User.Email,
+                    Internet = p.Internet,
+                    Heating = p.Heating,
+                    SecuritySistem = p.SecuritySistem,
+                    AirCondition = p.AirCondition,
+                    Garage = p.Garage,
+                    Elevator = p.Elevator,
+                    Renovated = p.Renovated,
+                    CreatedOn = p.CreatedOn.ToString("d"),
+                })
+                .ToList();
+
+            return sortedRealEstateProperties;
+
+        }
 
         public ICollection<RealEstatePropertyInfoDto> GetPropertiesWithPredicate(Func<RealEstateProperty, bool> where)
         {
