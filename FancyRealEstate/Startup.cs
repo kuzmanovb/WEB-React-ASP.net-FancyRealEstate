@@ -4,6 +4,7 @@ namespace FancyRealEstate
     using FancyRealEstate.Models;
     using FancyRealEstate.Services;
     using FancyRealEstate.Services.Contracts;
+    using FluentValidation.AspNetCore;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -33,12 +34,18 @@ namespace FancyRealEstate
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            // FluentValidation
+            services.AddControllers()
+                    .AddFluentValidation(x =>
+                    {
+                        x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly);
+                    });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
