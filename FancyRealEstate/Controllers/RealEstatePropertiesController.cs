@@ -19,7 +19,7 @@
             this.realEstatePropertiesService = realEstatePropertiesService;
         }
 
-        // Get soft deleted "RealEstateProperties/id?isDeleted=true"
+        // Get soft deleted property "RealEstateProperties/id?isDeleted=true"
         [HttpGet("{id}")]
         public IActionResult GetById(int id, bool isDeleted)
         {
