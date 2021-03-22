@@ -4,7 +4,7 @@ export const ChoiceForm = (props) => {
 
     let options = props.optionForChoice.map((opt) => {
         return (
-            <option value={opt}>{opt}</option>
+            <option key={opt} value={opt}>{opt}</option>
         );
     })
 
