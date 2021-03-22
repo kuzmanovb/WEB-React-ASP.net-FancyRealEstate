@@ -1,0 +1,41 @@
+﻿.site-section {
+    padding: 3em 0;
+}
+
+@media (min-width: 768px) {
+    .site-section {
+        padding: 7em 0;
+    }
+}
+
+.site-section.site-section-sm {
+
+    margin-top: -100px;
+    padding: 4em 0;
+}
+
+
+.form-search {
+    background: #364e68;
+    position: relative;
+    z-index: 1;
+    padding: 3rem 2rem;
+    -webkit-box-shadow: 0 0px 30px 0px rbga(0, 0, 0, 1);
+    box-shadow: 0 0px 30px 0px rbga(0, 0, 0, 1);
+}
+
+    .form-search label {
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: .1em;
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    .form-search .form-control {
+        border: none;
+    }
+
+    .form-search .btn[type="submit"] {
+        height: 47px;
+    }
+
