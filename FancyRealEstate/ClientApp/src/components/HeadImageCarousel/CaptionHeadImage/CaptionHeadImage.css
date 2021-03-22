@@ -1,0 +1,78 @@
+﻿.text-head-image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+    .text-head-image.pad {
+        position: relative;
+        width: 100%;
+        height: 200px;
+    }
+
+        .text-head-image.pad:before {
+            position: absolute;
+            content: "";
+            left: 0;
+            bottom: 0;
+            right: 0;
+            top: 90px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+    .text-head-image, .text-head-image .row {
+        min-height: 600px;
+        height: calc(100vh);
+    }
+
+        .text-head-image.inner-page-cover, .text-head-image.inner-page-cover .row {
+            min-height: 600px;
+            height: calc(30vh);
+        }
+
+        .text-head-image .sub-text {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: .2em;
+        }
+
+        .text-head-image h1 {
+            font-weight: 900;
+            color: #fff;
+            font-weight: normal;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .text-head-image p {
+            color: #fff;
+            font-size: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .text-head-image .intro-text {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .text-head-image.subscribe h2 {
+            font-size: 20px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            font-weight: 300;
+            color: #fff;
+        }
+
+        .text-head-image.subscribe p {
+            font-size: 1rem !important;
+            font-weight: 100;
+        }
+
+        .text-head-image .property-offer-type {
+            letter-spacing: .2em;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
