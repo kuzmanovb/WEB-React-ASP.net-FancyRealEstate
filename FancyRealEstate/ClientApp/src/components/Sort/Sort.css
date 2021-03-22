@@ -1,0 +1,18 @@
+﻿.form-control-sort {
+    height: 47px;
+}
+
+.form-control-sort-sm {
+    height: auto !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.form-control:active, .form-control:focus {
+    border-color: #1f3c88;
+}
+
+.form-control:hover, .form-control:active, .form-control:focus {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
