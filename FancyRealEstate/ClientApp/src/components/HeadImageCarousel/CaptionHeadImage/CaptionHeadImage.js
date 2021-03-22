@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import './CaptionHeadImage.css'
 
-export const CaptionHeadImage = (prop) => {
+export const CaptionHeadImage = (props) => {
 
     return (
         <div className="text-head-image pad">
