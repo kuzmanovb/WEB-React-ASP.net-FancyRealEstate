@@ -1,18 +1,19 @@
 ﻿import React from 'react'
+import {Link} from 'react-router-dom'
 import './Pagination.css'
 
 export const Pagination = () => {
     return (
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="site-pagination">
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
+        <div className="row">
+            <div className="col-md-12 text-center">
+                <div className="site-pagination">
+                    <Link to="#" className="active">1</Link>
+                    <Link to="#">2</Link>
+                    <Link to="#">3</Link>
+                    <Link to="#">4</Link>
+                    <Link to="#">5</Link>
                     <span>...</span>
-                    <a href="#">10</a>
+                    <Link to="#">10</Link>
                 </div>
             </div>
         </div>);
