@@ -1,0 +1,33 @@
+.property-specs {
+    display: block;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: .1em;
+}
+
+.property-specs-wrap {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.property-specs-wrap li {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.property-body {
+    padding: 40px;
+}
+
+.gal-item img {
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+    opacity: 1; }
+  
+  .gal-item:hover img {
+    cursor: -webkit-zoom-in;
+    cursor: zoom-in;
+    opacity: .5; }
