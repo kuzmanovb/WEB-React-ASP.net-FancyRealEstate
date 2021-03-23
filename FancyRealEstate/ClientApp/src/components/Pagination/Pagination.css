@@ -1,0 +1,25 @@
+﻿.site-pagination a {
+  display: inline-block;
+  width: 50px;
+  border-radius: 50%;
+  height: 50px;
+  line-height: 50px;
+  background: #fff;
+  color: #333333;
+  border: 1px solid #e6e6e6; }
+  .site-pagination a:hover {
+    -webkit-box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #cccccc; }
+  .site-pagination a.active {
+    border: 1px solid transparent;
+    background: #7cbd1e;
+    color: #fff; }
+    .site-pagination a.active:hover {
+      border: 1px solid transparent;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
+
+.site-pagination span {
+  display: inline-block;
+  width: 20px; }
