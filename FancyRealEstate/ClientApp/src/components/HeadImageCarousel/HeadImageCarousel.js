@@ -56,11 +56,12 @@ export const HeadImageCarousel = (props) => {
                 onExited={() => setAnimating(false)}
             >
                 <img
-                    className="d-block w-100 image-size"                    src={item.src}
+                    className="d-block w-100 image-size"
+                    src={item.src}
                     alt={item.altText}
                 />
 
-                <CarouselCaption captionHeader={<CaptionHeadImage />} />
+                <CarouselCaption captionText={""} captionHeader={<CaptionHeadImage />} />
             </CarouselItem>
         );
     });
