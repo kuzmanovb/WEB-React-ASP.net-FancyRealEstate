@@ -6,33 +6,33 @@ import './ImageFrame.css'
 export const ImageFrame = (props) => {
     return (
 
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="property-entry h-100">
-                <Link to="/property-details" class="property-thumbnail">
-                    <div class="offer-type-wrap">
-                        <span class="offer-type bg-danger active">Sale</span>
-                        <span class="offer-type bg-success">Rent</span>
+        <div className="col-md-6 col-lg-4 mb-4">
+            <div className="property-entry h-100">
+                <Link to="/property-details" className="property-thumbnail">
+                    <div className="offer-type-wrap">
+                        <span className="offer-type bg-danger active">Sale</span>
+                        <span className="offer-type bg-success">Rent</span>
                     </div>
-                    <img src="hero_bg_1.jpg" alt="Image" class="img-fluid" />
+                    <img src="hero_bg_1.jpg" alt="Image" className="img-fluid" />
                 </Link>
-                <div class="p-4 property-body">
-                    <h2 class="property-title"><Link to="/property-details">625 S. Berendo St</Link></h2>
-                    <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>
-                    <strong class="property-price text-primary mb-3 d-block text-success">$2,265,500</strong>
-                    <ul class="property-specs-wrap mb-3 mb-lg-0">
+                <div className="p-4 property-body">
+                    <h2 className="property-title"><Link to="/property-details">625 S. Berendo St</Link></h2>
+                    <span className="property-location d-block mb-3"><span className="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>
+                    <strong className="property-price text-primary mb-3 d-block text-success">$2,265,500</strong>
+                    <ul className="property-specs-wrap mb-3 mb-lg-0">
                         <li>
-                            <span class="property-specs">Beds</span>
-                            <span class="property-specs-number">2 <sup>+</sup></span>
+                            <span className="property-specs">Beds</span>
+                            <span className="property-specs-number">2 <sup>+</sup></span>
 
                         </li>
                         <li>
-                            <span class="property-specs">Baths</span>
-                            <span class="property-specs-number">2</span>
+                            <span className="property-specs">Baths</span>
+                            <span className="property-specs-number">2</span>
 
                         </li>
                         <li>
-                            <span class="property-specs">SQ FT</span>
-                            <span class="property-specs-number">7,000</span>
+                            <span className="property-specs">SQ FT</span>
+                            <span className="property-specs-number">7,000</span>
 
                         </li>
                     </ul>
