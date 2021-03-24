@@ -21,14 +21,17 @@ export const PropertyGallery = (props) => {
 
     return (
         <div className="row">
+            <div className="col-12">
+                <h2 className="h4 text-black mb-3">Gallery</h2>
+            </div>
             {props.images.map((i) => (
                 <div key={i.id} className="col-sm-6 col-md-4 col-lg-3">
                     <img
                         src={i.image}
                         onClick={() => openImageViewer(i.id)}
-                        style={{ margin: '2px' }}
+                        style={{ margin: '15px' }}
                         className="img-fluid"
-                        alt=""/>
+                        alt="" />
                 </div>
             ))}
 

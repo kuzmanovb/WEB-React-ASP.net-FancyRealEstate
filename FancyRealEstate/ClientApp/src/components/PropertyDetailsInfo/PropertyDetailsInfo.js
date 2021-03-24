@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import { Carousel } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
-import './PropertyDetails.css'
-import { HeadImageCarousel } from '../HeadImageCarousel/HeadImageCarousel'
+import './PropertyDetailsInfo.css'
 import { PropertyGallery } from '../PropertyGallery/PropertyGallery'
 
 const images = [{
@@ -40,18 +38,16 @@ const images = [{
     image: "img_8.jpg"
 }];
 
-export const PropertyDetails = () => {
+export const PropertyDetailsInfo = () => {
     return (
         <div >
-            <HeadImageCarousel />
-
             <div className="container mt-5">
                 <div className="row">
                     <div className="col-lg-12">
                         <div>
                             <Carousel fade>
                                 {images.map((i) => (
-                                    <Carousel.Item>
+                                    <Carousel.Item interval={1000} key={i.id}>
                                         <img
                                             className="d-block w-100"
                                             src={i.image}
@@ -105,13 +101,7 @@ export const PropertyDetails = () => {
                             <p>Nisi voluptatum error ipsum repudiandae, autem deleniti, velit dolorem enim quaerat rerum incidunt sed, qui ducimus! Tempora architecto non, eligendi vitae dolorem laudantium dolore blanditiis assumenda in eos hic unde.</p>
                             <p>Voluptatum debitis cupiditate vero tempora error fugit aspernatur sint veniam laboriosam eaque eum, et hic odio quibusdam molestias corporis dicta! Beatae id magni, laudantium nulla iure ea sunt aliquam. A.</p>
 
-                            <div className="row no-gutters mt-5">
-                                <div className="col-12">
-                                    <h2 className="h4 text-black mb-3">Gallery</h2>
-                                </div>
-
                                 <PropertyGallery images={images} />
-                            </div>
                         </div>
                     </div>
                     <div className="col-lg-4"></div>
