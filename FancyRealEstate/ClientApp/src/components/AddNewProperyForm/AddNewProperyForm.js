@@ -1,11 +1,31 @@
+/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react'
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import './AddNewProperyForm.css'
 
 
 export class AddNewProperyForm extends Component {
+    constructor(props) {
+        super(props)
+
+
+    }
+
+    showWidget = () => {
+        let widget = window.cloudinary.createUploadWidget({
+            cloudName: `kuzmanovb`,
+            uploadPreset: `FancyRealEstate`
+        },
+            (error, result) => {
+                if (!error && result && result.event === "success") {
+                    console.log(result.info);
+                }
+            });
+        widget.open()
+    }
 
     render() {
+
         return (
             <div className="container">
                 <Form className="mt-5">
@@ -171,10 +191,7 @@ export class AddNewProperyForm extends Component {
                     <Row>
                         <Col md={3}></Col>
                         <Col md={6}>
-                            <FormGroup className="form-group files">
-                                <Label for="exampleFile">Add Images</Label>
-                                <Input type="file" name="file" id="exampleFile" multiple className="" />
-                            </FormGroup>
+                            <Button color="primary" size="lg" onClick={this.showWidget}>Add Images</Button>
                         </Col>
                     </Row>
                     <Row>
