@@ -27,14 +27,14 @@ export class DashboardRow extends Component {
             </Media>
           </div>
           <div className="col-3 text-center mt-4">
-            <h4>{this.props.postOn}</h4>
+            <h5>{this.props.postOn}</h5>
             <h5><i>Days ago</i></h5>
 
           </div>
           <div className="col-3 text-center">
             <div class="btn-group-vertical">
-              <button type="button" class="btn btn-success mt-3">Edit</button>
-              <button type="button" class="btn btn-danger mt-2">Delete</button>
+              <button type="button" className="btn btn-success mt-3">Edit</button>
+              <button type="button" className="btn btn-danger mt-2">Delete</button>
 
             </div>
           </div>
