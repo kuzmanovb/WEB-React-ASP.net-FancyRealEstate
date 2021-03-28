@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cloudinary/base": "^1.0.0-beta.1",
+    "@cloudinary/react": "^1.0.0-beta.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
@@ -18,6 +20,7 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.1",
+    "react-simple-image-viewer": "^0.0.8",
     "reactstrap": "^8.4.1",
     "rimraf": "^2.6.2"
   },
