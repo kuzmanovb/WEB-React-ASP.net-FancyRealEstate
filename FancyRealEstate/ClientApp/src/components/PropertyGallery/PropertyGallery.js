@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useCallback } from 'react';
-import ImageViewer from 'react-simple-image-viewer';
+import {ImageViewer} from 'react-simple-image-viewer';
 
 export const PropertyGallery = (props) => {
     const [currentImage, setCurrentImage] = useState(0);
