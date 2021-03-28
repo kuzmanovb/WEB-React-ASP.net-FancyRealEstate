@@ -7,6 +7,11 @@ import './AddNewProperyForm.css'
 export class AddNewProperyForm extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+
+            imageId: [],
+            imageUrl: []
+        }
 
 
     }
@@ -18,7 +23,11 @@ export class AddNewProperyForm extends Component {
         },
             (error, result) => {
                 if (!error && result && result.event === "success") {
-                    console.log(result.info);
+
+                    this.setState(state => ({
+                        imageId: [...state.imageId, result.info.public_id],
+                        imageUrl: [...state.imageUrl, result.info.secure_url]
+                    }));
                 }
             });
         widget.open()
@@ -204,6 +213,7 @@ export class AddNewProperyForm extends Component {
                     </Row>
                 </Form>
                 <Button color="primary" size="lg" block>Add Property</Button>
+                <div className="mt-5"></div>
             </div >
         );
     }
