@@ -18,11 +18,15 @@ export const getByName = (name) => {
 export const create = (name) => {
     return fetch(destrictUrl + `/${name}`,{
         method: "PUT",
-    });
+    })
+    .then(res => res.json())
+    .catch(error => console.log(error));
  };
 
 export const deleted = (name) => { 
     return fetch(destrictUrl + `/${name}`,{
         method: "DELETE"
-    });
+    })
+    .then(res => res.json())
+    .catch(error => console.log(error));
 };
