@@ -1,4 +1,4 @@
-import { url } from './UrlService'
+import { url } from './apiServer'
 
 const destrictUrl = url + "districts";
 
