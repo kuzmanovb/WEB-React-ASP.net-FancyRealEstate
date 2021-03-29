@@ -10,6 +10,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "bootstrap": "^4.6.0",
+    "formik": "^2.2.6",
     "jquery": "^3.4.1",
     "merge": "^1.2.1",
     "node-sass": "^4.14.1",
@@ -22,7 +23,8 @@
     "react-scripts": "^3.4.1",
     "react-simple-image-viewer": "^0.0.8",
     "reactstrap": "^8.4.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "ajv": "^6.9.1",
