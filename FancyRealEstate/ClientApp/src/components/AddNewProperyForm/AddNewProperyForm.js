@@ -1,5 +1,9 @@
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react'
+import * as buildingTypeService from '../../services/buildingTypeService'
+import * as propertyTypeService from '../../services/propertyTypeService'
+import * as cityTypeService from '../../services/cityService'
+import * as districtTypeService from '../../services/districtService'
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Formik } from 'formik'
 import { CloudinaryWidget } from './CloudinaryWidget'
@@ -10,9 +14,22 @@ export class AddNewProperyForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            propertyParams: [],
+            cities: [],
+            districts: [],
+            propertyTypes: [],
+            buildingTypes: []
         }
+    }
 
+    componentDidMount() {
 
+        buildingTypeService.getAll().then(res => this.setState({buildingTypes: res}));
+        propertyTypeService.getAll().then(res => this.setState({propertyTypes: res}));
+        cityTypeService.getAll().then(res => this.setState({cities: res}));
+        districtTypeService.getAll().then(res => this.setState({districts: res}));
+
+        console.log(this.state);
     }
 
     render() {
@@ -22,16 +39,16 @@ export class AddNewProperyForm extends Component {
             <div className="container">
                 <Formik
                     initialValues={{ sity: "", district: "", street: "", number: "", propertyType: "", year: "", size: "", floor: "", ofTotalFloor: "", typeOfDeal: "", buildingType: "", features: [], description: "" }}
-                    onSubmit={(values, {setSubmitting, resetForm}) => {
+                    onSubmit={(values, { setSubmitting, resetForm }) => {
                         // When button submits form and form is in the process of submitting, submit button is disabled
                         setSubmitting(true);
-            
+
                         // Simulate submitting to database, shows us values submitted, resets form
-                      setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        resetForm();
-                        setSubmitting(false);
-                      }, 500);
+                        setTimeout(() => {
+                            alert(JSON.stringify(values, null, 2));
+                            resetForm();
+                            setSubmitting(false);
+                        }, 500);
                     }}
                 >
                     {({ values,
@@ -169,37 +186,37 @@ export class AddNewProperyForm extends Component {
                                         <legend className="col-form-label"><b>Features</b></legend>
                                         <FormGroup check inline>
                                             <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="internet"/> Internet
+                                                <Input type="checkbox" name="features" id="features" value="internet" /> Internet
                                 </Label>
                                         </FormGroup>
                                         <FormGroup check inline>
                                             <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="healting"/> Healting
+                                                <Input type="checkbox" name="features" id="features" value="healting" /> Healting
                                 </Label>
                                         </FormGroup>
                                         <FormGroup check inline>
                                             <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="securitySystem"/> Security System
+                                                <Input type="checkbox" name="features" id="features" value="securitySystem" /> Security System
                                 </Label>
                                         </FormGroup>
                                         <FormGroup check inline>
                                             <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="airCondition"/> Air Condition
+                                                <Input type="checkbox" name="features" id="features" value="airCondition" /> Air Condition
                                 </Label>
                                         </FormGroup>
                                         <FormGroup check inline>
                                             <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="garage"/> Garage
+                                                <Input type="checkbox" name="features" id="features" value="garage" /> Garage
                                 </Label>
                                         </FormGroup>
                                         <FormGroup check inline>
                                             <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="elevator"/> Elevator
+                                                <Input type="checkbox" name="features" id="features" value="elevator" /> Elevator
                                 </Label>
                                         </FormGroup>
                                         <FormGroup check inline>
                                             <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="Renovated"/> Renovated
+                                                <Input type="checkbox" name="features" id="features" value="Renovated" /> Renovated
                                 </Label>
                                         </FormGroup>
                                     </FormGroup>
@@ -210,7 +227,7 @@ export class AddNewProperyForm extends Component {
                                 <Col>
                                     <FormGroup>
                                         <Label for="description">Description</Label>
-                                        <Input type="textarea" name="description" id="description" rows="10" onChange={handleChange} onBlur={handleBlur}/>
+                                        <Input type="textarea" name="description" id="description" rows="10" onChange={handleChange} onBlur={handleBlur} />
                                     </FormGroup>
                                 </Col>
                             </Row>

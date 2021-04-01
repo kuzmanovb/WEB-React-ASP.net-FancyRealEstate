@@ -1,6 +1,6 @@
 import {url} from'./apiServer'
 
-const buildingUrl = url + "/buildingTypes"
+const buildingUrl = url + "buildingTypes"
 
 export const getAll= () =>{
     return fetch(buildingUrl)

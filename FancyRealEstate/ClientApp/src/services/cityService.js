@@ -1,6 +1,6 @@
 import {url} from'./apiServer'
 
-const cityUrl = url + "/city"
+const cityUrl = url + "cities"
 
 export const getAll= () =>{
     return fetch(cityUrl)

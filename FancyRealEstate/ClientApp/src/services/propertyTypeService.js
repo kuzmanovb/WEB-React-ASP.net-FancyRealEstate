@@ -1,6 +1,6 @@
 import {url} from'./apiServer'
 
-const propertyTypeUrl = url + "/propertyTypes"
+const propertyTypeUrl = url + "propertyTypes"
 
 export const getAll= () =>{
     return fetch(propertyTypeUrl)

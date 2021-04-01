@@ -36,7 +36,7 @@
                 return this.NotFound();
             }
 
-            return this.Ok(currentCity);
+            return this.Ok(currentCity.Name);
         }
 
         [HttpPost("{name}")]
