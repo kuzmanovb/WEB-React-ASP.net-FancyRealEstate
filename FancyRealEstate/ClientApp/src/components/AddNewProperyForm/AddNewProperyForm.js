@@ -7,6 +7,7 @@ import './AddNewProperyForm.css'
 import { AddressRow } from './FormComponents/AddressRow'
 import {PropertyTypeForm} from './FormComponents/PropertyTypeForm'
 import { CloudinaryWidget } from './FormComponents/CloudinaryWidget'
+import {BuildingTypeForm} from './FormComponents/BuildingTypeForm'
 
 
 export class AddNewProperyForm extends Component {
@@ -47,6 +48,11 @@ export class AddNewProperyForm extends Component {
 
     propertyTypeDateFromChild = (propertyType) =>{
         this.setState({propertyType: propertyType})
+    }
+
+    buildingTypeDataFromChild = (buildingType) =>{
+        this.setState({buildingType: buildingType})
+
     }
 
 
