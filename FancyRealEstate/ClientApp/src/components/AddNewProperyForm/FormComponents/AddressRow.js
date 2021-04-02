@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import { Col, Row, FormGroup, Label, Input } from 'reactstrap';
 
-import * as cityTypeService from '../../services/cityService'
-import * as districtTypeService from '../../services/districtService'
+import * as cityTypeService from '../../../services/cityService'
+import * as districtTypeService from '../../../services/districtService'
 
 
 export const AddressRow = (props) => {

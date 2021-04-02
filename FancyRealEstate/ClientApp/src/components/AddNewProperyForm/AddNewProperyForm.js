@@ -1,20 +1,18 @@
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react'
 import * as buildingTypeService from '../../services/buildingTypeService'
-import * as propertyTypeService from '../../services/propertyTypeService'
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Formik } from 'formik'
-import { CloudinaryWidget } from './CloudinaryWidget'
 import './AddNewProperyForm.css'
-import { AddressRow } from './AddressRow'
-import {PropertyTypeForm} from './PropertyTypeForm'
+import { AddressRow } from './FormComponents/AddressRow'
+import {PropertyTypeForm} from './FormComponents/PropertyTypeForm'
+import { CloudinaryWidget } from './FormComponents/CloudinaryWidget'
 
 
 export class AddNewProperyForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            propertyTypes: [],
             buildingTypes: [],
             city: "",
             district: "",
@@ -37,7 +35,6 @@ export class AddNewProperyForm extends Component {
     componentDidMount() {
 
         buildingTypeService.getAll().then(res => this.setState({ buildingTypes: res }));
-        propertyTypeService.getAll().then(res => this.setState({ propertyTypes: res }));
     }
 
     

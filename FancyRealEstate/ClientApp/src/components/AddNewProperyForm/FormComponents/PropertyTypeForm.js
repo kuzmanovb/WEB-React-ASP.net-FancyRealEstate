@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react'
 import {FormGroup, Label, Input } from 'reactstrap'
-import * as propertyTypeService from '../../services/propertyTypeService'
+import * as propertyTypeService from '../../../services/propertyTypeService'
 
 
 export const PropertyTypeForm = (props) => {
@@ -41,8 +41,6 @@ export const PropertyTypeForm = (props) => {
                 )}
             </Input>
         </FormGroup>
-
-
     );
 
 
