@@ -13,7 +13,7 @@ export class CloudinaryWidget extends Component {
         };
     }
 
-    sentData = () => {
+    sendData = () => {
         this.props.imagesData(this.state.imageId, this.state.imageUrl)
     }
 
@@ -28,7 +28,7 @@ export class CloudinaryWidget extends Component {
                     this.setState(state => ({
                         imageId: [...state.imageId, result.info.public_id],
                         imageUrl: [...state.imageUrl, result.info.secure_url]
-                    }), () => {this.sentData()})
+                    }), () => {this.sendData()})
                 }
             });
         widget.open()

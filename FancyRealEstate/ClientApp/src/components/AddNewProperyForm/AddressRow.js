@@ -23,12 +23,12 @@ export const AddressRow = (props) => {
 
     useEffect(() => {
 
-        sentData();
+        sendData();
         console.log(city + " " + district)
 
     }, [city, district, street, number]);
 
-    const sentData = () => {
+    const sendData = () => {
 
         props.addressData(city, district, street, number);
 
