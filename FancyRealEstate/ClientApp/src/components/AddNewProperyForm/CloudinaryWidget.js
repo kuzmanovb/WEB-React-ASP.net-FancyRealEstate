@@ -13,6 +13,10 @@ export class CloudinaryWidget extends Component {
         };
     }
 
+    sentData = () => {
+        this.props.imagesData(this.state.imageId, this.state.imageUrl)
+    }
+
     showWidget = () => {
         let widget = window.cloudinary.createUploadWidget({
             cloudName: `kuzmanovb`,
@@ -24,7 +28,7 @@ export class CloudinaryWidget extends Component {
                     this.setState(state => ({
                         imageId: [...state.imageId, result.info.public_id],
                         imageUrl: [...state.imageUrl, result.info.secure_url]
-                    }));
+                    }), () => {this.sentData()})
                 }
             });
         widget.open()
