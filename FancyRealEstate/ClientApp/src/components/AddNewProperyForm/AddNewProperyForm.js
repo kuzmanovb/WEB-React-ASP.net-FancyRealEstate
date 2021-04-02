@@ -2,22 +2,18 @@
 import React, { Component } from 'react'
 import * as buildingTypeService from '../../services/buildingTypeService'
 import * as propertyTypeService from '../../services/propertyTypeService'
-// import * as cityTypeService from '../../services/cityService'
-// import * as districtTypeService from '../../services/districtService'
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Formik } from 'formik'
 import { CloudinaryWidget } from './CloudinaryWidget'
 import './AddNewProperyForm.css'
 import { AddressRow } from './AddressRow'
+import {PropertyTypeForm} from './PropertyTypeForm'
 
 
 export class AddNewProperyForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            propertyParams: [],
-            // cities: [],
-            // districts: [],
             propertyTypes: [],
             buildingTypes: [],
             city: "",
@@ -42,17 +38,18 @@ export class AddNewProperyForm extends Component {
 
         buildingTypeService.getAll().then(res => this.setState({ buildingTypes: res }));
         propertyTypeService.getAll().then(res => this.setState({ propertyTypes: res }));
-        // cityTypeService.getAll().then(res => this.setState({ cities: res }));
-        // districtTypeService.getAll().then(res => this.setState({ districts: res }));
     }
+
+    
     addressDataFronChild = (city, district, street, number) => {
         this.setState({ city: city });
         this.setState({ district: district });
         this.setState({ street: street });
         this.setState({ number: number });
+    }
 
-        console.log("from Parent")
-
+    propertyTypeDateFromChild = (propertyType) =>{
+        this.setState({propertyType: propertyType})
     }
 
 
@@ -93,17 +90,7 @@ export class AddNewProperyForm extends Component {
                             <AddressRow addressData={this.addressDataFronChild} />
                             <Row form>
                                 <Col md={4}>
-                                    <FormGroup>
-                                        <Label for="propertyType">Property Type</Label>
-                                        <Input type="select" name="propertyType" id="propertyType" value={values.propertyType} onChange={handleChange}>
-                                            <option value="">Choose Property Type</option>
-                                            <option value="1 room">1 Room</option>
-                                            <option value="2 rooms">2 Rooms</option>
-                                            <option value="3 rooms">3 Rooms</option>
-                                            <option value="house">House</option>
-
-                                        </Input>
-                                    </FormGroup>
+                                 <PropertyTypeForm propertyTypeData={this.propertyTypeDateFromChild}/>
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
