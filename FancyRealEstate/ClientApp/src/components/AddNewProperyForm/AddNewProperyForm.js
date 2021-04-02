@@ -2,12 +2,13 @@
 import React, { Component } from 'react'
 import * as buildingTypeService from '../../services/buildingTypeService'
 import * as propertyTypeService from '../../services/propertyTypeService'
-import * as cityTypeService from '../../services/cityService'
-import * as districtTypeService from '../../services/districtService'
+// import * as cityTypeService from '../../services/cityService'
+// import * as districtTypeService from '../../services/districtService'
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Formik } from 'formik'
 import { CloudinaryWidget } from './CloudinaryWidget'
 import './AddNewProperyForm.css'
+import { AddressRow } from './AddressRow'
 
 
 export class AddNewProperyForm extends Component {
@@ -15,21 +16,49 @@ export class AddNewProperyForm extends Component {
         super(props)
         this.state = {
             propertyParams: [],
-            cities: [],
-            districts: [],
+            // cities: [],
+            // districts: [],
             propertyTypes: [],
-            buildingTypes: []
+            buildingTypes: [],
+            city: "",
+            district: "",
+            street: "",
+            number: "",
+            propertyType: "",
+            year: "",
+            size: "",
+            floor: "",
+            ofTotalFloors: "",
+            typeOfDeal: "",
+            buildingType: "",
+            features: [],
+            description: "",
+            imageIds: [],
+            imageUrls: []
         }
     }
 
     componentDidMount() {
 
-        buildingTypeService.getAll().then(res => this.setState({buildingTypes: res}));
-        propertyTypeService.getAll().then(res => this.setState({propertyTypes: res}));
-        cityTypeService.getAll().then(res => this.setState({cities: res}));
-        districtTypeService.getAll().then(res => this.setState({districts: res}));
+        buildingTypeService.getAll().then(res => this.setState({ buildingTypes: res }));
+        propertyTypeService.getAll().then(res => this.setState({ propertyTypes: res }));
+        // cityTypeService.getAll().then(res => this.setState({ cities: res }));
+        // districtTypeService.getAll().then(res => this.setState({ districts: res }));
+    }
+    addressDataFronChild = (city, district, street, number) => {
+        this.setState({ city: city });
+        this.setState({ district: district });
+        this.setState({ street: street });
+        this.setState({ number: number });
 
-        console.log(this.state);
+        console.log("from Parent")
+
+    }
+
+
+    imagesDateFromChild = (imageUrl, imageId) => {
+        this.setState((s) => ({ imageUrls: this.s.imageUrls, ...imageUrl }));
+        this.setState((s) => ({ imageIds: this.s.imageIds, ...imageId }));
     }
 
     render() {
@@ -38,7 +67,8 @@ export class AddNewProperyForm extends Component {
 
             <div className="container">
                 <Formik
-                    initialValues={{ sity: "", district: "", street: "", number: "", propertyType: "", year: "", size: "", floor: "", ofTotalFloor: "", typeOfDeal: "", buildingType: "", features: [], description: "" }}
+                    enableReinitialize
+                    initialValues={this.state}
                     onSubmit={(values, { setSubmitting, resetForm }) => {
                         // When button submits form and form is in the process of submitting, submit button is disabled
                         setSubmitting(true);
@@ -50,6 +80,7 @@ export class AddNewProperyForm extends Component {
                             setSubmitting(false);
                         }, 500);
                     }}
+
                 >
                     {({ values,
                         errors,
@@ -59,46 +90,7 @@ export class AddNewProperyForm extends Component {
                         handleSubmit,
                         isSubmitting }) => (
                         <Form className="mt-5" onSubmit={handleSubmit}>
-                            <Row form>
-                                <Col md={3}>
-                                    <FormGroup>
-                                        <Label for="sity">Sity</Label>
-                                        <Input type="select" name="sity" id="sity" value={values.sity} onChange={handleChange} >
-                                            <option value="">Choose Sity</option>
-                                            <option value="sofia">Sofia</option>
-                                            <option value="plovdiv">Plovdiv</option>
-                                            <option value="varna">Varna</option>
-                                            <option value="razlok">Razlok</option>
-                                            <option value="pleven">Pleven</option>
-                                        </Input>
-                                    </FormGroup>
-                                </Col>
-                                <Col md={3}>
-                                    <FormGroup>
-                                        <Label for="district">District</Label>
-                                        <Input type="select" name="district" id="district" value={values.district} onChange={handleChange}>
-                                            <option value="">Choose District</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </Input>
-                                    </FormGroup>
-                                </Col>
-                                <Col md={5}>
-                                    <FormGroup>
-                                        <Label for="street">Street</Label>
-                                        <Input type="text" name="street" id="street" placeholder="Write street name" defaultValue={values.street} onChange={handleChange} onBlur={handleBlur} />
-                                    </FormGroup>
-                                </Col>
-                                <Col md={1}>
-                                    <FormGroup>
-                                        <Label for="number">Str.Number</Label>
-                                        <Input type="number" name="number" id="number" min={0} defaultValue={values.number} onChange={handleChange} />
-                                    </FormGroup>
-                                </Col>
-                            </Row>
+                            <AddressRow addressData={this.addressDataFronChild} />
                             <Row form>
                                 <Col md={4}>
                                     <FormGroup>
@@ -142,7 +134,7 @@ export class AddNewProperyForm extends Component {
                                 <Col md={{ span: 2, offset: 5 }}>
                                     <FormGroup>
                                         <Label for="typeOfDeal">Type Of Deal</Label>
-                                        <Input type="select" name="typeOfDeal" id="typeOfDeal" defaultValue={values.typeOfDeal}>
+                                        <Input type="select" name="typeOfDeal" id="typeOfDeal" defaultValue={values.typeOfDeal} onChange={handleChange} >
                                             <option value="">Choose Deal</option>
                                             <option value="forRent">For Rent</option>
                                             <option value="forDeal">For Deal</option>
@@ -155,30 +147,13 @@ export class AddNewProperyForm extends Component {
 
                                     <FormGroup tag="fieldset" onChange={handleChange}>
                                         <legend className="col-form-label"><b>Buildin Type</b></legend>
-                                        <FormGroup check inline>
-                                            <Label for="buildingType">
-                                                <Input type="radio" name="buildingType" id="buildingType" value="Brick" />
-                                      Brick
-                                    </Label>
-                                        </FormGroup>
-                                        <FormGroup check inline>
-                                            <Label >
-                                                <Input type="radio" name="buildingType" id="buildingType" value="Panel" />
-                                      Panel
-                                    </Label>
-                                        </FormGroup>
-                                        <FormGroup check inline>
-                                            <Label >
-                                                <Input type="radio" name="buildingType" id="buildingType" value="EPK" />
-                                      EPK
-                                    </Label>
-                                        </FormGroup>
-                                        <FormGroup check inline>
-                                            <Label >
-                                                <Input type="radio" name="buildingType" id="buildingType" value="PK" />
-                                      PK
-                                    </Label>
-                                        </FormGroup>
+                                        {this.state.buildingTypes.map(b =>
+                                            <FormGroup check inline key={b}>
+                                                <Label for="buildingType">
+                                                    <Input type="radio" name="buildingType" id="buildingType" value={b} /> {b}
+                                                </Label>
+                                            </FormGroup>
+                                        )}
                                     </FormGroup>
                                 </Col>
                                 <Col md={4}>
@@ -222,7 +197,7 @@ export class AddNewProperyForm extends Component {
                                     </FormGroup>
                                 </Col>
                             </Row>
-                            <CloudinaryWidget />
+                            <CloudinaryWidget imagesData={this.imagesDateFromChild} />
                             <Row>
                                 <Col>
                                     <FormGroup>
