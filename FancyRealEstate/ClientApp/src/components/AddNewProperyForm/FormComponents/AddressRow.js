@@ -57,36 +57,40 @@ export const AddressRow = (props) => {
             <Col md={3}>
                 <FormGroup>
                     <Label for="city">City</Label>
-                    <Input type="select" name="city" id="city" value={city} onChange={handleCity} >
+                    <Input type="select" name="city" id="city" value={city} onChange={handleCity} onBlur={props.passBlur} >
                         <option value="">Choose City</option>
                         {cities.map(s =>
                             <option key={s} value={s}>{s}</option>
                         )}
 
                     </Input>
+                    {props.passTouched.city && props.passErrors.city ? <div className="text-danger">{props.passErrors.city}</div>: null}
                 </FormGroup>
             </Col>
             <Col md={3}>
                 <FormGroup>
                     <Label for="district">District</Label>
-                    <Input type="select" name="district" id="district" value={district} onChange={handleDistrict} >
+                    <Input type="select" name="district" id="district" value={district} onChange={handleDistrict} onBlur={props.passBlur}>
                         <option value="">Choose District</option>
                         {districts.map(d =>
                             <option key={d} value={d}>{d}</option>
                         )}
                     </Input>
+                    {props.passTouched.district && props.passErrors.district ? <div className="text-danger">{props.passErrors.district}</div>: null}
                 </FormGroup>
             </Col>
             <Col md={5}>
                 <FormGroup>
                     <Label for="street">Street</Label>
-                    <Input type="text" name="street" id="street" placeholder="Write street name" value={street} onChange={handleStreet} />
+                    <Input type="text" name="street" id="street" placeholder="Write street name" value={street} onChange={handleStreet} onBlur={props.passBlur} />
+                    {props.passTouched.street && props.passErrors.street ? <div className="text-danger">{props.passErrors.street}</div>: null}
                 </FormGroup>
             </Col>
             <Col md={1}>
                 <FormGroup>
                     <Label for="number">Str.Number</Label>
-                    <Input type="number" name="number" id="number" min={0} value={number} onChange={handleNumber} />
+                    <Input type="number" name="number" id="number" min={0} value={number} onChange={handleNumber} onBlur={props.passBlur}/>
+                    {props.passTouched.number && props.passErrors.number ? <div className="text-danger">{props.passErrors.number}</div>: null}
                 </FormGroup>
             </Col>
         </Row>

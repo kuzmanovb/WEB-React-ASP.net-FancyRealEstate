@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import { Col, Row, Button } from 'reactstrap';
 
@@ -50,7 +51,9 @@ export const CloudinaryWidget = (props) => {
         <Row>
             <Col md={3}></Col>
             <Col md={6}>
-                <Button color="primary" size="lg" onClick={showWidget}>Add Images</Button>
+                <Button color="primary" size="lg" name="imageIds" onClick={showWidget} onBlur={props.passBlur}>Add Images</Button>
+                {props.passTouched.imageIds && props.passErrors.imageIds ? <div className="text-danger">{props.passErrors.imageIds}</div>: null}
+
             </Col>
         </Row>
     );

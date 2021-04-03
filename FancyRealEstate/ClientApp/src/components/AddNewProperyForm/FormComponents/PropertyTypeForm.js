@@ -34,12 +34,13 @@ export const PropertyTypeForm = (props) => {
     return (
         <FormGroup>
             <Label for="propertyType">Property Type</Label>
-            <Input type="select" name="propertyType" id="propertyType" value={propertyType} onChange={handlePropertType}>
+            <Input type="select" name="propertyType" id="propertyType" value={propertyType} onChange={handlePropertType} onBlur={props.passBlur}>
                 <option value="">Choose Property Type</option>
                 {propertyTypes.map(p =>
                     <option value={p} key={p}>{p}</option>
                 )}
             </Input>
+            {props.passTouched.propertyType && props.passErrors.propertyType ? <div className="text-danger">{props.passErrors.propertyType}</div>: null}
         </FormGroup>
     );
 

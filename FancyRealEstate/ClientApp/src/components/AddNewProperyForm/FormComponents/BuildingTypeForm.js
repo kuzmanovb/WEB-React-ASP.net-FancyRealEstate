@@ -36,7 +36,7 @@ export const BuildingTypeForm = (props) => {
 
 
     return (
-        <FormGroup tag="fieldset" onChange={handleBuildingType}>
+        <FormGroup tag="fieldset" onChange={handleBuildingType} onBlur={props.passBlur}>
             <legend className="col-form-label"><b>Buildin Type</b></legend>
             {buildingTypes.map(b =>
                 <FormGroup check inline key={b}>
@@ -45,6 +45,7 @@ export const BuildingTypeForm = (props) => {
                     </Label>
                 </FormGroup>
             )}
+            {props.passTouched.buildingType && props.passErrors.buildingType ? <div className="text-danger">{props.passErrors.buildingType}</div>: null}
         </FormGroup>
     );
 
