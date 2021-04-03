@@ -6,6 +6,8 @@
     {
         public int Id { get; set; }
 
+        public string CloudId { get; set; }
+
         [Required]
         public string Url { get; set; }
 
