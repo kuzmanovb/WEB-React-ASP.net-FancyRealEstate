@@ -14,17 +14,17 @@ const validationSchema =  Yup.object().shape({
 
     city: Yup.string().min(2).required( "You have choose city"),
     district: Yup.string().min(2).required( "You have choose district"),
-    street: Yup.string().min(5).required( "Please imput street name"),
-    number: Yup.string().min(5).required( "Please imput street number"),
+    street: Yup.string().min(4).required( "Please imput street name"),
+    number: Yup.string().min(1).required( "Please imput street number"),
     propertyType: Yup.string().min(2).required( "You have choose property type"),
     year: Yup.string().min(4).required("Please input year between 1900 and present year"),
     size: Yup.string().min(2).required("Please input size"),
-    floor: Yup.string().min(2).required( "Please input floor"),
-    ofTotalFloors: Yup.string().min(2).required( "Please input of total floors"),
+    floor: Yup.string().min(1).required( "Please input floor"),
+    ofTotalFloors: Yup.string().min(1).required( "Please input of total floors"),
     typeOfDeal: Yup.string().min(2).required( "You have choose type of deal"),
     buildingType: Yup.string().min(2).required( "You have choose building type"),
     description: Yup.string().min(10, "Description must have at least 10 characters")
-                             .max(100, "Description can't be longer than 100 characters")
+                             .max(1000, "Description can't be longer than 1000 characters")
                              .required("Please write short information about the property"),
     imageIds: Yup.array().min(1, "You must have not less of one photo"),
 
@@ -179,6 +179,7 @@ export class AddNewProperyForm extends Component {
                                     <FormGroup>
                                         <Label for="description">Description</Label>
                                         <Input type="textarea" name="description" id="description" rows="10" onChange={this.handleStateValue} onBlur={handleBlur}/>
+                                        {touched.description && errors.description ? <div className="text-danger">{errors.description}</div>: null}
                                     </FormGroup>
                                 </Col>
                             </Row>
