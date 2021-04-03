@@ -5,13 +5,13 @@
 
     public interface IImagesService
     {
-        Task CreateImageAsync(string url, int propertyId);
+        Task<int> CreateImageAsync(string cloudId, int propertyId);
 
-        Task<ICollection<string>> GetImagesUrlByPropertyIdAsync(int id);
+        ICollection<string> GetImagesCloudIdByPropertyIdAsync(int propertyId);
 
-        Task<ICollection<string>> GetPromotionImagesUrAsync();
+        ICollection<string> GetPromotionImagesUrAsync();
 
-        Task<bool> DeleteImageByIdAsync(int imageId, int propertyId);
+        Task<bool> DeleteImageByIdAsync(int imageId);
 
     }
 }

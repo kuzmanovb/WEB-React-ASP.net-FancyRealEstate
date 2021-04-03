@@ -69,6 +69,7 @@ namespace FancyRealEstate
             services.AddTransient<IAddressesService, AddressesService>();
             services.AddTransient<IBuildingTypesService, BuildingTypesService>();
             services.AddTransient<IProperyTypesService, ProperyTypesService>();
+            services.AddTransient<IImagesService, ImagesService>();
             services.AddTransient<IRealEstatePropertiesService, RealEstatePropertiesService>();
 
             // In production, the React files will be served from this directory
