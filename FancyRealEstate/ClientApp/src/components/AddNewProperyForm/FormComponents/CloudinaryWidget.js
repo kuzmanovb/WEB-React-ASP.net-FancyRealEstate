@@ -6,25 +6,13 @@ import { Col, Row, Button } from 'reactstrap';
 export const CloudinaryWidget = (props) => {
 
     const [imageId, setImageId] = useState([]);
-    const [imageUrl, setImageUrl] = useState([]);
 
     useEffect(() => {
 
         sendIdData();
 
     }, [imageId])
-
-    useEffect(() => {
-
-        sendUrlData();
-
-    }, [imageUrl])
-
-
-    const sendUrlData = () => {
-
-        props.imagesUrlData(imageUrl)
-    }
+   
     const sendIdData = () => {
 
         props.imagesIdData(imageId)
@@ -40,7 +28,6 @@ export const CloudinaryWidget = (props) => {
                 if (!error && result && result.event === "success") {
 
                     setImageId([...imageId, result.info.public_id]);
-                    setImageUrl([...imageUrl, result.info.secure_url]);
 
                 }
             });
