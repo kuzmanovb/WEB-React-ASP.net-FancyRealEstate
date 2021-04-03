@@ -20,13 +20,15 @@
         private readonly IAddressesService addressesService;
         private readonly IProperyTypesService properyTypesService;
         private readonly IBuildingTypesService buildingTypesService;
+        private readonly IImagesService imagesService;
 
-        public RealEstatePropertiesService(ApplicationDbContext db, IAddressesService addressesService, IProperyTypesService properyTypesService, IBuildingTypesService buildingTypesService)
+        public RealEstatePropertiesService(ApplicationDbContext db, IAddressesService addressesService, IProperyTypesService properyTypesService, IBuildingTypesService buildingTypesService, IImagesService imagesService)
         {
             this.db = db;
             this.addressesService = addressesService;
             this.properyTypesService = properyTypesService;
             this.buildingTypesService = buildingTypesService;
+            this.imagesService = imagesService;
         }
 
         public async Task<int> CreateRealEstateProperyAsync(RealEstatePropertyInputDto input)
@@ -35,17 +37,14 @@
             {
                 Street = input.Street,
                 BuildingNumber = input.BuildingNumber,
-                District = input.DistrictName,
-                City = input.CityName,
+                District = input.District,
+                City = input.City,
             };
 
             var addressId = await this.addressesService.CreateAddressAsync(newAddress);
-            var buildingTypeId = this.buildingTypesService.GetBuildingTypeByName(input.CurrentBuildingType).Id;
-            var propertyTypeId = this.properyTypesService.GetPropertyTypeByName(input.CurrentPropertyType).Id;
+            var buildingTypeId = this.buildingTypesService.GetBuildingTypeByName(input.BuildingType).Id;
+            var propertyTypeId = this.properyTypesService.GetPropertyTypeByName(input.PropertyType).Id;
 
-
-
-            // ToDo Add Image Gallery
             var newRealEstateProperty = new RealEstateProperty
             {
                 Size = input.Size,
@@ -72,6 +71,11 @@
 
             await this.db.RealEstateProperties.AddAsync(newRealEstateProperty);
             await this.db.SaveChangesAsync();
+
+            foreach (var item in input.ImageIds)
+            {
+                await this.imagesService.CreateImageAsync(item, newRealEstateProperty.Id);
+            }
 
             return newRealEstateProperty.Id;
         }
@@ -135,11 +139,11 @@
                     Year = p.Year,
                     Price = p.Price,
                     Street = p.Address.Street,
-                    DistrictName = p.Address.District.Name,
-                    CityName = p.Address.City.Name,
+                    District = p.Address.District.Name,
+                    City = p.Address.City.Name,
                     BuildingNumber = p.Address.BuildingNumber,
-                    CurrentPropertyType = p.PropertyType.Name,
-                    CurrentBuildingType = p.BuildingType.Name,
+                    PropertyType = p.PropertyType.Name,
+                    BuildingType = p.BuildingType.Name,
                     Description = p.Description,
                     TypeOfDeal = Enum.GetName(typeof(TypeOfDeal), p.TypeOfDeal),
                     IsPromotion = p.IsPromotion,
@@ -154,6 +158,7 @@
                     Elevator = p.Elevator,
                     Renovated = p.Renovated,
                     CreatedOn = p.CreatedOn.ToString("d"),
+                    ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
                 })
                 .ToList();
 
@@ -162,7 +167,6 @@
 
         public ICollection<RealEstatePropertyInfoDto> GetPropertiesWithPredicate(Func<RealEstateProperty, bool> where)
         {
-            // ToDo add image gallery
             var allProperty = this.db.RealEstateProperties
                 .Where(where)
                 .Select(p => new RealEstatePropertyInfoDto
@@ -174,11 +178,11 @@
                     Year = p.Year,
                     Price = p.Price,
                     Street = p.Address.Street,
-                    DistrictName = p.Address.District.Name,
-                    CityName = p.Address.City.Name,
+                    District = p.Address.District.Name,
+                    City = p.Address.City.Name,
                     BuildingNumber = p.Address.BuildingNumber,
-                    CurrentPropertyType = p.PropertyType.Name,
-                    CurrentBuildingType = p.BuildingType.Name,
+                    PropertyType = p.PropertyType.Name,
+                    BuildingType = p.BuildingType.Name,
                     Description = p.Description,
                     TypeOfDeal = Enum.GetName(typeof(TypeOfDeal), p.TypeOfDeal),
                     IsPromotion = p.IsPromotion,
@@ -193,6 +197,7 @@
                     Elevator = p.Elevator,
                     Renovated = p.Renovated,
                     CreatedOn = p.CreatedOn.ToString("d"),
+                    ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
                 })
                 .ToList();
 
@@ -233,14 +238,14 @@
                 currentProperty.Address.Street = input.Street;
             }
 
-            if (currentProperty.Address.District.Name != input.DistrictName)
+            if (currentProperty.Address.District.Name != input.District)
             {
-                currentProperty.Address.District.Name = input.DistrictName;
+                currentProperty.Address.District.Name = input.District;
             }
 
-            if (currentProperty.Address.City.Name != input.CityName)
+            if (currentProperty.Address.City.Name != input.City)
             {
-                currentProperty.Address.City.Name = input.CityName;
+                currentProperty.Address.City.Name = input.City;
             }
 
             if (currentProperty.Address.BuildingNumber != input.BuildingNumber)
@@ -248,14 +253,14 @@
                 currentProperty.Address.BuildingNumber = input.BuildingNumber;
             }
 
-            if (currentProperty.PropertyType.Name != input.CurrentPropertyType)
+            if (currentProperty.PropertyType.Name != input.PropertyType)
             {
-                currentProperty.PropertyType.Name = input.CurrentPropertyType;
+                currentProperty.PropertyType.Name = input.PropertyType;
             }
 
-            if (currentProperty.BuildingType.Name != input.CurrentBuildingType)
+            if (currentProperty.BuildingType.Name != input.BuildingType)
             {
-                currentProperty.BuildingType.Name = input.CurrentBuildingType;
+                currentProperty.BuildingType.Name = input.BuildingType;
             }
 
             if (currentProperty.Description != input.Description)
