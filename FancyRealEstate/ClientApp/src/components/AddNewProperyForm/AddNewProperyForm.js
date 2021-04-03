@@ -1,13 +1,13 @@
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react'
-import * as buildingTypeService from '../../services/buildingTypeService'
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Formik } from 'formik'
 import './AddNewProperyForm.css'
 import { AddressRow } from './FormComponents/AddressRow'
-import {PropertyTypeForm} from './FormComponents/PropertyTypeForm'
+import { PropertyTypeForm } from './FormComponents/PropertyTypeForm'
 import { CloudinaryWidget } from './FormComponents/CloudinaryWidget'
-import {BuildingTypeForm} from './FormComponents/BuildingTypeForm'
+import { BuildingTypeForm } from './FormComponents/BuildingTypeForm'
+import { FeaturesForm } from './FormComponents/FeaturesForm'
 
 
 export class AddNewProperyForm extends Component {
@@ -33,12 +33,6 @@ export class AddNewProperyForm extends Component {
         }
     }
 
-    componentDidMount() {
-
-        buildingTypeService.getAll().then(res => this.setState({ buildingTypes: res }));
-    }
-
-    
     addressDataFronChild = (city, district, street, number) => {
         this.setState({ city: city });
         this.setState({ district: district });
@@ -46,13 +40,16 @@ export class AddNewProperyForm extends Component {
         this.setState({ number: number });
     }
 
-    propertyTypeDateFromChild = (propertyType) =>{
-        this.setState({propertyType: propertyType})
+    propertyTypeDateFromChild = (propertyType) => {
+        this.setState({ propertyType: propertyType })
     }
 
-    buildingTypeDataFromChild = (buildingType) =>{
-        this.setState({buildingType: buildingType})
+    buildingTypeDataFromChild = (buildingType) => {
+        this.setState({ buildingType: buildingType })
+    }
 
+    featuresDataFromChild = (features) =>{
+        this.setState({features: features})
     }
 
 
@@ -93,7 +90,7 @@ export class AddNewProperyForm extends Component {
                             <AddressRow addressData={this.addressDataFronChild} />
                             <Row form>
                                 <Col md={4}>
-                                 <PropertyTypeForm propertyTypeData={this.propertyTypeDateFromChild}/>
+                                    <PropertyTypeForm propertyTypeData={this.propertyTypeDateFromChild} />
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
@@ -104,19 +101,19 @@ export class AddNewProperyForm extends Component {
                                 <Col md={2}>
                                     <FormGroup>
                                         <Label for="size">Size</Label>
-                                        <Input type="number" name="size" id="size" min={0} defaultValue={values.size} onChange={handleChange} />
+                                        <Input type="number" name="size" id="size" min={0} defaultValue={values.size} onChange={handleChange} onBlur={handleBlur} />
                                     </FormGroup>
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
                                         <Label for="floor">Floor</Label>
-                                        <Input type="number" name="floor" id="floor" min={0} defaultValue={values.floor} onChange={handleChange} />
+                                        <Input type="number" name="floor" id="floor" min={0} defaultValue={values.floor} onChange={handleChange} onBlur={handleBlur} />
                                     </FormGroup>
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
                                         <Label for="ofTotalFloors">Of Total Floors</Label>
-                                        <Input type="number" name="ofTotalFloors" id="ofTotalFloors" min={0} defaultValue={values.floor} onChange={handleChange} />
+                                        <Input type="number" name="ofTotalFloors" id="ofTotalFloors" min={0} defaultValue={values.floor} onChange={handleChange} onBlur={handleBlur} />
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -124,7 +121,7 @@ export class AddNewProperyForm extends Component {
                                 <Col md={{ span: 2, offset: 5 }}>
                                     <FormGroup>
                                         <Label for="typeOfDeal">Type Of Deal</Label>
-                                        <Input type="select" name="typeOfDeal" id="typeOfDeal" defaultValue={values.typeOfDeal} onChange={handleChange} >
+                                        <Input type="select" name="typeOfDeal" id="typeOfDeal" defaultValue={values.typeOfDeal} onChange={handleChange} onBlur={handleBlur}  >
                                             <option value="">Choose Deal</option>
                                             <option value="forRent">For Rent</option>
                                             <option value="forDeal">For Deal</option>
@@ -134,57 +131,10 @@ export class AddNewProperyForm extends Component {
                             </Row>
                             <Row form className="row justify-content-around">
                                 <Col md={2}>
-
-                                    <FormGroup tag="fieldset" onChange={handleChange}>
-                                        <legend className="col-form-label"><b>Buildin Type</b></legend>
-                                        {this.state.buildingTypes.map(b =>
-                                            <FormGroup check inline key={b}>
-                                                <Label for="buildingType">
-                                                    <Input type="radio" name="buildingType" id="buildingType" value={b} /> {b}
-                                                </Label>
-                                            </FormGroup>
-                                        )}
-                                    </FormGroup>
+                                    <BuildingTypeForm buildingTypeData={this.buildingTypeDataFromChild}/>
                                 </Col>
                                 <Col md={4}>
-                                    <FormGroup tag="fieldset" onChange={handleChange}>
-                                        <legend className="col-form-label"><b>Features</b></legend>
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="internet" /> Internet
-                                </Label>
-                                        </FormGroup>
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="healting" /> Healting
-                                </Label>
-                                        </FormGroup>
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="securitySystem" /> Security System
-                                </Label>
-                                        </FormGroup>
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="airCondition" /> Air Condition
-                                </Label>
-                                        </FormGroup>
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="garage" /> Garage
-                                </Label>
-                                        </FormGroup>
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="elevator" /> Elevator
-                                </Label>
-                                        </FormGroup>
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" name="features" id="features" value="Renovated" /> Renovated
-                                </Label>
-                                        </FormGroup>
-                                    </FormGroup>
+                                  <FeaturesForm featuresData={this.featuresDataFromChild}/>
                                 </Col>
                             </Row>
                             <CloudinaryWidget imagesData={this.imagesDateFromChild} />
