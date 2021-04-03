@@ -22,6 +22,7 @@ const validationSchema =  Yup.object().shape({
     floor: Yup.string().min(1).required( "Please input floor"),
     ofTotalFloors: Yup.string().min(1).required( "Please input of total floors"),
     typeOfDeal: Yup.string().min(2).required( "You have choose type of deal"),
+    price: Yup.string().min(2).required( "Please input price"),
     buildingType: Yup.string().min(2).required( "You have choose building type"),
     description: Yup.string().min(10, "Description must have at least 10 characters")
                              .max(1000, "Description can't be longer than 1000 characters")
@@ -45,6 +46,7 @@ export class AddNewProperyForm extends Component {
             floor: "",
             ofTotalFloors: "",
             typeOfDeal: "",
+            price: "",
             buildingType: "",
             features: [],
             description: "",
@@ -153,7 +155,8 @@ export class AddNewProperyForm extends Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md={{ span: 2, offset: 5 }}>
+                                <Col md={2}></Col>
+                                <Col md={4}>
                                     <FormGroup>
                                         <Label for="typeOfDeal">Type Of Deal</Label>
                                         <Input type="select" name="typeOfDeal" id="typeOfDeal" value={values.typeOfDeal} onChange={this.handleStateValue} onBlur={handleBlur}>
@@ -162,6 +165,14 @@ export class AddNewProperyForm extends Component {
                                             <option value="forDeal">For Deal</option>
                                         </Input>
                                         {touched.typeOfDeal && errors.typeOfDeal ? <div className="text-danger">{errors.typeOfDeal}</div>: null}
+                                    </FormGroup>
+                                    
+                                </Col>
+                                <Col md={4}>
+                                <FormGroup>
+                                        <Label for="price">Price</Label>
+                                        <Input type="number" name="price" id="price" min={0} value={values.price} onChange={this.handleStateValue} onBlur={handleBlur}/>
+                                        {touched.price && errors.price ? <div className="text-danger">{errors.price}</div>: null}
                                     </FormGroup>
                                 </Col>
                             </Row>
