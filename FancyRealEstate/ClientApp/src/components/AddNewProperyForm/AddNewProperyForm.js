@@ -15,12 +15,12 @@ const validationSchema =  Yup.object().shape({
     city: Yup.string().min(2).required( "You have choose city"),
     district: Yup.string().min(2).required( "You have choose district"),
     street: Yup.string().min(4).required( "Please imput street name"),
-    number: Yup.string().min(1).required( "Please imput street number"),
+    buildingNumber: Yup.string().min(1).required( "Please imput street number"),
     propertyType: Yup.string().min(2).required( "You have choose property type"),
     year: Yup.string().min(4).required("Please input year between 1900 and present year"),
     size: Yup.string().min(2).required("Please input size"),
     floor: Yup.string().min(1).required( "Please input floor"),
-    ofTotalFloors: Yup.string().min(1).required( "Please input of total floors"),
+    totalNumberOfFloor: Yup.string().min(1).required( "Please input of total floors"),
     typeOfDeal: Yup.string().min(2).required( "You have choose type of deal"),
     price: Yup.string().min(2).required( "Please input price"),
     buildingType: Yup.string().min(2).required( "You have choose building type"),
@@ -39,19 +39,18 @@ export class AddNewProperyForm extends Component {
             city: "",
             district: "",
             street: "",
-            number: "",
+            buildingNumber: "",
             propertyType: "",
             year: "",
             size: "",
             floor: "",
-            ofTotalFloors: "",
+            totalNumberOfFloor: "",
             typeOfDeal: "",
             price: "",
             buildingType: "",
             features: [],
             description: "",
             imageIds: [],
-            imageUrls: []
         }
     }
 
@@ -59,7 +58,7 @@ export class AddNewProperyForm extends Component {
         this.setState({ city: city });
         this.setState({ district: district });
         this.setState({ street: street });
-        this.setState({ number: number });
+        this.setState({ buildingNumber: number });
     }
 
     propertyTypeDateFromChild = (propertyType) => {
@@ -73,10 +72,7 @@ export class AddNewProperyForm extends Component {
     featuresDataFromChild = (features) =>{
         this.setState({features: features})
     }
-
-    imagesUrlDateFromChild = (imageUrl) => {
-        this.setState((s) => ({ imageUrls: [...s.imageUrls, ...imageUrl] }));
-    }
+  
     imagesIdDateFromChild = (imageId) => {
         this.setState((s) => ({ imageIds: [...s.imageIds, ...imageId] }));
     }
@@ -148,9 +144,9 @@ export class AddNewProperyForm extends Component {
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
-                                        <Label for="ofTotalFloors">Of Total Floors</Label>
-                                        <Input type="number" name="ofTotalFloors" id="ofTotalFloors" min={0} value={values.ofTotalFloors} onChange={this.handleStateValue} onBlur={handleBlur}/>
-                                        {touched.ofTotalFloors && errors.ofTotalFloors ? <div className="text-danger">{errors.ofTotalFloors}</div>: null}
+                                        <Label for="totalNumberOfFloor">Of Total Floors</Label>
+                                        <Input type="number" name="totalNumberOfFloor" id="totalNumberOfFloor" min={0} value={values.totalNumberOfFloor} onChange={this.handleStateValue} onBlur={handleBlur}/>
+                                        {touched.totalNumberOfFloor && errors.totalNumberOfFloor ? <div className="text-danger">{errors.totalNumberOfFloor}</div>: null}
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -184,7 +180,7 @@ export class AddNewProperyForm extends Component {
                                   <FeaturesForm featuresData={this.featuresDataFromChild} passTouched={touched} passErrors={errors}/>
                                 </Col>
                             </Row>
-                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} imagesUrlData={this.imagesUrlDateFromChild} passTouched={touched} passErrors={errors}/>
+                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passTouched={touched} passErrors={errors}/>
                             <Row>
                                 <Col>
                                     <FormGroup>
