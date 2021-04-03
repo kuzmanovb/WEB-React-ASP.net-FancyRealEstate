@@ -157,8 +157,8 @@ export class AddNewProperyForm extends Component {
                                         <Label for="typeOfDeal">Type Of Deal</Label>
                                         <Input type="select" name="typeOfDeal" id="typeOfDeal" value={values.typeOfDeal} onChange={this.handleStateValue} onBlur={handleBlur}>
                                             <option value="">Choose Deal</option>
-                                            <option value="forRent">For Rent</option>
-                                            <option value="forDeal">For Deal</option>
+                                            <option value="forRent">Rent</option>
+                                            <option value="forDeal">Deal</option>
                                         </Input>
                                         {touched.typeOfDeal && errors.typeOfDeal ? <div className="text-danger">{errors.typeOfDeal}</div>: null}
                                     </FormGroup>
