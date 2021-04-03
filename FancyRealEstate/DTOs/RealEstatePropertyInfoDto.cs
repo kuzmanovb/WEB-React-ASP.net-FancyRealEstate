@@ -19,15 +19,15 @@
 
         public string Street { get; set; }
 
-        public string DistrictName { get; set; }
+        public string District { get; set; }
 
-        public string CityName { get; set; }
+        public string City { get; set; }
 
         public string BuildingNumber { get; set; }
 
-        public string CurrentPropertyType { get; set; }
+        public string PropertyType { get; set; }
 
-        public string CurrentBuildingType { get; set; }
+        public string BuildingType { get; set; }
 
         public string Description { get; set; }
 
@@ -43,8 +43,6 @@
 
         public string SellerEmail { get; set; }
 
-        public ICollection<string> ImagesUrl { get; set; }
-
         public bool Internet { get; set; }
 
         public bool Heating { get; set; }
@@ -58,5 +56,7 @@
         public bool Elevator { get; set; }
 
         public bool Renovated { get; set; }
+
+        public ICollection<string> ImageIds { get; set; }
     }
 }
