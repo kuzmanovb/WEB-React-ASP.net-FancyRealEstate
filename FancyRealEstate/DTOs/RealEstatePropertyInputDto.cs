@@ -38,7 +38,6 @@
 
         public ICollection<string> ImageIds { get; set; }
 
-        public ICollection<string> ImageUrls { get; set; }
 
     }
 }
