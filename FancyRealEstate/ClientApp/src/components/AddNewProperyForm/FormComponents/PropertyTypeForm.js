@@ -12,7 +12,7 @@ export const PropertyTypeForm = (props) => {
     useEffect(() =>{
 
         propertyTypeService.getAll().then(res => {setPropertyTypes(res)});
-    });
+    },[]);
 
 
     useEffect(() =>{
