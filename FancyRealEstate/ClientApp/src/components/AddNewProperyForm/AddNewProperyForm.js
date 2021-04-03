@@ -14,7 +14,6 @@ export class AddNewProperyForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            buildingTypes: [],
             city: "",
             district: "",
             street: "",
@@ -52,11 +51,21 @@ export class AddNewProperyForm extends Component {
         this.setState({features: features})
     }
 
-
-    imagesDateFromChild = (imageUrl, imageId) => {
-        this.setState((s) => ({ imageUrls: this.s.imageUrls, ...imageUrl }));
-        this.setState((s) => ({ imageIds: this.s.imageIds, ...imageId }));
+    imagesUrlDateFromChild = (imageUrl) => {
+        this.setState((s) => ({ imageUrls: [...s.imageUrls, ...imageUrl] }));
     }
+    imagesIdDateFromChild = (imageId) => {
+        this.setState((s) => ({ imageIds: [...s.imageIds, ...imageId] }));
+    }
+
+    handleStateValue = (e) =>{
+
+        let propName = e.target.name;
+        let propValue = e.target.value;
+
+        this.setState({[propName]: propValue});
+
+    };
 
     render() {
 
@@ -95,25 +104,25 @@ export class AddNewProperyForm extends Component {
                                 <Col md={2}>
                                     <FormGroup>
                                         <Label for="year">Year</Label>
-                                        <Input type="number" name="year" id="year" min={1900} max={2021} defaultValue={values.year} onChange={handleChange} onBlur={handleBlur} />
+                                        <Input type="number" name="year" id="year" min={1900} max={2021} value={values.year} onChange={this.handleStateValue} />
                                     </FormGroup>
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
                                         <Label for="size">Size</Label>
-                                        <Input type="number" name="size" id="size" min={0} defaultValue={values.size} onChange={handleChange} onBlur={handleBlur} />
+                                        <Input type="number" name="size" id="size" min={0} value={values.size} onChange={this.handleStateValue} />
                                     </FormGroup>
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
                                         <Label for="floor">Floor</Label>
-                                        <Input type="number" name="floor" id="floor" min={0} defaultValue={values.floor} onChange={handleChange} onBlur={handleBlur} />
+                                        <Input type="number" name="floor" id="floor" min={0} value={values.floor} onChange={this.handleStateValue} />
                                     </FormGroup>
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
                                         <Label for="ofTotalFloors">Of Total Floors</Label>
-                                        <Input type="number" name="ofTotalFloors" id="ofTotalFloors" min={0} defaultValue={values.floor} onChange={handleChange} onBlur={handleBlur} />
+                                        <Input type="number" name="ofTotalFloors" id="ofTotalFloors" min={0} value={values.ofTotalFloors} onChange={this.handleStateValue} />
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -121,7 +130,7 @@ export class AddNewProperyForm extends Component {
                                 <Col md={{ span: 2, offset: 5 }}>
                                     <FormGroup>
                                         <Label for="typeOfDeal">Type Of Deal</Label>
-                                        <Input type="select" name="typeOfDeal" id="typeOfDeal" defaultValue={values.typeOfDeal} onChange={handleChange} onBlur={handleBlur}  >
+                                        <Input type="select" name="typeOfDeal" id="typeOfDeal" value={values.typeOfDeal} onChange={this.handleStateValue}  >
                                             <option value="">Choose Deal</option>
                                             <option value="forRent">For Rent</option>
                                             <option value="forDeal">For Deal</option>
@@ -137,12 +146,12 @@ export class AddNewProperyForm extends Component {
                                   <FeaturesForm featuresData={this.featuresDataFromChild}/>
                                 </Col>
                             </Row>
-                            <CloudinaryWidget imagesData={this.imagesDateFromChild} />
+                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} imagesUrlData={this.imagesUrlDateFromChild} />
                             <Row>
                                 <Col>
                                     <FormGroup>
                                         <Label for="description">Description</Label>
-                                        <Input type="textarea" name="description" id="description" rows="10" onChange={handleChange} onBlur={handleBlur} />
+                                        <Input type="textarea" name="description" id="description" rows="10" onChange={this.handleStateValue} />
                                     </FormGroup>
                                 </Col>
                             </Row>

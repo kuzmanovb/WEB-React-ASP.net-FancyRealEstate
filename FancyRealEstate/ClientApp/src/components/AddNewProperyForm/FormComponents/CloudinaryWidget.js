@@ -1,23 +1,36 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Col, Row, Button } from 'reactstrap';
 
-export class CloudinaryWidget extends Component {
-    constructor(props) {
-        super(props)
 
-        this.state = {
+export const CloudinaryWidget = (props) => {
 
-            imageId: [],
-            imageUrl: []
+    const [imageId, setImageId] = useState([]);
+    const [imageUrl, setImageUrl] = useState([]);
 
-        };
+    useEffect(() => {
+
+        sendIdData();
+
+    }, [imageId])
+
+    useEffect(() => {
+
+        sendUrlData();
+
+    }, [imageUrl])
+
+
+    const sendUrlData = () => {
+
+        props.imagesUrlData(imageUrl)
+    }
+    const sendIdData = () => {
+
+        props.imagesIdData(imageId)
     }
 
-    sendData = () => {
-        this.props.imagesData(this.state.imageId, this.state.imageUrl)
-    }
+    const showWidget = () => {
 
-    showWidget = () => {
         let widget = window.cloudinary.createUploadWidget({
             cloudName: `kuzmanovb`,
             uploadPreset: `FancyRealEstate`
@@ -25,23 +38,21 @@ export class CloudinaryWidget extends Component {
             (error, result) => {
                 if (!error && result && result.event === "success") {
 
-                    this.setState(state => ({
-                        imageId: [...state.imageId, result.info.public_id],
-                        imageUrl: [...state.imageUrl, result.info.secure_url]
-                    }), () => {this.sendData()})
+                    setImageId([...imageId, result.info.public_id]);
+                    setImageUrl([...imageUrl, result.info.secure_url]);
+
                 }
             });
         widget.open()
     }
 
-    render() {
-        return (
-            <Row>
-                <Col md={3}></Col>
-                <Col md={6}>
-                    <Button color="primary" size="lg" onClick={this.showWidget}>Add Images</Button>
-                </Col>
-            </Row>
-        );
-    }
+    return (
+        <Row>
+            <Col md={3}></Col>
+            <Col md={6}>
+                <Button color="primary" size="lg" onClick={showWidget}>Add Images</Button>
+            </Col>
+        </Row>
+    );
 }
+
