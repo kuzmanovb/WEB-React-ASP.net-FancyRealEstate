@@ -34,21 +34,11 @@
 
         public string UserId { get; set; }
 
-        public virtual ICollection<string> ImagesUrl { get; set; }
+        public ICollection<string> Features { get; set; }
 
-        public bool Internet { get; set; }
+        public ICollection<string> ImageIds { get; set; }
 
-        public bool Heating { get; set; }
-
-        public bool SecuritySistem { get; set; }
-
-        public bool AirCondition { get; set; }
-
-        public bool Garage { get; set; }
-
-        public bool Elevator { get; set; }
-
-        public bool Renovated { get; set; }
+        public ICollection<string> ImageUrls { get; set; }
 
     }
 }
