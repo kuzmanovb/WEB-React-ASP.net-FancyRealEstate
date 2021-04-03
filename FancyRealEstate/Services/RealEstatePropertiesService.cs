@@ -43,6 +43,8 @@
             var buildingTypeId = this.buildingTypesService.GetBuildingTypeByName(input.CurrentBuildingType).Id;
             var propertyTypeId = this.properyTypesService.GetPropertyTypeByName(input.CurrentPropertyType).Id;
 
+
+
             // ToDo Add Image Gallery
             var newRealEstateProperty = new RealEstateProperty
             {
@@ -58,13 +60,13 @@
                 TypeOfDeal = (TypeOfDeal)Enum.Parse(typeof(TypeOfDeal), input.TypeOfDeal, true),
                 IsPromotion = input.IsPromotion,
                 UserId = input.UserId,
-                Internet = input.Internet,
-                Heating = input.Heating,
-                SecuritySistem = input.SecuritySistem,
-                AirCondition = input.AirCondition,
-                Garage = input.Garage,
-                Elevator = input.Elevator,
-                Renovated = input.Renovated,
+                Internet = input.Features.Contains("internet"),
+                Heating = input.Features.Contains("heating"),
+                SecuritySistem = input.Features.Contains("securitySistem"),
+                AirCondition = input.Features.Contains("airCondition"),
+                Garage = input.Features.Contains("garage"),
+                Elevator = input.Features.Contains("elevator"),
+                Renovated = input.Features.Contains("renovated"),
                 CreatedOn = DateTime.UtcNow,
             };
 
