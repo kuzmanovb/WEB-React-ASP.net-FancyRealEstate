@@ -16,15 +16,15 @@
 
         public string Street { get; set; }
 
-        public string DistrictName { get; set; }
+        public string District { get; set; }
 
-        public string CityName { get; set; }
+        public string City { get; set; }
 
         public string BuildingNumber { get; set; }
 
-        public string CurrentPropertyType { get; set; }
+        public string PropertyType { get; set; }
 
-        public string CurrentBuildingType { get; set; }
+        public string BuildingType { get; set; }
 
         public string Description { get; set; }
 
