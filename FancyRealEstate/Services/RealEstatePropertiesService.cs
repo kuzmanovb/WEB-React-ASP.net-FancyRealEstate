@@ -86,7 +86,12 @@
             var minPrice = input.MinPrice;
             var maxPrice = input.MaxPrice != 0 ? input.MaxPrice : int.MaxValue;
 
-            var realEstateProperties = this.db.RealEstateProperties.Where(x => x.IsDeleted == input.IsDeleted && x.Price >= input.MinPrice && x.Price <= input.MaxPrice);
+            var realEstateProperties = this.db.RealEstateProperties.Where(x => x.IsDeleted == input.IsDeleted && x.Price >= minPrice && x.Price <= maxPrice);
+
+            if (!string.IsNullOrEmpty(input.UserId))
+            {
+                realEstateProperties = realEstateProperties.Where(x => x.UserId == input.UserId);
+            }
 
             if (!string.IsNullOrEmpty(input.City))
             {
@@ -96,6 +101,11 @@
             if (!string.IsNullOrEmpty(input.Destrict))
             {
                 realEstateProperties = realEstateProperties.Where(x => x.Address.District.Name == input.Destrict);
+            }
+
+            if (!string.IsNullOrEmpty(input.BuildingType))
+            {
+                realEstateProperties = realEstateProperties.Where(x => x.BuildingType.Name == input.BuildingType);
             }
 
             if (!string.IsNullOrEmpty(input.Deal))
@@ -145,7 +155,7 @@
                     PropertyType = p.PropertyType.Name,
                     BuildingType = p.BuildingType.Name,
                     Description = p.Description,
-                    TypeOfDeal = Enum.GetName(typeof(TypeOfDeal), p.TypeOfDeal),
+                    TypeOfDeal = p.TypeOfDeal.ToString(),
                     IsPromotion = p.IsPromotion,
                     SellerFullName = p.User.FirstName + " " + p.User.LastName,
                     SellerPhoneNumber = p.User.PhoneNumber,
@@ -157,7 +167,8 @@
                     Garage = p.Garage,
                     Elevator = p.Elevator,
                     Renovated = p.Renovated,
-                    CreatedOn = p.CreatedOn.ToString("d"),
+                    CreatedOn = p.CreatedOn.ToString("dd-MM-yyyy"),
+                    DateAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
                     ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
                 })
                 .ToList();
@@ -184,7 +195,7 @@
                     PropertyType = p.PropertyType.Name,
                     BuildingType = p.BuildingType.Name,
                     Description = p.Description,
-                    TypeOfDeal = Enum.GetName(typeof(TypeOfDeal), p.TypeOfDeal),
+                    TypeOfDeal = p.TypeOfDeal.ToString(),
                     IsPromotion = p.IsPromotion,
                     SellerFullName = p.User.FirstName + " " + p.User.LastName,
                     SellerPhoneNumber = p.User.PhoneNumber,
@@ -196,7 +207,8 @@
                     Garage = p.Garage,
                     Elevator = p.Elevator,
                     Renovated = p.Renovated,
-                    CreatedOn = p.CreatedOn.ToString("d"),
+                    CreatedOn = p.CreatedOn.ToString("dd-MM-yyyy"),
+                    DateAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
                     ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
                 })
                 .ToList();
