@@ -47,7 +47,7 @@
 
         public bool Heating { get; set; }
 
-        public bool SecuritySistem { get; set; }
+        public bool SecuritySystem { get; set; }
 
         public bool AirCondition { get; set; }
 

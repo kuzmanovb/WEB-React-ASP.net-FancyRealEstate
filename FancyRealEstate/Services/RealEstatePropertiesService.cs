@@ -61,7 +61,7 @@
                 UserId = input.UserId,
                 Internet = input.Features.Contains("internet"),
                 Heating = input.Features.Contains("heating"),
-                SecuritySistem = input.Features.Contains("securitySistem"),
+                SecuritySystem = input.Features.Contains("securitySystem"),
                 AirCondition = input.Features.Contains("airCondition"),
                 Garage = input.Features.Contains("garage"),
                 Elevator = input.Features.Contains("elevator"),
@@ -152,7 +152,7 @@
                     SellerEmail = p.User.Email,
                     Internet = p.Internet,
                     Heating = p.Heating,
-                    SecuritySistem = p.SecuritySistem,
+                    SecuritySystem = p.SecuritySystem,
                     AirCondition = p.AirCondition,
                     Garage = p.Garage,
                     Elevator = p.Elevator,
@@ -191,7 +191,7 @@
                     SellerEmail = p.User.Email,
                     Internet = p.Internet,
                     Heating = p.Heating,
-                    SecuritySistem = p.SecuritySistem,
+                    SecuritySystem = p.SecuritySystem,
                     AirCondition = p.AirCondition,
                     Garage = p.Garage,
                     Elevator = p.Elevator,
@@ -288,9 +288,9 @@
                 currentProperty.Heating = input.Heating;
             }
 
-            if (currentProperty.SecuritySistem != input.SecuritySistem)
+            if (currentProperty.SecuritySystem != input.SecuritySystem)
             {
-                currentProperty.SecuritySistem = input.SecuritySistem;
+                currentProperty.SecuritySystem = input.SecuritySystem;
             }
 
             if (currentProperty.AirCondition != input.AirCondition)
