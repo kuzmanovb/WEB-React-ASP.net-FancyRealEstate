@@ -8,7 +8,7 @@ export const ImageFromCloudinary = (props) => {
 
   return (
     <div>
-      <AdvancedImage cldImg={myImage} className="img-fluid"/>
+      <AdvancedImage cldImg={myImage} className="img-fluid"  style={{ margin: '15px' }}/>
     </div>
   )
 };
