@@ -2,6 +2,8 @@
 {
     public class SortedRealestatePropertiesDto
     {
+        public string UserId { get; set; }
+
         public int Page { get; set; }
 
         public bool IsDeleted { get; set; }
@@ -13,6 +15,8 @@
         public string City { get; set; }
 
         public string Destrict { get; set; }
+
+        public string BuildingType { get; set; }
 
         public double MinPrice { get; set; }
 
