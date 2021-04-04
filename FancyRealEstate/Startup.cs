@@ -1,5 +1,6 @@
 namespace FancyRealEstate
 {
+    using CloudinaryDotNet;
     using FancyRealEstate.Data;
     using FancyRealEstate.Models;
     using FancyRealEstate.Services;
@@ -62,6 +63,12 @@ namespace FancyRealEstate
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 0;
             });
+
+            // Cloudinary
+            var cloudName = this.Configuration.GetValue<string>("AccountSettings:CloudName");
+            var apiKey = this.Configuration.GetValue<string>("AccountSettings:ApiKey");
+            var apiSecret = this.Configuration.GetValue<string>("AccountSettings:ApiSecret");
+            services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
 
             // Application services
             services.AddTransient<ICitiesService, CitiesService>();
