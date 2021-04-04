@@ -19,6 +19,15 @@
             this.realEstatePropertiesService = realEstatePropertiesService;
         }
 
+        [HttpGet]
+        public IActionResult GetAllActive()
+        {
+            var allProperty = this.realEstatePropertiesService.GetPropertiesWithPredicate(x => x.IsDeleted == false);
+
+            return this.Ok(allProperty);
+
+        }
+
         // Get soft deleted property "RealEstateProperties/id?isDeleted=true"
         [HttpGet("{id}")]
         public IActionResult GetById(int id, bool isDeleted)
