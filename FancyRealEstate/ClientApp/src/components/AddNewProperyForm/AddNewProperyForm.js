@@ -11,6 +11,7 @@ import { CloudinaryWidget } from './FormComponents/CloudinaryWidget'
 import { BuildingTypeForm } from './FormComponents/BuildingTypeForm'
 import { FeaturesForm } from './FormComponents/FeaturesForm'
 import * as propertyService from '../../services/propertyService'
+import * as imageService from '../../services/imageService'
 
 const validationSchema = Yup.object().shape({
 
@@ -93,8 +94,14 @@ export class AddNewProperyForm extends Component {
     }
 
     deleteImage = (e) => {
-        console.log(e.target.value)
 
+        e.persist();
+
+        imageService.deleteImage(e.target.value)
+        this.setState((prevState) =>({imageIds: prevState.imageIds.filter((feature) => feature !== e.target?.value)}));
+
+        console.log(this.imageIds)
+        
     }
 
     render() {
@@ -201,7 +208,7 @@ export class AddNewProperyForm extends Component {
                                 ))}
                             </Row>
                             <Row>
-                                <div></div>
+                                <div><h5></h5></div>
                             </Row>
                             <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passTouched={touched} passErrors={errors} />
                             <Row>
