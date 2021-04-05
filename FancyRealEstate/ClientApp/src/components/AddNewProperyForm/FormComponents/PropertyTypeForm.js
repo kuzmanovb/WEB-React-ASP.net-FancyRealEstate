@@ -14,6 +14,12 @@ export const PropertyTypeForm = (props) => {
         propertyTypeService.getAll().then(res => {setPropertyTypes(res)});
     },[]);
 
+    useEffect(() => {
+
+        setPropertyType(props.passProps?.propertyType)
+     
+    }, [props]);
+
 
     useEffect(() =>{
 

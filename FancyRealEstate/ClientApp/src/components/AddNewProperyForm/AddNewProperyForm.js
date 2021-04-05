@@ -39,6 +39,7 @@ export class AddNewProperyForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            id: "",
             city: "",
             district: "",
             street: "",
@@ -54,8 +55,26 @@ export class AddNewProperyForm extends Component {
             features: [],
             description: "",
             imageIds: [],
+            update: false,
         }
     }
+
+
+    componentDidUpdate() {
+
+        if (this.props.location.props !== undefined && !this.state.update) {
+            this.setState({ id: this.props.location.props.id });
+            this.setState({ year: this.props.location.props.year });
+            this.setState({ size: this.props.location.props.size });
+            this.setState({ floor: this.props.location.props.floor });
+            this.setState({ totalNumberOfFloor: this.props.location.props.totalNumberOfFloor });
+            this.setState({ typeOfDeal: this.props.location.props.typeOfDeal });
+            this.setState({ price: this.props.location.props.price });
+            this.setState({ description: this.props.location.props.description });
+            this.setState({ update: true });
+        }
+    }
+
 
     addressDataFronChild = (city, district, street, number) => {
         this.setState({ city: city });
@@ -98,7 +117,7 @@ export class AddNewProperyForm extends Component {
         e.persist();
 
         imageService.deleteImage(e.target.value)
-        this.setState((prevState) =>({imageIds: prevState.imageIds.filter((feature) => feature !== e.target?.value)}));
+        this.setState((prevState) => ({ imageIds: prevState.imageIds.filter((feature) => feature !== e.target?.value) }));
     }
 
     render() {
@@ -111,18 +130,18 @@ export class AddNewProperyForm extends Component {
                     initialValues={this.state}
                     validationSchema={validationSchema}
                     onSubmit={(values, { setSubmitting, resetForm }) => {
+
                         setSubmitting(true);
+                        
+                        if (this.state.update) {
+                            propertyService.updateProperty(values, null, 2)
+                        }
+                        else {
+                            propertyService.createProperty(values, null, 2);
+                        }
 
-                        propertyService.createProperty(values, null, 2);
-
-
-                        setTimeout(() => {
-
-                            this.redirect()
-
-                        }, 500);
+                        setTimeout(() => { this.redirect() }, 500);
                     }}
-
                 >
                     {({ values,
                         errors,
@@ -132,10 +151,10 @@ export class AddNewProperyForm extends Component {
                         handleSubmit,
                         isSubmitting }) => (
                         <Form className="mt-5" onSubmit={handleSubmit}>
-                            <AddressRow addressData={this.addressDataFronChild} passBlur={handleBlur} passTouched={touched} passErrors={errors} />
+                            <AddressRow addressData={this.addressDataFronChild} passProps={this.props.location.props} passBlur={handleBlur} passTouched={touched} passErrors={errors} />
                             <Row form>
                                 <Col md={4}>
-                                    <PropertyTypeForm propertyTypeData={this.propertyTypeDateFromChild} passTouched={touched} passErrors={errors} />
+                                    <PropertyTypeForm propertyTypeData={this.propertyTypeDateFromChild} passProps={this.props.location.props} passTouched={touched} passErrors={errors} />
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
@@ -190,26 +209,28 @@ export class AddNewProperyForm extends Component {
                             </Row>
                             <Row form className="row justify-content-around">
                                 <Col md={2}>
-                                    <BuildingTypeForm buildingTypeData={this.buildingTypeDataFromChild} passTouched={touched} passErrors={errors} />
+                                    <BuildingTypeForm buildingTypeData={this.buildingTypeDataFromChild} passProps={this.props.location.props} passTouched={touched} passErrors={errors} />
                                 </Col>
                                 <Col md={4}>
-                                    <FeaturesForm featuresData={this.featuresDataFromChild} passTouched={touched} passErrors={errors} />
+                                    <FeaturesForm featuresData={this.featuresDataFromChild} passProps={this.props.location.props} passTouched={touched} passErrors={errors} />
                                 </Col>
                             </Row>
                             <Row className="mb-5">
                                 {this.state.imageIds.map((i) => (
                                     <div key={i} className="col-sm-6 col-md-4 col-lg-3">
                                         <ImageFromCloudinary publicId={i} />
-                                        <Button color="danger" value={i} onClick={this.deleteImage}>Delete Image</Button>
+                                        { this.state.imageIds.length > 1 &&
+                                            <Button color="danger" value={i} onClick={this.deleteImage}>Delete Image</Button>
+                                        }
                                     </div>
                                 ))}
                             </Row>
-                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passTouched={touched} passErrors={errors} />
+                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passProps={this.props.location.props} passTouched={touched} passErrors={errors} />
                             <Row>
                                 <Col>
                                     <FormGroup>
                                         <Label for="description">Description</Label>
-                                        <Input type="textarea" name="description" id="description" rows="10" onChange={this.handleStateValue} onBlur={handleBlur} />
+                                        <Input type="textarea" name="description" id="description" rows="10" value={this.state.description} onChange={this.handleStateValue} onBlur={handleBlur} />
                                         {touched.description && errors.description ? <div className="text-danger">{errors.description}</div> : null}
                                     </FormGroup>
                                 </Col>

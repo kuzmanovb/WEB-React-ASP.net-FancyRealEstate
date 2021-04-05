@@ -9,10 +9,20 @@ export const CloudinaryWidget = (props) => {
 
     useEffect(() => {
 
+        if (props.passProps !== undefined) {
+
+            setImageId(props.passProps?.imageIds)
+
+        }
+
+    }, [imageId.length !== 0]);
+
+    useEffect(() => {
+
         sendIdData();
 
     }, [imageId])
-   
+
     const sendIdData = () => {
 
         props.imagesIdData(imageId)
@@ -39,7 +49,7 @@ export const CloudinaryWidget = (props) => {
             <Col md={3}></Col>
             <Col md={6}>
                 <Button color="primary" size="lg" name="imageIds" onClick={showWidget} onBlur={props.passBlur}>Add Images</Button>
-                {props.passTouched.imageIds && props.passErrors.imageIds ? <div className="text-danger">{props.passErrors.imageIds}</div>: null}
+                {props.passTouched.imageIds && props.passErrors.imageIds ? <div className="text-danger">{props.passErrors.imageIds}</div> : null}
 
             </Col>
         </Row>

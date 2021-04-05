@@ -14,6 +14,12 @@ export const BuildingTypeForm = (props) => {
 
     }, []);
 
+    useEffect(() => {
+
+        setBuildingType(props.passProps?.buildingType)
+     
+    }, [props]);
+
     useEffect(() =>{
 
         sendData();
@@ -26,6 +32,16 @@ export const BuildingTypeForm = (props) => {
 
     }
 
+    const isChecked = (value) =>{
+
+        if (value === buildingType) {
+
+            return true
+        }
+
+        return false
+    }
+
 
     const handleBuildingType = (e) => {
 
@@ -34,14 +50,13 @@ export const BuildingTypeForm = (props) => {
     }
 
 
-
     return (
         <FormGroup tag="fieldset" onChange={handleBuildingType} onBlur={props.passBlur}>
             <legend className="col-form-label"><b>Buildin Type</b></legend>
             {buildingTypes.map(b =>
-                <FormGroup check inline key={b}>
+                <FormGroup check inline key={b} >
                     <Label for="buildingType">
-                        <Input type="radio" name="buildingType" id="buildingType" value={b} /> {b}
+                        <Input type="radio" name="buildingType" id="buildingType" value={b} defaultChecked={isChecked(b)} /> {b}
                     </Label>
                 </FormGroup>
             )}
