@@ -11,7 +11,7 @@
 
         ICollection<string> GetPromotionImagesUrAsync();
 
-        Task<bool> DeleteImageByIdAsync(int imageId);
+        Task<bool> DeleteImageByIdAsync(string imageId);
 
     }
 }
