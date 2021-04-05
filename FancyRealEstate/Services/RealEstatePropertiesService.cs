@@ -325,6 +325,14 @@
                 currentProperty.Renovated = input.Renovated;
             }
 
+            foreach (var cloudId in input.ImageIds)
+            {
+                if (!currentProperty.Images.Any(x => x.CloudId == cloudId))
+                {
+                    await this.imagesService.CreateImageAsync(cloudId, currentProperty.Id);
+                }
+            }
+
             this.db.RealEstateProperties.Update(currentProperty);
             await this.db.SaveChangesAsync();
         }
