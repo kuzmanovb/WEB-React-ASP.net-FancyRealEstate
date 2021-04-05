@@ -77,7 +77,7 @@ export class AddNewProperyForm extends Component {
     }
 
     imagesIdDateFromChild = (imageId) => {
-        this.setState((s) => ({ imageIds: [...s.imageIds, ...imageId] }));
+        this.setState((s) => ({ imageIds: imageId }));
     }
 
     handleStateValue = (e) => {
@@ -99,9 +99,6 @@ export class AddNewProperyForm extends Component {
 
         imageService.deleteImage(e.target.value)
         this.setState((prevState) =>({imageIds: prevState.imageIds.filter((feature) => feature !== e.target?.value)}));
-
-        console.log(this.imageIds)
-        
     }
 
     render() {
@@ -199,16 +196,13 @@ export class AddNewProperyForm extends Component {
                                     <FeaturesForm featuresData={this.featuresDataFromChild} passTouched={touched} passErrors={errors} />
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row className="mb-5">
                                 {this.state.imageIds.map((i) => (
                                     <div key={i} className="col-sm-6 col-md-4 col-lg-3">
                                         <ImageFromCloudinary publicId={i} />
                                         <Button color="danger" value={i} onClick={this.deleteImage}>Delete Image</Button>
                                     </div>
                                 ))}
-                            </Row>
-                            <Row>
-                                <div><h5></h5></div>
                             </Row>
                             <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passTouched={touched} passErrors={errors} />
                             <Row>
