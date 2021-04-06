@@ -3,12 +3,13 @@ import { url } from './apiServer'
 const propertyUrl = url + "realEstateProperties"
 const sortedPropertyUrl = url + "sortedRealEstateProperies"
 
-export const createProperty = (value) => {
+export const createProperty = (value, token) => {
     return fetch(propertyUrl, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(value)
     })
@@ -17,12 +18,13 @@ export const createProperty = (value) => {
         .catch(error => console.log(error))
 };
 
-export const updateProperty = (value) => {
+export const updateProperty = (value, token) => {
     return fetch(propertyUrl, {
         method: "PUT",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(value)
     })
@@ -31,6 +33,14 @@ export const updateProperty = (value) => {
         .catch(error => console.log(error))
 };
 
+export const deletedProperty= (id, token) =>{
+    return fetch(propertyUrl + `/${id}`,{
+        method: "DELETE",
+        headers: {'Authorization': `Bearer ${token}`}
+    })
+    .then(res => res.json())
+    .catch(error => console.log(error))
+};
 
 export const getByUserId = (userId, sortByDateAscending) => {
     return fetch(sortedPropertyUrl, {
@@ -43,12 +53,4 @@ export const getByUserId = (userId, sortByDateAscending) => {
     })
         .then(res => res.json())
         .catch(error => console.log(error))
-};
-
-export const deletedProperty= (id) =>{
-    return fetch(propertyUrl + `/${id}`,{
-        method: "DELETE"
-    })
-    .then(res => res.json())
-    .catch(error => console.log(error))
 };
