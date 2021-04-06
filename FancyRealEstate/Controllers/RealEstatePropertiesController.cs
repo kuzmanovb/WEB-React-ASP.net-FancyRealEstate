@@ -57,11 +57,11 @@
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] RealEstatePropertyInfoDto input)
+        public async Task<IActionResult> Update([FromBody] RealEstatePropertyInputDto input)
         {
             var currentProperty = this.realEstatePropertiesService.GetPropertiesWithPredicate(x => x.Id == input.Id);
 
-            if (currentProperty == null)
+            if (currentProperty.Count == 0)
             {
                 return this.NotFound();
             }

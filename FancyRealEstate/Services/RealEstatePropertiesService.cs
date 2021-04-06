@@ -226,7 +226,7 @@
             return allProperty;
         }
 
-        public async Task UpdatePropertyAsync(RealEstatePropertyInfoDto input)
+        public async Task UpdatePropertyAsync(RealEstatePropertyInputDto input)
         {
             var currentProperty = this.db.RealEstateProperties.FirstOrDefault(p => p.Id == input.Id);
 
@@ -300,39 +300,39 @@
                 currentProperty.IsPromotion = input.IsPromotion;
             }
 
-            if (currentProperty.Internet != input.Internet)
+            if (input.Features.Contains("internet"))
             {
-                currentProperty.Internet = input.Internet;
+                currentProperty.Internet = input.Features.Contains("internet");
             }
 
-            if (currentProperty.Heating != input.Heating)
+            if (input.Features.Contains("heating"))
             {
-                currentProperty.Heating = input.Heating;
+                currentProperty.Heating = input.Features.Contains("heating");
             }
 
-            if (currentProperty.SecuritySystem != input.SecuritySystem)
+            if (input.Features.Contains("securitySystem"))
             {
-                currentProperty.SecuritySystem = input.SecuritySystem;
+                currentProperty.SecuritySystem = input.Features.Contains("securitySystem");
             }
 
-            if (currentProperty.AirCondition != input.AirCondition)
+            if (input.Features.Contains("airCondition"))
             {
-                currentProperty.AirCondition = input.AirCondition;
+                currentProperty.AirCondition = input.Features.Contains("airCondition");
             }
 
-            if (currentProperty.Garage != input.Garage)
+            if (input.Features.Contains("garage"))
             {
-                currentProperty.Garage = input.Garage;
+                currentProperty.Garage = input.Features.Contains("garage");
             }
 
-            if (currentProperty.Elevator != input.Elevator)
+            if (input.Features.Contains("elevator"))
             {
-                currentProperty.Elevator = input.Elevator;
+                currentProperty.Elevator = input.Features.Contains("elevator");
             }
 
-            if (currentProperty.Renovated != input.Renovated)
+            if (input.Features.Contains("renovated"))
             {
-                currentProperty.Renovated = input.Renovated;
+                currentProperty.Renovated = input.Features.Contains("renovated");
             }
 
             foreach (var cloudId in input.ImageIds)

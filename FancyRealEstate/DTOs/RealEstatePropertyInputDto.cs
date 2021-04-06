@@ -4,6 +4,8 @@
 
     public class RealEstatePropertyInputDto
     {
+        public int Id { get; set; }
+
         public int Size { get; set; }
 
         public int? Floor { get; set; }

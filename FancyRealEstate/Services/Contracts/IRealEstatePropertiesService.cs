@@ -15,7 +15,7 @@
 
         ICollection<RealEstatePropertyInfoDto> GetSortedProperties(SortedRealestatePropertiesDto input);
 
-        Task UpdatePropertyAsync(RealEstatePropertyInfoDto input);
+        Task UpdatePropertyAsync(RealEstatePropertyInputDto input);
 
         Task<bool> SoftDeletePropertyAsync(int id);
 
