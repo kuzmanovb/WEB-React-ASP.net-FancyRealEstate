@@ -41,7 +41,7 @@ export const DashboardRow = (props) => {
                 <b>{props.data?.city}</b>
                 <h5><i>jk.{props.data.district} bl.{props.data.buildingNumber}</i></h5>
               </Media>
-              <p>{props.data?.price} lv.</p>
+              <p>price: {props.data?.price} lv.</p>
             </Media>
           </Media>
         </div>
