@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Media } from 'reactstrap';
 import './DashboardRow.css'
-import {cloudinaryUrl} from '../../../services/cloudinaryUrl'
+import { cloudinaryUrl } from '../../../services/cloudinaryUrl'
+import * as propertyService from '../../../services/propertyService'
 
 
 export const DashboardRow = (props) => {
@@ -10,9 +11,22 @@ export const DashboardRow = (props) => {
   useEffect(() => {
 
     setData(...Object.values(props))
-    console.log(data)
+    // console.log(data)
 
   }, [data])
+
+  const editAd = () => {
+    props.history.push({
+      pathname: "/add-property",
+      props: data
+    });
+
+    console.log(data)
+  }
+
+  const deleteAd = () => {
+    propertyService.deletedProperty(data.id);
+  };
 
   const imageUrl = cloudinaryUrl() + props.imageId
 
@@ -21,7 +35,7 @@ export const DashboardRow = (props) => {
       <div className="row">
         <div className="col-6">
           <Media className="mt-2">
-            <Media object src= {imageUrl} alt="Generic placeholder image" className="dashboard-image" />
+            <Media object src={imageUrl} alt="Generic placeholder image" className="dashboard-image" />
             <Media body className="pl-3">
               <Media heading className="pt-2">
                 <b>{data.city}</b>
@@ -38,8 +52,8 @@ export const DashboardRow = (props) => {
         </div>
         <div className="col-3 text-center">
           <div className="btn-group-vertical">
-            <button type="button" className="btn btn-success mt-3">Edit</button>
-            <button type="button" className="btn btn-danger mt-2">Delete</button>
+            <button type="button" className="btn btn-success mt-3" onClick={editAd}>Edit</button>
+            <button type="button" className="btn btn-danger mt-2" onClick={deleteAd}>Delete</button>
 
           </div>
         </div>

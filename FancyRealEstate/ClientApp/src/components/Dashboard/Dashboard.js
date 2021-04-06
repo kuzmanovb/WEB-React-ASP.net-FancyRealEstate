@@ -18,7 +18,8 @@ export const Dashboard = (props) => {
 
     useEffect(() => {
 
-        console.log(realEstateProperties)
+        propertyService.getByUserId({ "userId": "e104c908-7e48-474c-8acf-cdd5abe92eac" }).then(res => setrealEstateProperties(res))
+        
     }, [realEstateProperties])
 
     return (
@@ -51,7 +52,7 @@ export const Dashboard = (props) => {
 
                 {realEstateProperties.map((res) =>
 
-                    <DashboardRow key={res.id} data={res} imageId={res.imageIds[0]} />
+                    <DashboardRow key={res.id} data={res} imageId={res.imageIds[0]} history={props.history}/>
                 )}
 
             </div>
