@@ -40,7 +40,7 @@ export class AddNewProperyForm extends Component {
         super(props)
         this.state = {
             userId: "",
-            id: "",
+            id: "0",
             city: "",
             district: "",
             street: "",
@@ -80,6 +80,7 @@ export class AddNewProperyForm extends Component {
         }
 
         console.log(this.state)
+        console.log(this.props.location.state.token)
 
     }
 
@@ -142,12 +143,10 @@ export class AddNewProperyForm extends Component {
                         setSubmitting(true);
 
                         if (this.state.update) {
-                            propertyService.updateProperty(values );
-                            console.log(values)
+                            propertyService.updateProperty(values, this.props.location.state.token );
                         }
                         else {
-                            propertyService.createProperty(values );
-                            console.log(values)
+                            propertyService.createProperty(values, this.props.location.state.token);
                         }
 
                         setTimeout(() => { this.redirect() }, 1000);
