@@ -359,6 +359,11 @@
 
             if (currentProperty != null)
             {
+                foreach (var image in currentProperty.Images)
+                {
+                    await this.imagesService.DeleteImageByIdAsync(image.CloudId);
+                }
+
                 await this.addressesService.DeleteAddressAsync(currentProperty.AddressId);
                 this.db.RealEstateProperties.Remove(currentProperty);
                 await this.db.SaveChangesAsync();
