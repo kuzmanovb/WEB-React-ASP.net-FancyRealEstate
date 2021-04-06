@@ -23,6 +23,7 @@ export const CloudinaryWidget = (props) => {
 
     }, [imageId])
 
+
     const sendIdData = () => {
 
         props.imagesIdData(imageId)
@@ -37,7 +38,7 @@ export const CloudinaryWidget = (props) => {
             (error, result) => {
                 if (!error && result && result.event === "success") {
 
-                    setImageId([...imageId, result.info.public_id]);
+                    setImageId((previousImageId) => [...previousImageId, result.info.public_id]);
 
                 }
             });
