@@ -32,14 +32,14 @@ export const updateProperty = (value) => {
 };
 
 
-export const getByUserId = (userId) => {
+export const getByUserId = (userId, sortByDateAscending) => {
     return fetch(sortedPropertyUrl, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(userId)
+        body: JSON.stringify(userId, sortByDateAscending)
     })
         .then(res => res.json())
         .catch(error => console.log(error))

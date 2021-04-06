@@ -12,15 +12,16 @@ export const Dashboard = (props) => {
 
     useEffect(() => {
 
-        propertyService.getByUserId({ "userId": "e104c908-7e48-474c-8acf-cdd5abe92eac" }).then(res => setrealEstateProperties(res))
+        propertyService.getByUserId({ "userId": "e104c908-7e48-474c-8acf-cdd5abe92eac", "sortByDateAscending": true }).then(res => setrealEstateProperties(res))
 
     }, [])
 
-    useEffect(() => {
 
-        propertyService.getByUserId({ "userId": "e104c908-7e48-474c-8acf-cdd5abe92eac" }).then(res => setrealEstateProperties(res))
-        
-    }, [realEstateProperties])
+    const removeDeleteItem = (id) =>{
+
+        setrealEstateProperties(oldState => oldState.filter(r => r.id !== id))
+    };
+
 
     return (
         <div className="mt-5">
@@ -52,7 +53,7 @@ export const Dashboard = (props) => {
 
                 {realEstateProperties.map((res) =>
 
-                    <DashboardRow key={res.id} data={res} imageId={res.imageIds[0]} history={props.history}/>
+                    <DashboardRow key={res.id} data={res} history={props.history} checkDelete={removeDeleteItem}/>
                 )}
 
             </div>

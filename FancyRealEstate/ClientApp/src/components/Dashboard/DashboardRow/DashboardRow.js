@@ -6,29 +6,28 @@ import * as propertyService from '../../../services/propertyService'
 
 
 export const DashboardRow = (props) => {
-  const [data, setData] = useState([])
-
-  useEffect(() => {
-
-    setData(...Object.values(props))
-    // console.log(data)
-
-  }, [data])
 
   const editAd = () => {
     props.history.push({
       pathname: "/add-property",
-      props: data
+      props: props.data
     });
 
-    console.log(data)
+    console.log(props.data)
   }
 
   const deleteAd = () => {
-    propertyService.deletedProperty(data.id);
+    propertyService.deletedProperty(props.data?.id);
+    deleteHandle();
   };
 
-  const imageUrl = cloudinaryUrl() + props.imageId
+  const deleteHandle = () =>{
+
+    props.checkDelete(props.data.id);
+
+  }
+
+  const imageUrl = cloudinaryUrl() + props.data?.imageIds[0]
 
   return (
     <>
@@ -38,16 +37,16 @@ export const DashboardRow = (props) => {
             <Media object src={imageUrl} alt="Generic placeholder image" className="dashboard-image" />
             <Media body className="pl-3">
               <Media heading className="pt-2">
-                <b>{data.city}</b>
-                <h5><i>jk.{data.district} bl.{data.buildingNumber}</i></h5>
+                <b>{props.data?.city}</b>
+                <h5><i>jk.{props.data.district} bl.{props.data.buildingNumber}</i></h5>
               </Media>
-              <p>{data.price} lv.</p>
+              <p>{props.data?.price} lv.</p>
             </Media>
           </Media>
         </div>
         <div className="col-3 text-center mt-4">
-          <h5>{data.createdOn}</h5>
-          <h5><i>{data.dateAgo} Days ago</i></h5>
+          <h5>{props.data?.createdOn}</h5>
+          <h5><i>{props.data?.daysAgo} Days ago</i></h5>
 
         </div>
         <div className="col-3 text-center">
