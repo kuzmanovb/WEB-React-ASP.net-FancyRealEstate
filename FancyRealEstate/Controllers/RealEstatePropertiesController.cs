@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using FancyRealEstate.DTOs;
     using FancyRealEstate.Services.Contracts;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
@@ -43,6 +44,7 @@
             return this.Ok(currentProperty);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RealEstatePropertyInputDto input)
         {
@@ -56,6 +58,7 @@
             return this.BadRequest();
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] RealEstatePropertyInputDto input)
         {
@@ -71,6 +74,7 @@
             return this.Ok();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> SoftDelete(int id)
         {
