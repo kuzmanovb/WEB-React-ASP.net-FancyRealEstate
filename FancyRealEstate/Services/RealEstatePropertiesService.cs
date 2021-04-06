@@ -82,7 +82,6 @@
 
         public ICollection<RealEstatePropertyInfoDto> GetSortedProperties(SortedRealestatePropertiesDto input)
         {
-            // ToDo add image gallery
             var minPrice = input.MinPrice;
             var maxPrice = input.MaxPrice != 0 ? input.MaxPrice : int.MaxValue;
 
@@ -141,15 +140,17 @@
             }
 
             int skipProperty = 0;
+            int takeProperty = int.MaxValue;
 
-            if (input.Page > 1)
+            if (input.Page > 0)
             {
+                takeProperty = NumberPropertyToPage;
                 skipProperty = NumberPropertyToPage * (input.Page - 1);
             }
 
             var sortedRealEstateProperties = realEstateProperties
                 .Skip(skipProperty)
-                .Take(NumberPropertyToPage)
+                .Take(takeProperty)
                 .Select(p => new RealEstatePropertyInfoDto
                 {
                     Id = p.Id,
