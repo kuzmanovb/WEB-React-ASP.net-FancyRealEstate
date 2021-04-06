@@ -17,6 +17,20 @@ export const createProperty = (value) => {
         .catch(error => console.log(error))
 };
 
+export const updateProperty = (value) => {
+    return fetch(propertyUrl, {
+        method: "PUT",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(value)
+    })
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .catch(error => console.log(error))
+};
+
 
 export const getByUserId = (userId) => {
     return fetch(sortedPropertyUrl, {
@@ -29,4 +43,12 @@ export const getByUserId = (userId) => {
     })
         .then(res => res.json())
         .catch(error => console.log(error))
+};
+
+export const deletedProperty= (id) =>{
+    return fetch(propertyUrl + `/${id}`,{
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .catch(error => console.log(error))
 };
