@@ -168,7 +168,7 @@
                     Elevator = p.Elevator,
                     Renovated = p.Renovated,
                     CreatedOn = p.CreatedOn.ToString("dd-MM-yyyy"),
-                    DateAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
+                    DaysAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
                     ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
                 })
                 .ToList();
@@ -208,9 +208,10 @@
                     Elevator = p.Elevator,
                     Renovated = p.Renovated,
                     CreatedOn = p.CreatedOn.ToString("dd-MM-yyyy"),
-                    DateAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
+                    DaysAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
                     ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
                 })
+                .OrderBy(d => d.DaysAgo)
                 .ToList();
 
             return allProperty;

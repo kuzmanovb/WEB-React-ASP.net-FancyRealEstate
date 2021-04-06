@@ -37,7 +37,7 @@
 
         public string CreatedOn { get; set; }
 
-        public double DateAgo { get; set; }
+        public double DaysAgo { get; set; }
 
         public string SellerFullName { get; set; }
 
