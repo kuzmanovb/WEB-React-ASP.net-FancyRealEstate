@@ -22,6 +22,10 @@
 
         public double MaxPrice { get; set; }
 
+        public bool SortByDateDescending { get; set; }
+
+        public bool SortByDateAscending { get; set; }
+
         public bool SortByMinPrice { get; set; }
 
         public bool SortByMaxPrice { get; set; }

@@ -120,6 +120,16 @@
 
             realEstateProperties = realEstateProperties.OrderBy(x => x.Address.City.Name).ThenBy(y => y.Address.District.Name);
 
+            if (input.SortByDateDescending)
+            {
+                realEstateProperties = realEstateProperties.OrderBy(x => x.CreatedOn);
+            }
+
+            if (input.SortByDateAscending)
+            {
+                realEstateProperties = realEstateProperties.OrderByDescending(x => x.CreatedOn);
+            }
+
             if (input.SortByMinPrice)
             {
                 realEstateProperties = realEstateProperties.OrderBy(x => x.Price);
@@ -211,7 +221,6 @@
                     DaysAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
                     ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
                 })
-                .OrderBy(d => d.DaysAgo)
                 .ToList();
 
             return allProperty;
