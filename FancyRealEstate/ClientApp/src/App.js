@@ -26,9 +26,9 @@ export default class App extends Component {
                 <Route path='/headImageCarousel' component={HeadImageCarousel} />
                 <Route path='/privacy' component={Privacy} />
                 <Route path='/property-details' component={PropertyDetails} />
-                <Route path='/my-properties' component={Dashboard} />
-                <Route path='/dashboard' component={Dashboard} />
-                <Route path='/add-property' component={AddNewProperyForm} />
+                <AuthorizeRoute path='/my-properties' component={Dashboard} />
+                <AuthorizeRoute path='/dashboard' component={Dashboard} />
+                <AuthorizeRoute path='/add-property' component={AddNewProperyForm} />
                 <AuthorizeRoute path='/fetch-data' component={FetchData} />
                 <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
             </Layout>
