@@ -32,9 +32,6 @@ export const AddressRow = (props) => {
     useEffect(() => {
 
         sendData();
-        console.log("from Address")
-        console.log(city)
-        
 
     }, [city, district, street, number]);
 
