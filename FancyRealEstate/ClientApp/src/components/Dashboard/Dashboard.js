@@ -4,22 +4,53 @@ import { Button } from 'reactstrap'
 import './Dashboard.css';
 import { DashboardRow } from './DashboardRow/DashboardRow'
 import * as propertyService from '../../services/propertyService'
+// import authService from './api-authorization/AuthorizeService'
+import authService from '../api-authorization/AuthorizeService'
 
 
 export const Dashboard = (props) => {
 
-    const [realEstateProperties, setrealEstateProperties] = useState([]);
+    const [realEstateProperties, setRealEstateProperties] = useState([]);
+    const [user, setUser] = useState({});
+    const [token, setToken] = useState("");
+
+    // async populateWeatherData() {
+    //     const token = await authService.getAccessToken();
+    //     const user = await authService.getUser();
+    //     console.log(user.sub)
+    //     const response = await fetch('weatherforecast', {
+    //       headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+    //     });
+    //     const data = await response.json();
+    //     this.setState({ forecasts: data, loading: false });
+    //   }
+
+
 
     useEffect(() => {
 
-        propertyService.getByUserId({ "userId": "e104c908-7e48-474c-8acf-cdd5abe92eac", "sortByDateAscending": true }).then(res => setrealEstateProperties(res))
+        authService.getUser().then(res => setUser(res))
+        authService.getAccessToken().then(res => setToken(res))
+
+
+    }, [])
+
+    useEffect(() => {
+
+        propertyService.getByUserId({ "userId": user.sub, "sortByDateAscending": true }).then(res => setRealEstateProperties(res))
+
+    }, [user, token])
+
+    useEffect(() => {
+
+        propertyService.getByUserId({ "userId": user.sub, "sortByDateAscending": true }).then(res => setRealEstateProperties(res))
 
     }, [])
 
 
-    const removeDeleteItem = (id) =>{
+    const removeDeleteItem = (id) => {
 
-        setrealEstateProperties(oldState => oldState.filter(r => r.id !== id))
+        setRealEstateProperties(oldState => oldState.filter(r => r.id !== id))
     };
 
 
@@ -35,7 +66,9 @@ export const Dashboard = (props) => {
                     <div className="col-6">
                     </div>
                     <div className="col">
-                        <Link to="add-property"><Button outline color="primary" size="lg">Add Property</Button></Link>
+                        <Link to={{ pathname: "add-property", state:{"userId": user.sub, "token": token} }} >
+                            <Button outline color="primary" size="lg">Add Property</Button>
+                        </Link>
                     </div>
                 </div>
 
@@ -53,7 +86,7 @@ export const Dashboard = (props) => {
 
                 {realEstateProperties.map((res) =>
 
-                    <DashboardRow key={res.id} data={res} history={props.history} checkDelete={removeDeleteItem}/>
+                    <DashboardRow key={res.id} data={res} token={token} userId={user.sub} history={props.history} checkDelete={removeDeleteItem} />
                 )}
 
             </div>
@@ -62,5 +95,6 @@ export const Dashboard = (props) => {
 
     );
 }
+
 
 

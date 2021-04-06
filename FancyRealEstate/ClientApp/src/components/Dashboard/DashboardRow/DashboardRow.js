@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Media } from 'reactstrap';
 import './DashboardRow.css'
 import { cloudinaryUrl } from '../../../services/cloudinaryUrl'
@@ -10,18 +11,18 @@ export const DashboardRow = (props) => {
   const editAd = () => {
     props.history.push({
       pathname: "/add-property",
-      props: props.data
+      props: props.data,
+      userId: props.userId,
+      token: props.token,
     });
-
-    console.log(props.data)
   }
 
   const deleteAd = () => {
-    propertyService.deletedProperty(props.data?.id);
+    propertyService.deletedProperty(props.data?.id, props.token);
     deleteHandle();
   };
 
-  const deleteHandle = () =>{
+  const deleteHandle = () => {
 
     props.checkDelete(props.data.id);
 
@@ -51,7 +52,9 @@ export const DashboardRow = (props) => {
         </div>
         <div className="col-3 text-center">
           <div className="btn-group-vertical">
-            <button type="button" className="btn btn-success mt-3" onClick={editAd}>Edit</button>
+            <Link to={{ pathname: "add-property", state: { "data": props.data, "userId": props.userId, "token": props.token } }} >
+              <button type="button" className="btn btn-success mt-3" onClick={editAd}>Edit</button>
+            </Link>
             <button type="button" className="btn btn-danger mt-2" onClick={deleteAd}>Delete</button>
 
           </div>
