@@ -14,38 +14,23 @@ export const Dashboard = (props) => {
     const [user, setUser] = useState({});
     const [token, setToken] = useState("");
 
-    // async populateWeatherData() {
-    //     const token = await authService.getAccessToken();
-    //     const user = await authService.getUser();
-    //     console.log(user.sub)
-    //     const response = await fetch('weatherforecast', {
-    //       headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
-    //     });
-    //     const data = await response.json();
-    //     this.setState({ forecasts: data, loading: false });
-    //   }
-
-
-
     useEffect(() => {
 
         authService.getUser().then(res => setUser(res))
         authService.getAccessToken().then(res => setToken(res))
-
+        if (user.sub !== undefined) {
+            propertyService.getByUserId({ "userId": user.sub, "sortByDateAscending": true }).then(res => setRealEstateProperties(res))
+        }
 
     }, [])
 
     useEffect(() => {
 
-        propertyService.getByUserId({ "userId": user.sub, "sortByDateAscending": true }).then(res => setRealEstateProperties(res))
-
+        if (user.sub !== undefined) {
+            propertyService.getByUserId({ "userId": user.sub, "sortByDateAscending": true }).then(res => setRealEstateProperties(res))
+        }
+        console.log(user.sub)
     }, [user, token])
-
-    useEffect(() => {
-
-        propertyService.getByUserId({ "userId": user.sub, "sortByDateAscending": true }).then(res => setRealEstateProperties(res))
-
-    }, [])
 
 
     const removeDeleteItem = (id) => {
@@ -66,7 +51,7 @@ export const Dashboard = (props) => {
                     <div className="col-6">
                     </div>
                     <div className="col">
-                        <Link to={{ pathname: "add-property", state:{"userId": user.sub, "token": token} }} >
+                        <Link to={{ pathname: "add-property", state: { "userId": user.sub, "token": token } }} >
                             <Button outline color="primary" size="lg">Add Property</Button>
                         </Link>
                     </div>
@@ -91,8 +76,6 @@ export const Dashboard = (props) => {
 
             </div>
         </div>
-
-
     );
 }
 
