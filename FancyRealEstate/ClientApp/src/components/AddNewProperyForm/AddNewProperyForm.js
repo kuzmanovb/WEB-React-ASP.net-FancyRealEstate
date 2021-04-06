@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
     floor: Yup.string().min(1).required("Please input floor"),
     totalNumberOfFloor: Yup.string().min(1).required("Please input of total floors"),
     typeOfDeal: Yup.string().min(2).required("You have choose type of deal"),
-    price: Yup.string().min(2).required("Please input price"),
+    price: Yup.string().min(2).max(7).required("Please input price"),
     buildingType: Yup.string().min(2).required("You have choose building type"),
     description: Yup.string().min(10, "Description must have at least 10 characters")
         .max(1000, "Description can't be longer than 1000 characters")
@@ -39,6 +39,7 @@ export class AddNewProperyForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            userId: "",
             id: "",
             city: "",
             district: "",
@@ -59,20 +60,27 @@ export class AddNewProperyForm extends Component {
         }
     }
 
-
     componentDidUpdate() {
 
-        if (this.props.location.props !== undefined && !this.state.update) {
-            this.setState({ id: this.props.location.props.id });
-            this.setState({ year: this.props.location.props.year });
-            this.setState({ size: this.props.location.props.size });
-            this.setState({ floor: this.props.location.props.floor });
-            this.setState({ totalNumberOfFloor: this.props.location.props.totalNumberOfFloor });
-            this.setState({ typeOfDeal: this.props.location.props.typeOfDeal });
-            this.setState({ price: this.props.location.props.price });
-            this.setState({ description: this.props.location.props.description });
+        if (this.props.location.state.data !== undefined && !this.state.update) {
+            this.setState((s) => ({ id: s.id + this.props.location.state.data.id}));
+            this.setState((s) => ({ year: s.year + this.props.location.state.data.year }));
+            this.setState((s) => ({ size: s.size + this.props.location.state.data.size }));
+            this.setState((s) => ({ floor: s.floor + this.props.location.state.data.floor }));
+            this.setState((s) => ({ totalNumberOfFloor: s.totalNumberOfFloor + this.props.location.state.data.totalNumberOfFloor }));
+            this.setState((s) => ({ typeOfDeal: s.typeOfDeal + this.props.location.state.data.typeOfDeal }));
+            this.setState((s) => ({ price: s.price + this.props.location.state.data.price }));
+            this.setState((s) => ({ description: s.v + this.props.location.state.data.description }));
             this.setState({ update: true });
         }
+
+        if (this.state.userId === "") {
+
+            this.setState({ userId: this.props.location.state.userId })
+        }
+
+        console.log(this.state)
+
     }
 
 
@@ -132,15 +140,17 @@ export class AddNewProperyForm extends Component {
                     onSubmit={(values, { setSubmitting, resetForm }) => {
 
                         setSubmitting(true);
-                        
+
                         if (this.state.update) {
-                            propertyService.updateProperty(values, null, 2)
+                            propertyService.updateProperty(values );
+                            console.log(values)
                         }
                         else {
-                            propertyService.createProperty(values, null, 2);
+                            propertyService.createProperty(values );
+                            console.log(values)
                         }
 
-                        setTimeout(() => { this.redirect() }, 500);
+                        setTimeout(() => { this.redirect() }, 1000);
                     }}
                 >
                     {({ values,
@@ -151,10 +161,10 @@ export class AddNewProperyForm extends Component {
                         handleSubmit,
                         isSubmitting }) => (
                         <Form className="mt-5" onSubmit={handleSubmit}>
-                            <AddressRow addressData={this.addressDataFronChild} passProps={this.props.location.props} passBlur={handleBlur} passTouched={touched} passErrors={errors} />
+                            <AddressRow addressData={this.addressDataFronChild} passProps={this.props.location?.state.data} passBlur={handleBlur} passTouched={touched} passErrors={errors} />
                             <Row form>
                                 <Col md={4}>
-                                    <PropertyTypeForm propertyTypeData={this.propertyTypeDateFromChild} passProps={this.props.location.props} passTouched={touched} passErrors={errors} />
+                                    <PropertyTypeForm propertyTypeData={this.propertyTypeDateFromChild} passProps={this.props.location.state.data} passTouched={touched} passErrors={errors} />
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
@@ -209,10 +219,10 @@ export class AddNewProperyForm extends Component {
                             </Row>
                             <Row form className="row justify-content-around">
                                 <Col md={2}>
-                                    <BuildingTypeForm buildingTypeData={this.buildingTypeDataFromChild} passProps={this.props.location.props} passTouched={touched} passErrors={errors} />
+                                    <BuildingTypeForm buildingTypeData={this.buildingTypeDataFromChild} passProps={this.props.location.state.data} passTouched={touched} passErrors={errors} />
                                 </Col>
                                 <Col md={4}>
-                                    <FeaturesForm featuresData={this.featuresDataFromChild} passProps={this.props.location.props} passTouched={touched} passErrors={errors} />
+                                    <FeaturesForm featuresData={this.featuresDataFromChild} passProps={this.props.location.state.data} passTouched={touched} passErrors={errors} />
                                 </Col>
                             </Row>
                             <Row className="mb-5">
@@ -225,7 +235,7 @@ export class AddNewProperyForm extends Component {
                                     </div>
                                 ))}
                             </Row>
-                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passProps={this.props.location.props} passTouched={touched} passErrors={errors} />
+                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passProps={this.props.location.state.data} passTouched={touched} passErrors={errors} />
                             <Row>
                                 <Col>
                                     <FormGroup>
@@ -235,7 +245,7 @@ export class AddNewProperyForm extends Component {
                                     </FormGroup>
                                 </Col>
                             </Row>
-                            <Button type="submit" color="primary" size="lg" disabled={isSubmitting} >Add Property</Button>
+                            <Button type="submit" color="primary" size="lg" disabled={isSubmitting} >{this.state.update ? "Edit Property" : "Add Property"}</Button>
                         </Form>
                     )}
                 </Formik>
