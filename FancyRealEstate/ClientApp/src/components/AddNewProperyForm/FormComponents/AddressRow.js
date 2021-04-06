@@ -27,11 +27,13 @@ export const AddressRow = (props) => {
         setDistrict(props.passProps?.district)
         setStreet(props.passProps?.street)
         setNumber(props.passProps?.buildingNumber)
-    }, [props]);
+    }, [props.passProps]);
 
     useEffect(() => {
 
         sendData();
+        console.log("from Address")
+        console.log(city)
         
 
     }, [city, district, street, number]);

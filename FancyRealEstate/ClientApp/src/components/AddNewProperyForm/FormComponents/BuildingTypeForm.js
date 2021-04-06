@@ -18,7 +18,7 @@ export const BuildingTypeForm = (props) => {
 
         setBuildingType(props.passProps?.buildingType)
      
-    }, [props]);
+    }, [props.passProps]);
 
     useEffect(() =>{
 

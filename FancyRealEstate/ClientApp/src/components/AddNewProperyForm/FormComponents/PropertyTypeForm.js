@@ -18,7 +18,7 @@ export const PropertyTypeForm = (props) => {
 
         setPropertyType(props.passProps?.propertyType)
      
-    }, [props]);
+    }, [props.passProps]);
 
 
     useEffect(() =>{
