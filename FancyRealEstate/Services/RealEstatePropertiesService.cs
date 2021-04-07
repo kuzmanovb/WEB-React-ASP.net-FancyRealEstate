@@ -97,14 +97,14 @@
                 realEstateProperties = realEstateProperties.Where(x => x.Address.City.Name == input.City);
             }
 
-            if (!string.IsNullOrEmpty(input.Destrict))
+            if (!string.IsNullOrEmpty(input.District))
             {
-                realEstateProperties = realEstateProperties.Where(x => x.Address.District.Name == input.Destrict);
+                realEstateProperties = realEstateProperties.Where(x => x.Address.District.Name == input.District);
             }
 
-            if (!string.IsNullOrEmpty(input.BuildingType))
+            if (!string.IsNullOrEmpty(input.PropertyType))
             {
-                realEstateProperties = realEstateProperties.Where(x => x.BuildingType.Name == input.BuildingType);
+                realEstateProperties = realEstateProperties.Where(x => x.BuildingType.Name == input.PropertyType);
             }
 
             if (!string.IsNullOrEmpty(input.Deal))
@@ -119,24 +119,28 @@
 
             realEstateProperties = realEstateProperties.OrderBy(x => x.Address.City.Name).ThenBy(y => y.Address.District.Name);
 
-            if (input.SortByDateDescending)
+            if (!string.IsNullOrEmpty(input.SortByDate))
             {
-                realEstateProperties = realEstateProperties.OrderBy(x => x.CreatedOn);
+                if (input.SortByDate == "ascending")
+                {
+                    realEstateProperties = realEstateProperties.OrderBy(x => x.CreatedOn);
+                }
+                else if (input.SortByDate == "descending")
+                {
+                    realEstateProperties = realEstateProperties.OrderByDescending(x => x.CreatedOn);
+                }
             }
 
-            if (input.SortByDateAscending)
+            if (!string.IsNullOrEmpty(input.SortByPrice))
             {
-                realEstateProperties = realEstateProperties.OrderByDescending(x => x.CreatedOn);
-            }
-
-            if (input.SortByMinPrice)
-            {
-                realEstateProperties = realEstateProperties.OrderBy(x => x.Price);
-            }
-
-            if (input.SortByMaxPrice)
-            {
-                realEstateProperties = realEstateProperties.OrderByDescending(x => x.Price);
+                if (input.SortByPrice == "ascending")
+                {
+                    realEstateProperties = realEstateProperties.OrderBy(x => x.Price);
+                }
+                else if (input.SortByPrice == "descending")
+                {
+                    realEstateProperties = realEstateProperties.OrderByDescending(x => x.Price);
+                }
             }
 
             int skipProperty = 0;

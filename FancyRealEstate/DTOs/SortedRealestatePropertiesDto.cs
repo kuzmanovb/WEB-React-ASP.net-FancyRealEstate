@@ -14,21 +14,17 @@
 
         public string City { get; set; }
 
-        public string Destrict { get; set; }
+        public string District { get; set; }
 
-        public string BuildingType { get; set; }
+        public string PropertyType { get; set; }
 
         public double MinPrice { get; set; }
 
         public double MaxPrice { get; set; }
 
-        public bool SortByDateDescending { get; set; }
+        public string SortByDate { get; set; }
 
-        public bool SortByDateAscending { get; set; }
-
-        public bool SortByMinPrice { get; set; }
-
-        public bool SortByMaxPrice { get; set; }
+        public string SortByPrice { get; set; }
 
     }
 }
