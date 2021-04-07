@@ -6,12 +6,13 @@ export const PropertyGallery = (props) => {
     const [currentImage, setCurrentImage] = useState(0);
     const [isViewerOpen, setIsViewerOpen] = useState(false);
 
-    const imagesUrl = props.images.map((i) => (i.image));
+    const imagesUrl = props.images.map((i) => (`https://res.cloudinary.com/kuzmanovb/image/upload/${i}`));
 
 
     const openImageViewer = useCallback((index) => {
         setCurrentImage(index);
         setIsViewerOpen(true);
+        console.log(props[0])
     }, []);
 
     const closeImageViewer = () => {
@@ -25,10 +26,10 @@ export const PropertyGallery = (props) => {
                 <h2 className="h4 text-black mb-3">Gallery</h2>
             </div>
             {props.images.map((i) => (
-                <div key={i.id} className="col-sm-6 col-md-4 col-lg-3">
+                <div key={i} className="col-sm-6 col-md-4 col-lg-3">
                     <img
-                        src={i.image}
-                        onClick={() => openImageViewer(i.id)}
+                        src={`https://res.cloudinary.com/kuzmanovb/image/upload/${i}`}
+                        // onClick={() => openImageViewer(i)}
                         style={{ margin: '15px' }}
                         className="img-fluid"
                         alt="" />
