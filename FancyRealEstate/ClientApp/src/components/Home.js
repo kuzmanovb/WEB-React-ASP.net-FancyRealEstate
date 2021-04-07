@@ -8,20 +8,21 @@ import { Footer } from './Footer/Footer.js'
 
 export const Home = () => {
     // cost displayName = Home.name;
+    const [page, setPage] = useState("")
     const [city, setCity] = useState("")
     const [district, setDistrict] = useState("")
     const [propertyType, setPropertyType] = useState("")
     const [deal, setDeal] = useState("")
-    const [sort, setSort] = useState("")
+    const [price, setPrice] = useState("")
+    const [date, setDate] = useState("")
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
+
 
     useEffect(() => {
-        console.log(city)
-        console.log(district)
-        console.log(propertyType)
-        console.log(deal)
-        console.log(sort)
+       
 
-    }, [city, district, propertyType,deal, sort ])
+    }, [city, district, propertyType, deal, date, price, minPrice, maxPrice])
 
     const dataFromSearch = (sityName, districtName, type) => {
         setCity(sityName)
@@ -29,16 +30,22 @@ export const Home = () => {
         setPropertyType(type)
     }
 
-    const dataFromSort = (dealType, sortType) => {
+    const dataFromSort = (dealType, pricePrice, dateSort, minPriceValue, maxPriceValue) => {
         setDeal(dealType)
-        setSort(sortType)
+        setPrice(pricePrice)
+        setDate(dateSort)
+        setMinPrice(minPriceValue)
+        setMaxPrice(maxPriceValue)
     }
+
+    const parametersForRequest = {"page": page, "city": city, "district": district, "propertyType": propertyType,
+                                  "priceByPrice": price, "priceByDate": date ,"deal": deal, "minPrice": minPrice, "maxPrice" : maxPrice }
 
     return (
         <div>
             <HeadImageCarousel />
             <Search getData={dataFromSearch} />
-            <Sort  getData={dataFromSort}/>
+            <Sort getData={dataFromSort} />
             <Gallery />
             <Footer />
 
