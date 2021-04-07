@@ -78,10 +78,6 @@ export class AddNewProperyForm extends Component {
 
             this.setState({ userId: this.props.location.state.userId })
         }
-
-        console.log(this.state)
-        console.log(this.props.location.state.token)
-
     }
 
 

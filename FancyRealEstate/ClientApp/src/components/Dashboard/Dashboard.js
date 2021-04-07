@@ -4,7 +4,6 @@ import { Button } from 'reactstrap'
 import './Dashboard.css';
 import { DashboardRow } from './DashboardRow/DashboardRow'
 import * as propertyService from '../../services/propertyService'
-// import authService from './api-authorization/AuthorizeService'
 import authService from '../api-authorization/AuthorizeService'
 
 
@@ -29,8 +28,8 @@ export const Dashboard = (props) => {
         if (user.sub !== undefined) {
             propertyService.getByUserId({ "userId": user.sub, "sortByDateAscending": true }).then(res => setRealEstateProperties(res))
         }
-        console.log(user.sub)
-    }, [user, token])
+
+    }, [user, token ])
 
 
     const removeDeleteItem = (id) => {
