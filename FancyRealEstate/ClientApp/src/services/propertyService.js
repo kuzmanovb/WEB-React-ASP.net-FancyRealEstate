@@ -54,3 +54,16 @@ export const getByUserId = (userId, sortByDateAscending) => {
         .then(res => res.json())
         .catch(error => console.log(error))
 };
+
+export const getAll = (values) => {
+    return fetch(sortedPropertyUrl, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+    })
+        .then(res => res.json())
+        .catch(error => console.log(error))
+};
