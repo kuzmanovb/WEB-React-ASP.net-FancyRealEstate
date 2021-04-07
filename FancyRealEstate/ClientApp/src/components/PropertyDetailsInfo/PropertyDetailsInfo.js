@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Carousel } from 'react-bootstrap';
 import './PropertyDetailsInfo.css'
 import { PropertyGallery } from '../PropertyGallery/PropertyGallery'
@@ -38,7 +38,51 @@ const images = [{
     image: "img_8.jpg"
 }];
 
-export const PropertyDetailsInfo = () => {
+export const PropertyDetailsInfo = (props) => {
+
+    const [data, setData] = useState([])
+    const [feature, setFeature] = useState([])
+
+    useEffect(() => {
+
+        setData(props.data.location.state.data)
+
+    }, [props])
+
+    useEffect(() => {
+
+        addFeature()
+        console.log(data.imageIds)
+
+    }, [data])
+
+    const addFeature = () => {
+
+        console.log(data)
+        if (data.renovated) {
+            setFeature(pre => [...pre, "Renovated"])
+        }
+        if (data.garage) {
+            setFeature(pre => [...pre, "Garage"])
+        }
+        if (data.elevator) {
+            setFeature(pre => [...pre, "Elevator"])
+        }
+        if (data.securitySystem) {
+            setFeature(pre => [...pre, "Security System"])
+        }
+        if (data.airCondition) {
+            setFeature(pre => [...pre, "Air Condition"])
+        }
+        if (data.heating) {
+            setFeature(pre => [...pre, "Heating"])
+        }
+        if (data.internet) {
+            setFeature(pre => [...pre, "Internet"])
+        }
+
+    };
+
     return (
         <div >
             <div className="container mt-5">
@@ -46,11 +90,11 @@ export const PropertyDetailsInfo = () => {
                     <div className="col-lg-12">
                         <div>
                             <Carousel fade>
-                                {images.map((i) => (
-                                    <Carousel.Item interval={1000} key={i.id}>
+                                {data?.imageIds?.map((i) => (
+                                    <Carousel.Item interval={1000} key={i}>
                                         <img
                                             className="d-block w-100"
-                                            src={i.image}
+                                            src={`https://res.cloudinary.com/kuzmanovb/image/upload/${i}`}
                                             alt="First slide"
                                         />
                                     </Carousel.Item>
@@ -58,50 +102,85 @@ export const PropertyDetailsInfo = () => {
                             </Carousel>
                         </div>
                         <div className="bg-white property-body border-bottom border-left border-right">
-                            <div className="row mb-5">
-                                <div className="col-md-6">
-                                    <strong className="text-success h1 mb-3">$1,000,500</strong>
+                            <div className="row">
+                                <div className="col-md-4">
+                                    <strong className="text-success h1 mb-3">{data?.price}&euro;</strong>
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-md-8 text-center">
                                     <ul className="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
-                                        <li>
-                                            <span className="property-specs">Beds</span>
-                                            <span className="property-specs-number">2 <sup>+</sup></span>
+                                        <li className="ml-3">
+                                            <span className="property-specs">Year</span>
+                                            <span className="property-specs-number">{data?.year}</span>
 
                                         </li>
-                                        <li>
-                                            <span className="property-specs">Baths</span>
-                                            <span className="property-specs-number">2</span>
-
+                                        <li className="ml-3">
+                                            <span className="property-specs">Property Type</span>
+                                            <span className="property-specs-number">{data?.propertyType}</span>
                                         </li>
-                                        <li>
-                                            <span className="property-specs">SQ FT</span>
-                                            <span className="property-specs-number">7,000</span>
-
+                                        <li className="ml-3">
+                                            <span className="property-specs">Building Type</span>
+                                            <span className="property-specs-number">{data?.buildingType}</span>
+                                        </li>
+                                        <li className="ml-3">
+                                            <span className="property-specs">Size</span>
+                                            <span className="property-specs-number">{data?.size} m<sup>2</sup></span>
+                                        </li>
+                                        <li className="ml-3">
+                                            <span className="property-specs">Floor</span>
+                                            <span className="property-specs-number">{data?.floor}</span>
+                                        </li>
+                                        <li className="ml-3">
+                                            <span className="property-specs">Total Floor</span>
+                                            <span className="property-specs-number">{data?.totalNumberOfFloor}</span>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
+                            <div className="row mb-3">
+                                <div className="col-md-4" />
+                                <div className="property-specs pr-3">Features</div>
+                                <div className="property-specs-number">{feature.join(", ")}</div>
+
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6 col-lg-3 text-center border-bottom border-top py-3">
+                                    <span className="d-inline-block text-black mb-0 caption-text">City</span>
+                                    <strong className="d-block">{data?.city}</strong>
+                                </div>
+                                <div className="col-md-6 col-lg-3 text-center border-bottom border-top py-3">
+                                    <span className="d-inline-block text-black mb-0 caption-text">District</span>
+                                    <strong className="d-block">{data?.district}</strong>
+                                </div>
+                                <div className="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
+                                    <span className="d-inline-block text-black mb-0 caption-text">Address</span>
+                                    <strong className="d-block">{data?.street} №{data?.buildingNumber}</strong>
+                                </div>
+                                <div className="col-md-6 col-lg-2 text-center border-bottom border-top py-3">
+                                    <span className="d-inline-block text-black mb-0 caption-text">Building type</span>
+                                    <strong className="d-block">{data?.buildingType}</strong>
+                                </div>
+                            </div>
                             <div className="row mb-5">
-                                <div className="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
-                                    <span className="d-inline-block text-black mb-0 caption-text">Home Type</span>
-                                    <strong className="d-block">Condo</strong>
+                                <div className="col-md-6 col-lg-3 text-center border-bottom py-3">
+                                    <span className="d-inline-block text-black mb-0 caption-text">Seller</span>
+                                    <strong className="d-block">{data?.sellerFullName}</strong>
                                 </div>
-                                <div className="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
-                                    <span className="d-inline-block text-black mb-0 caption-text">Year Built</span>
-                                    <strong className="d-block">2018</strong>
+                                <div className="col-md-6 col-lg-3 text-center border-bottom py-3">
+                                    <span className="d-inline-block text-black mb-0 caption-text">Phone</span>
+                                    <strong className="d-block">{data?.sellerPhoneNumber}</strong>
                                 </div>
-                                <div className="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
-                                    <span className="d-inline-block text-black mb-0 caption-text">Price/Sqft</span>
-                                    <strong className="d-block">$520</strong>
+                                <div className="col-md-6 col-lg-3 text-center border-bottom py-3">
+                                    <span className="d-inline-block text-black mb-0 caption-text">Email</span>
+                                    <strong className="d-block">{data?.sellerEmail}</strong>
+                                </div>
+                                <div className="col-md-6 col-lg-3 text-center border-bottom py-3">
+                                    <span className="d-inline-block text-black mb-0 caption-text">Published before</span>
+                                    <strong className="d-block">{data?.daysAgo} day/s</strong>
                                 </div>
                             </div>
                             <h2 className="h4 text-black">More Info</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda aperiam perferendis deleniti vitae asperiores accusamus tempora facilis sapiente, quas! Quos asperiores alias fugiat sunt tempora molestias quo deserunt similique sequi.</p>
-                            <p>Nisi voluptatum error ipsum repudiandae, autem deleniti, velit dolorem enim quaerat rerum incidunt sed, qui ducimus! Tempora architecto non, eligendi vitae dolorem laudantium dolore blanditiis assumenda in eos hic unde.</p>
-                            <p>Voluptatum debitis cupiditate vero tempora error fugit aspernatur sint veniam laboriosam eaque eum, et hic odio quibusdam molestias corporis dicta! Beatae id magni, laudantium nulla iure ea sunt aliquam. A.</p>
-
-                                <PropertyGallery images={images} />
+                            <p>{data?.description}</p>
+                            {data?.imageIds !== undefined && <PropertyGallery images={data.imageIds} />}
                         </div>
                     </div>
                     <div className="col-lg-4"></div>
