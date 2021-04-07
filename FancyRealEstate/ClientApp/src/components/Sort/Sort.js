@@ -6,8 +6,8 @@ export const Sort = (props) => {
     const [deal, setDeal] = useState("")
     const [sortPrice, setSortPrice] = useState("")
     const [date, setDate] = useState("")
-    const [minPrice, setMinPrice] = useState("")
-    const [maxPrice, setMaxPrice] = useState("")
+    const [minPrice, setMinPrice] = useState("0")
+    const [maxPrice, setMaxPrice] = useState("0")
 
     useEffect(() => {
 
@@ -46,14 +46,14 @@ export const Sort = (props) => {
                 <div className="py-3 px-3 d-md-flex align-items-center">
                     <div>
                         <button className="btn btn-outline-success px-3" name="deal" value="" onClick={getDeal} >All</button>
-                        <button className="btn btn-outline-success px-3" name="deal" value="rent" onClick={getDeal}>Rent</button>
-                        <button className="btn btn-outline-success px-3" name="deal" value="sele" onClick={getDeal}>Sale</button>
+                        <button className="btn btn-outline-success px-3" name="deal" value="Rent" onClick={getDeal}>Rent</button>
+                        <button className="btn btn-outline-success px-3" name="deal" value="Sale" onClick={getDeal}>Sale</button>
                     </div>
                     <div className="select-wrap col-2">
-                        <input type="number" className="form-control" name="minPrice" placeholder="Min Price" onClick={getMinPrice} onBlur={getMinPrice} />
+                        <input type="number" className="form-control"  name="minPrice" placeholder="Min Price"  onBlur={getMinPrice} />
                     </div>
                     <div className="select-wrap col-2">
-                        <input type="number" className="form-control" name="maxPrice" placeholder="Max Price" onClick={getMaxPrice} onBlur={getMaxPrice} />
+                        <input type="number" className="form-control"  name="maxPrice" placeholder="Max Price"  onBlur={getMaxPrice} />
                     </div>
                     <div className="select-wrap ml-3">
                         <select className="form-control-sort form-control-sort-sm d-block rounded-0" name="price" onClick={getPrice}>
