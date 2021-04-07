@@ -18,9 +18,9 @@
 
         public string PropertyType { get; set; }
 
-        public double MinPrice { get; set; }
+        public int MinPrice { get; set; }
 
-        public double MaxPrice { get; set; }
+        public int MaxPrice { get; set; }
 
         public string SortByDate { get; set; }
 
