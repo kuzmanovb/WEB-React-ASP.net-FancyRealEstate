@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import './ImageFrame.css'
-import { ImageFromCloudinary } from '../../Cloudinary/ImageFromCloudinary'
+import {cloudinaryUrl} from '../../../services/cloudinaryUrl'
 
 export const ImageFrame = (props) => {
 
@@ -17,7 +17,7 @@ export const ImageFrame = (props) => {
                         {props.data?.typeOfDeal === "Sale" && <span className="offer-type bg-danger">Sale</span>}
                         {props.data?.typeOfDeal === "Rent" && <span className="offer-type bg-success">Rent</span>}
                     </div>
-                    <ImageFromCloudinary publicId={props.data?.imageIds[0]} />
+                    <img src={cloudinaryUrl() + props.data?.imageIds[0]} className="img-fluid" alt="" />
                 </Link>
 
                 <div className="p-4 property-body">
