@@ -1,8 +1,18 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React from 'react'
-import {ImageFrame} from '../Gallery/ImageFrame/ImageFrame'
+import React, { useState, useEffect } from 'react'
+import { ImageFrame } from '../Gallery/ImageFrame/ImageFrame'
+import * as propertyService from '../../services/propertyService'
 
-export const RelatedProperties = () => {
+export const RelatedProperties = (props) => {
+
+    const [properties, setProperties] = useState([])
+
+    useEffect(() => {
+
+        propertyService.getAll({ "deal": props.data }).then(res => setProperties(res.splice(0, 3)))
+        
+    }, [properties.length < 1])
+
     return (
         <div className="bg-light mt-5">
             <div className="container">
@@ -16,10 +26,12 @@ export const RelatedProperties = () => {
                 </div>
 
                 <div className="row mb-5">
-                    <ImageFrame />
-                    <ImageFrame />
-                    <ImageFrame />
 
+                    {properties?.map((p) =>
+
+                        <ImageFrame key={p.id} data={p}/>
+
+                    )}
                 </div>
 
 
