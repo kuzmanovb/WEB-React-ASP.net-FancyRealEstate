@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useEffect, useState } from 'react'
-import { Carousel } from 'react-bootstrap';
 import './PropertyDetailsInfo.css'
 import { PropertyGallery } from '../PropertyGallery/PropertyGallery'
-import {cloudinaryUrl} from '../../services/cloudinaryUrl'
 
 
 export const PropertyDetailsInfo = (props) => {
@@ -20,13 +18,11 @@ export const PropertyDetailsInfo = (props) => {
     useEffect(() => {
 
         addFeature()
-        console.log(data.imageIds)
 
     }, [data])
 
     const addFeature = () => {
 
-        console.log(data)
         if (data.renovated) {
             setFeature(pre => [...pre, "Renovated"])
         }

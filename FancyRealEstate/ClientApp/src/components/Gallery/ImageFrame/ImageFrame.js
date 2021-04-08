@@ -7,11 +7,6 @@ import { ImageFromCloudinary } from '../../Cloudinary/ImageFromCloudinary'
 
 export const ImageFrame = (props) => {
 
-    useEffect(() => {
-        console.log(props)
-
-    },[props])
-
     return (
 
         <div className="col-md-6 col-lg-4 mb-4">

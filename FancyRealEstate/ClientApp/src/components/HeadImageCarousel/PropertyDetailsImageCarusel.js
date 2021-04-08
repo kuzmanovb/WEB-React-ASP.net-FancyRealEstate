@@ -9,10 +9,6 @@ export const PropertyDetailsImageCarusel = (props) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [animating, setAnimating] = useState(false);
 
-    useEffect(() => {
-      console.log(props)
-    }, [])
-
     const next = () => {
         if (animating) return;
         const nextIndex = activeIndex === props?.image?.length - 1 ? 0 : activeIndex + 1;
