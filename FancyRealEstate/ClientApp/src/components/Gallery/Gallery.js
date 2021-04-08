@@ -7,7 +7,6 @@ export const Gallery = (props) => {
     const getNumberPage = (number) => {
         props.getData(number)
     };
-   
 
     return (
         <div className="bg-light pt-4 pb-4 mb-5">
@@ -20,7 +19,7 @@ export const Gallery = (props) => {
                     )}
                 </div>
             </div>
-            <Pagination data={props.allProperties} getNumber={getNumberPage} />
+            <Pagination data={props?.allProperties[0]} getNumber={getNumberPage} />
         </div>
 
     );

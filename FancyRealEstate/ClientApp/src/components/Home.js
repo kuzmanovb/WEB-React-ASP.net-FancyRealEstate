@@ -24,7 +24,6 @@ export const Home = () => {
     useEffect(() => {
 
         propertyService.getAll(parametersForRequest).then(res => setProperties(res))
-        console.log(page)
 
     }, [page, city, district, propertyType, deal, date, price, minPrice, maxPrice])
 

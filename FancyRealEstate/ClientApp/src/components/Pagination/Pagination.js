@@ -8,7 +8,7 @@ export const Pagination = (props) => {
 
     useEffect(() => {
 
-        setPages(Math.ceil(props.data.length / 9))
+        setPages(Math.ceil(props?.data?.propertiesCount / 9))
 
     }, [props])
 
