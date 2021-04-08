@@ -1,7 +1,8 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption } from 'reactstrap';
 import { CaptionHeadImage } from './CaptionHeadImage/CaptionHeadImage.js';
 import './HeadImageCarousel.css'
+import { cloudinaryUrl } from '../../services/cloudinaryUrl'
 
 
 export const HeadImageCarousel = (props) => {
@@ -11,13 +12,13 @@ export const HeadImageCarousel = (props) => {
 
     const next = () => {
         if (animating) return;
-        const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+        const nextIndex = activeIndex === props?.data?.length - 1 ? 0 : activeIndex + 1;
         setActiveIndex(nextIndex);
     }
 
     const previous = () => {
         if (animating) return;
-        const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+        const nextIndex = activeIndex === 0 ? props?.data?.length - 1 : activeIndex - 1;
         setActiveIndex(nextIndex);
     }
 
@@ -26,57 +27,40 @@ export const HeadImageCarousel = (props) => {
         setActiveIndex(newIndex);
     }
 
-    const items = [
-        {
-            id: 1,
-            src: 'hero_bg_1.jpg',
-            altText: 'Slide 1',
-            caption: 'Slide 1'
-        },
-        {
-            id: 2,
-            src: 'hero_bg_2.jpg',
-            altText: 'Slide 2',
-            caption: 'Slide 2'
-        },
-        {
-            id: 3,
-            src: 'hero_bg_3.jpg',
-            altText: 'Slide 3',
-            caption: 'Slide 3'
-        }
-    ];
 
-    const slides = items.map((item) => {
+
+    const slides = props?.data?.map((item) => {
         return (
 
             <CarouselItem
-                key={item.id}
+                key={item.imageIds}
                 onExiting={() => setAnimating(true)}
                 onExited={() => setAnimating(false)}
             >
                 <img
                     className="d-block w-100 image-size"
-                    src={item.src}
-                    alt={item.altText}
+                    src={cloudinaryUrl() + item.imageIds[0]}
+                    alt="Real Estate Property"
                 />
 
-                <CarouselCaption captionText={""} captionHeader={<CaptionHeadImage />} />
+                <CarouselCaption captionText={""} captionHeader={<CaptionHeadImage data={item}/>} />
             </CarouselItem>
         );
     });
 
     return (
         <div>
-            <Carousel
-                activeIndex={activeIndex}
-                next={next}
-                previous={previous}
-            >
-                {slides}
-                <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-                <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-            </Carousel>
+            {props?.data !== undefined &&
+                <Carousel
+                    activeIndex={activeIndex}
+                    next={next}
+                    previous={previous}
+                >
+                    {slides}
+                    <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+                    <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+                </Carousel>
+            }
 
         </div>
     );
