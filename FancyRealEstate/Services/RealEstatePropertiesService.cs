@@ -104,7 +104,7 @@
 
             if (!string.IsNullOrEmpty(input.PropertyType))
             {
-                realEstateProperties = realEstateProperties.Where(x => x.BuildingType.Name == input.PropertyType);
+                realEstateProperties = realEstateProperties.Where(x => x.PropertyType.Name == input.PropertyType);
             }
 
             if (!string.IsNullOrEmpty(input.Deal))
