@@ -4,6 +4,7 @@ import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import './AddNewProperyForm.css'
+import { cloudinaryUrl } from '../../services/cloudinaryUrl'
 import { ImageFromCloudinary } from '../Cloudinary/ImageFromCloudinary'
 import { AddressRow } from './FormComponents/AddressRow'
 import { PropertyTypeForm } from './FormComponents/PropertyTypeForm'
@@ -30,7 +31,7 @@ const validationSchema = Yup.object().shape({
     description: Yup.string().min(10, "Description must have at least 10 characters")
         .max(1000, "Description can't be longer than 1000 characters")
         .required("Please write short information about the property"),
-    imageIds: Yup.array().min(1, "You must have not less of one photo"),
+    imageIds: Yup.array().min(1, "You must have not less of one photo").max(8, "Maximum number of photos is 8"),
 
 });
 
@@ -63,16 +64,19 @@ export class AddNewProperyForm extends Component {
     componentDidUpdate() {
 
         if (this.props.location?.state?.data !== undefined && !this.state.update) {
-            this.setState((s) => ({ id: s.id + this.props.location?.state?.data.id}));
+            this.setState((s) => ({ id: s.id + this.props.location?.state?.data.id }));
             this.setState((s) => ({ year: s.year + this.props.location?.state?.data.year }));
             this.setState((s) => ({ size: s.size + this.props.location?.state?.data.size }));
             this.setState((s) => ({ floor: s.floor + this.props.location?.state?.data.floor }));
             this.setState((s) => ({ totalNumberOfFloor: s.totalNumberOfFloor + this.props.location?.state?.data.totalNumberOfFloor }));
             this.setState((s) => ({ typeOfDeal: s.typeOfDeal + this.props.location?.state?.data.typeOfDeal }));
             this.setState((s) => ({ price: s.price + this.props.location?.state?.data.price }));
-            this.setState((s) => ({ description: s.v + this.props.location?.state?.data.description }));
+            this.setState((s) => ({ description: s.description + this.props.location?.state?.data.description }));
+            this.setState((s) => ({ imageIds: this.props.location?.state?.data.imageIds }));
             this.setState({ update: true });
+
         }
+        console.log(this.state.imageIds)
 
         if (this.state.userId === "") {
 
@@ -101,7 +105,7 @@ export class AddNewProperyForm extends Component {
     }
 
     imagesIdDateFromChild = (imageId) => {
-        this.setState((s) => ({ imageIds: imageId }));
+        this.setState((s) => ({ imageIds: [...s.imageIds, imageId] }));
     }
 
     handleStateValue = (e) => {
@@ -139,7 +143,7 @@ export class AddNewProperyForm extends Component {
                         setSubmitting(true);
 
                         if (this.state.update) {
-                            propertyService.updateProperty(values, this.props.location?.state?.token );
+                            propertyService.updateProperty(values, this.props.location?.state?.token);
                         }
                         else {
                             propertyService.createProperty(values, this.props.location?.state?.token);
@@ -223,14 +227,17 @@ export class AddNewProperyForm extends Component {
                             <Row className="mb-5">
                                 {this.state.imageIds.map((i) => (
                                     <div key={i} className="col-sm-6 col-md-4 col-lg-3">
-                                        <ImageFromCloudinary publicId={i} />
+                                        <img src={cloudinaryUrl() + i} className="img-fluid" alt="" style={{ margin: '15px' }} />
                                         { this.state.imageIds.length > 1 &&
                                             <Button color="danger" value={i} onClick={this.deleteImage}>Delete Image</Button>
                                         }
                                     </div>
                                 ))}
                             </Row>
-                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passProps={this.props.location?.state?.data} passTouched={touched} passErrors={errors} />
+                            { this.state.imageIds.length < 8 &&
+                                <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passTouched={touched} passErrors={errors} />
+                            }
+                             {touched.imageIds && errors.imageIds ? <div className="text-danger text-center">{errors.imageIds}</div> : null}
                             <Row>
                                 <Col>
                                     <FormGroup>
@@ -240,7 +247,7 @@ export class AddNewProperyForm extends Component {
                                     </FormGroup>
                                 </Col>
                             </Row>
-                            <Button type="submit" color="primary" size="lg" disabled={isSubmitting} >{this.state.update ? "Edit Property" : "Add Property"}</Button>
+                            <button type="submit" className="btn btn-success btn-lg btn-block" disabled={isSubmitting} >{this.state.update ? "Edit Property" : "Create Property"}</button>
                         </Form>
                     )}
                 </Formik>
