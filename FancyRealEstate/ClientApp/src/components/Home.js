@@ -9,9 +9,8 @@ import * as propertyService from '../services/propertyService'
 
 
 export const Home = () => {
-    // cost displayName = Home.name;
     const [properties, setProperties] = useState([])
-    const [page, setPage] = useState("0")
+    const [page, setPage] = useState("1")
     const [city, setCity] = useState("")
     const [district, setDistrict] = useState("")
     const [propertyType, setPropertyType] = useState("")
@@ -25,8 +24,9 @@ export const Home = () => {
     useEffect(() => {
 
         propertyService.getAll(parametersForRequest).then(res => setProperties(res))
+        console.log(page)
 
-    }, [city, district, propertyType, deal, date, price, minPrice, maxPrice])
+    }, [page, city, district, propertyType, deal, date, price, minPrice, maxPrice])
 
     const dataFromSearch = (sityName, districtName, type) => {
         setCity(sityName)
@@ -42,6 +42,10 @@ export const Home = () => {
         setMaxPrice(maxPriceValue)
     }
 
+    const dataFromPagination = (currentPage) =>{
+        setPage(currentPage)
+    }
+
     const parametersForRequest = {
         "page": page, "city": city, "district": district, "propertyType": propertyType,
         "sortByPrice": price, "sortByDate": date, "deal": deal, "minPrice": minPrice, "maxPrice": maxPrice,
@@ -52,7 +56,7 @@ export const Home = () => {
             <HeadImageCarousel data={properties}/>
             <Search getData={dataFromSearch} />
             <Sort getData={dataFromSort} />
-            <Gallery allProperties={properties}/>
+            <Gallery allProperties={properties} getData={dataFromPagination}/>
             <Footer />
 
         </div>
