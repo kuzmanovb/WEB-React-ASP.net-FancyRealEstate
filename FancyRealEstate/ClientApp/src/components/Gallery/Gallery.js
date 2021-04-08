@@ -1,8 +1,13 @@
-﻿import React, { useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { ImageFrame } from './ImageFrame/ImageFrame.js'
 import { Pagination } from '../Pagination/Pagination.js'
 
 export const Gallery = (props) => {
+
+    const getNumberPage = (number) => {
+        props.getData(number)
+    };
+   
 
     return (
         <div className="bg-light pt-4 pb-4 mb-5">
@@ -15,7 +20,7 @@ export const Gallery = (props) => {
                     )}
                 </div>
             </div>
-            <Pagination />
+            <Pagination data={props.allProperties} getNumber={getNumberPage} />
         </div>
 
     );
