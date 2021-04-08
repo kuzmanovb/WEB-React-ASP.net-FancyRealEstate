@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useCallback } from 'react';
 import {ImageViewer} from 'react-simple-image-viewer';
+import {cloudinaryUrl} from '../../services/cloudinaryUrl'
 
 export const PropertyGallery = (props) => {
     const [currentImage, setCurrentImage] = useState(0);
     const [isViewerOpen, setIsViewerOpen] = useState(false);
 
-    const imagesUrl = props.images.map((i) => (`https://res.cloudinary.com/kuzmanovb/image/upload/${i}`));
+    const imagesUrl = props.images.map((i) => (cloudinaryUrl() + i));
 
 
     const openImageViewer = useCallback((index) => {
@@ -28,7 +29,7 @@ export const PropertyGallery = (props) => {
             {props.images.map((i) => (
                 <div key={i} className="col-sm-6 col-md-4 col-lg-3">
                     <img
-                        src={`https://res.cloudinary.com/kuzmanovb/image/upload/${i}`}
+                        src={cloudinaryUrl() + i}
                         // onClick={() => openImageViewer(i)}
                         style={{ margin: '15px' }}
                         className="img-fluid"
