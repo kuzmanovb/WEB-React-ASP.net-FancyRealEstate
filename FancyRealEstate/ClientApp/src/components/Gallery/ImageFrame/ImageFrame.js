@@ -7,6 +7,11 @@ import { ImageFromCloudinary } from '../../Cloudinary/ImageFromCloudinary'
 
 export const ImageFrame = (props) => {
 
+    useEffect(() => {
+        console.log(props)
+
+    },[props])
+
     return (
 
         <div className="col-md-6 col-lg-4 mb-4">
@@ -14,7 +19,7 @@ export const ImageFrame = (props) => {
 
                 <Link to={{ pathname: `/property-details/${props.data?.id}`, state: props }} className="property-thumbnail">
                     <div className="offer-type-wrap">
-                        {props.data?.typeOfDeal === "Sale" && <span className="offer-type bg-danger active">Sale</span>}
+                        {props.data?.typeOfDeal === "Sale" && <span className="offer-type bg-danger">Sale</span>}
                         {props.data?.typeOfDeal === "Rent" && <span className="offer-type bg-success">Rent</span>}
                     </div>
                     <ImageFromCloudinary publicId={props.data?.imageIds[0]} />
@@ -22,7 +27,7 @@ export const ImageFrame = (props) => {
 
                 <div className="p-4 property-body">
                     <Button outline color="success" className="property-title text-center">
-                        <Link to={{pathname: `/property-details/${props.data?.id}`, state:props}}><b>View details</b></Link>
+                        <Link to={{ pathname: `/property-details/${props.data?.id}`, state: props }}><b>View details</b></Link>
                     </Button>
                     <span className="property-location d-block mb-3"><h5><i>city</i>: &nbsp;{props.data?.city}<br /><i>destrict</i>:&nbsp; {props.data?.district}</h5></span>
                     <strong className="property-price text-primary mb-3 d-block text-success">price:&nbsp; {props.data?.price} &euro;</strong>
