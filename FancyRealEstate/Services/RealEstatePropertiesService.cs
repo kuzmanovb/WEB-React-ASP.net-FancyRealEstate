@@ -87,6 +87,7 @@
 
             var realEstateProperties = this.db.RealEstateProperties.Where(x => x.IsDeleted == input.IsDeleted && x.Price >= minPrice && x.Price <= maxPrice).OrderByDescending(i => i.Id).ToList();
 
+
             if (!string.IsNullOrEmpty(input.UserId))
             {
                 realEstateProperties = realEstateProperties.Where(x => x.UserId == input.UserId).ToList();
@@ -117,6 +118,7 @@
                 realEstateProperties = realEstateProperties.Where(x => x.IsPromotion == input.IsPromotion).ToList();
             }
 
+
             if (!string.IsNullOrEmpty(input.SortByPrice))
             {
                 if (input.SortByPrice == "ascending")
@@ -140,6 +142,8 @@
                     realEstateProperties = realEstateProperties.OrderByDescending(x => x.CreatedOn).ThenByDescending(i => i.Id).ToList();
                 }
             }
+
+            var propertyCount = realEstateProperties.Count();
 
             int skipProperty = 0;
             int takeProperty = int.MaxValue;
@@ -183,6 +187,7 @@
                     CreatedOn = p.CreatedOn.ToString("dd-MM-yyyy"),
                     DaysAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
                     ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
+                    PropertiesCount = propertyCount,
                 })
                 .ToList();
 

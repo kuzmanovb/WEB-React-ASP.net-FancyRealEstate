@@ -60,5 +60,7 @@
         public bool Renovated { get; set; }
 
         public ICollection<string> ImageIds { get; set; }
+
+        public int PropertiesCount { get; set; }
     }
 }
