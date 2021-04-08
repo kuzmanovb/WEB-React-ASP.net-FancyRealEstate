@@ -143,6 +143,8 @@
                 }
             }
 
+            realEstateProperties.OrderByDescending(s => s.Id);
+
             int skipProperty = 0;
             int takeProperty = int.MaxValue;
 

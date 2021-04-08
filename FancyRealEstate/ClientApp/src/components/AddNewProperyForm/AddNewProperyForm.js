@@ -62,21 +62,21 @@ export class AddNewProperyForm extends Component {
 
     componentDidUpdate() {
 
-        if (this.props.location.state.data !== undefined && !this.state.update) {
-            this.setState((s) => ({ id: s.id + this.props.location.state.data.id}));
-            this.setState((s) => ({ year: s.year + this.props.location.state.data.year }));
-            this.setState((s) => ({ size: s.size + this.props.location.state.data.size }));
-            this.setState((s) => ({ floor: s.floor + this.props.location.state.data.floor }));
-            this.setState((s) => ({ totalNumberOfFloor: s.totalNumberOfFloor + this.props.location.state.data.totalNumberOfFloor }));
-            this.setState((s) => ({ typeOfDeal: s.typeOfDeal + this.props.location.state.data.typeOfDeal }));
-            this.setState((s) => ({ price: s.price + this.props.location.state.data.price }));
-            this.setState((s) => ({ description: s.v + this.props.location.state.data.description }));
+        if (this.props.location?.state?.data !== undefined && !this.state.update) {
+            this.setState((s) => ({ id: s.id + this.props.location?.state?.data.id}));
+            this.setState((s) => ({ year: s.year + this.props.location?.state?.data.year }));
+            this.setState((s) => ({ size: s.size + this.props.location?.state?.data.size }));
+            this.setState((s) => ({ floor: s.floor + this.props.location?.state?.data.floor }));
+            this.setState((s) => ({ totalNumberOfFloor: s.totalNumberOfFloor + this.props.location?.state?.data.totalNumberOfFloor }));
+            this.setState((s) => ({ typeOfDeal: s.typeOfDeal + this.props.location?.state?.data.typeOfDeal }));
+            this.setState((s) => ({ price: s.price + this.props.location?.state?.data.price }));
+            this.setState((s) => ({ description: s.v + this.props.location?.state?.data.description }));
             this.setState({ update: true });
         }
 
         if (this.state.userId === "") {
 
-            this.setState({ userId: this.props.location.state.userId })
+            this.setState({ userId: this.props.location?.state?.userId })
         }
     }
 
@@ -139,10 +139,10 @@ export class AddNewProperyForm extends Component {
                         setSubmitting(true);
 
                         if (this.state.update) {
-                            propertyService.updateProperty(values, this.props.location.state.token );
+                            propertyService.updateProperty(values, this.props.location?.state?.token );
                         }
                         else {
-                            propertyService.createProperty(values, this.props.location.state.token);
+                            propertyService.createProperty(values, this.props.location?.state?.token);
                         }
 
                         setTimeout(() => { this.redirect() }, 1000);
@@ -156,10 +156,10 @@ export class AddNewProperyForm extends Component {
                         handleSubmit,
                         isSubmitting }) => (
                         <Form className="mt-5" onSubmit={handleSubmit}>
-                            <AddressRow addressData={this.addressDataFronChild} passProps={this.props.location?.state.data} passBlur={handleBlur} passTouched={touched} passErrors={errors} />
+                            <AddressRow addressData={this.addressDataFronChild} passProps={this.props.location?.state?.data} passBlur={handleBlur} passTouched={touched} passErrors={errors} />
                             <Row form>
                                 <Col md={4}>
-                                    <PropertyTypeForm propertyTypeData={this.propertyTypeDateFromChild} passProps={this.props.location.state.data} passTouched={touched} passErrors={errors} />
+                                    <PropertyTypeForm propertyTypeData={this.propertyTypeDateFromChild} passProps={this.props.location?.state?.data} passTouched={touched} passErrors={errors} />
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>
@@ -214,10 +214,10 @@ export class AddNewProperyForm extends Component {
                             </Row>
                             <Row form className="row justify-content-around">
                                 <Col md={2}>
-                                    <BuildingTypeForm buildingTypeData={this.buildingTypeDataFromChild} passProps={this.props.location.state.data} passTouched={touched} passErrors={errors} />
+                                    <BuildingTypeForm buildingTypeData={this.buildingTypeDataFromChild} passProps={this.props.location?.state?.data} passTouched={touched} passErrors={errors} />
                                 </Col>
                                 <Col md={4}>
-                                    <FeaturesForm featuresData={this.featuresDataFromChild} passProps={this.props.location.state.data} passTouched={touched} passErrors={errors} />
+                                    <FeaturesForm featuresData={this.featuresDataFromChild} passProps={this.props.location?.state?.data} passTouched={touched} passErrors={errors} />
                                 </Col>
                             </Row>
                             <Row className="mb-5">
@@ -230,7 +230,7 @@ export class AddNewProperyForm extends Component {
                                     </div>
                                 ))}
                             </Row>
-                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passProps={this.props.location.state.data} passTouched={touched} passErrors={errors} />
+                            <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passProps={this.props.location?.state?.data} passTouched={touched} passErrors={errors} />
                             <Row>
                                 <Col>
                                     <FormGroup>
