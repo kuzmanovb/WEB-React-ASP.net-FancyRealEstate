@@ -39,7 +39,7 @@ export const Dashboard = (props) => {
 
 
     return (
-        <div className="mt-5">
+        <div className="mt-5 mb-5">
             <div className="container">
 
                 <div className="row">
@@ -56,7 +56,7 @@ export const Dashboard = (props) => {
                     </div>
                 </div>
 
-                <div className="row bg-light pt-3 pb-3">
+                <div className="row bg-light mt-3 mb-3">
                     <div className="col-6 text-center">
                         PROPERTY
                         </div>

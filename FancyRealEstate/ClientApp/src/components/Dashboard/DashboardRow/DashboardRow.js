@@ -32,7 +32,7 @@ export const DashboardRow = (props) => {
 
   return (
     <>
-      <div className="row" style={{ border: '2px solid Gainsboro' }} >
+      <div className="row mb-1" style={{ border: '2px solid Gainsboro' }} >
         <div className="col-6">
           <Media className="mt-2">
             <Media object src={imageUrl} alt="Generic placeholder image" className="dashboard-image" />
