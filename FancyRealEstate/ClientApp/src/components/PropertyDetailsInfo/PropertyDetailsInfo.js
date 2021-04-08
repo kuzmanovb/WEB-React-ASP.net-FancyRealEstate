@@ -3,40 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Carousel } from 'react-bootstrap';
 import './PropertyDetailsInfo.css'
 import { PropertyGallery } from '../PropertyGallery/PropertyGallery'
+import {cloudinaryUrl} from '../../services/cloudinaryUrl'
 
-const images = [{
-    id: 1,
-    name: "Island",
-    image: "img_1.jpg"
-}, {
-    id: 2,
-    name: "Forest",
-    image: "img_2.jpg"
-}, {
-    id: 3,
-    name: "Whale",
-    image: "img_3.jpg"
-}, {
-    id: 4,
-    name: "Mountain",
-    image: "img_4.jpg"
-}, {
-    id: 5,
-    name: "Boat",
-    image: "img_5.jpg"
-}, {
-    id: 6,
-    name: "Flowers",
-    image: "img_6.jpg"
-}, {
-    id: 7,
-    name: "Fire",
-    image: "img_7.jpg"
-}, {
-    id: 8,
-    name: "Garden",
-    image: "img_8.jpg"
-}];
 
 export const PropertyDetailsInfo = (props) => {
 
@@ -45,7 +13,7 @@ export const PropertyDetailsInfo = (props) => {
 
     useEffect(() => {
 
-        setData(props.data.location.state.data)
+        setData(props?.data)
 
     }, [props])
 
@@ -88,23 +56,10 @@ export const PropertyDetailsInfo = (props) => {
             <div className="container mt-5">
                 <div className="row">
                     <div className="col-lg-12">
-                        <div>
-                            <Carousel fade>
-                                {data?.imageIds?.map((i) => (
-                                    <Carousel.Item interval={1000} key={i}>
-                                        <img
-                                            className="d-block w-100"
-                                            src={`https://res.cloudinary.com/kuzmanovb/image/upload/${i}`}
-                                            alt="First slide"
-                                        />
-                                    </Carousel.Item>
-                                ))}
-                            </Carousel>
-                        </div>
-                        <div className="bg-white property-body border-bottom border-left border-right">
+                        <div className="bg-white property-body border-bottom border-left border-right border-top">
                             <div className="row">
                                 <div className="col-md-4">
-                                    <strong className="text-success h1 mb-3">{data?.price}&euro;</strong>
+                                    <strong className="text-success h1 mb-3">{data?.price} &euro;</strong>
                                 </div>
                                 <div className="col-md-8 text-center">
                                     <ul className="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
