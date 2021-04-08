@@ -49,7 +49,7 @@ export const Home = () => {
 
     return (
         <div>
-            <HeadImageCarousel />
+            <HeadImageCarousel data={properties}/>
             <Search getData={dataFromSearch} />
             <Sort getData={dataFromSort} />
             <Gallery allProperties={properties}/>
