@@ -85,65 +85,61 @@
             var minPrice = input.MinPrice;
             var maxPrice = input.MaxPrice != 0 ? input.MaxPrice : int.MaxValue;
 
-            var realEstateProperties = this.db.RealEstateProperties.Where(x => x.IsDeleted == input.IsDeleted && x.Price >= minPrice && x.Price <= maxPrice);
+            var realEstateProperties = this.db.RealEstateProperties.Where(x => x.IsDeleted == input.IsDeleted && x.Price >= minPrice && x.Price <= maxPrice).OrderByDescending(i => i.Id).ToList();
 
             if (!string.IsNullOrEmpty(input.UserId))
             {
-                realEstateProperties = realEstateProperties.Where(x => x.UserId == input.UserId);
+                realEstateProperties = realEstateProperties.Where(x => x.UserId == input.UserId).ToList();
             }
 
             if (!string.IsNullOrEmpty(input.City))
             {
-                realEstateProperties = realEstateProperties.Where(x => x.Address.City.Name == input.City);
+                realEstateProperties = realEstateProperties.Where(x => x.Address.City.Name == input.City).ToList();
             }
 
             if (!string.IsNullOrEmpty(input.District))
             {
-                realEstateProperties = realEstateProperties.Where(x => x.Address.District.Name == input.District);
+                realEstateProperties = realEstateProperties.Where(x => x.Address.District.Name == input.District).ToList();
             }
 
             if (!string.IsNullOrEmpty(input.PropertyType))
             {
-                realEstateProperties = realEstateProperties.Where(x => x.PropertyType.Name == input.PropertyType);
+                realEstateProperties = realEstateProperties.Where(x => x.PropertyType.Name == input.PropertyType).ToList();
             }
 
             if (!string.IsNullOrEmpty(input.Deal))
             {
-                realEstateProperties = realEstateProperties.Where(x => x.TypeOfDeal == (TypeOfDeal)Enum.Parse(typeof(TypeOfDeal), input.Deal));
+                realEstateProperties = realEstateProperties.Where(x => x.TypeOfDeal == (TypeOfDeal)Enum.Parse(typeof(TypeOfDeal), input.Deal)).ToList();
             }
 
             if (input.IsPromotion)
             {
-                realEstateProperties = realEstateProperties.Where(x => x.IsPromotion == input.IsPromotion);
-            }
-
-            realEstateProperties = realEstateProperties.OrderBy(x => x.Address.City.Name).ThenBy(y => y.Address.District.Name);
-
-            if (!string.IsNullOrEmpty(input.SortByDate))
-            {
-                if (input.SortByDate == "ascending")
-                {
-                    realEstateProperties = realEstateProperties.OrderBy(x => x.CreatedOn);
-                }
-                else if (input.SortByDate == "descending")
-                {
-                    realEstateProperties = realEstateProperties.OrderByDescending(x => x.CreatedOn);
-                }
+                realEstateProperties = realEstateProperties.Where(x => x.IsPromotion == input.IsPromotion).ToList();
             }
 
             if (!string.IsNullOrEmpty(input.SortByPrice))
             {
                 if (input.SortByPrice == "ascending")
                 {
-                    realEstateProperties = realEstateProperties.OrderBy(x => x.Price);
+                    realEstateProperties = realEstateProperties.OrderBy(x => x.Price).ThenByDescending(i => i.Id).ToList();
                 }
                 else if (input.SortByPrice == "descending")
                 {
-                    realEstateProperties = realEstateProperties.OrderByDescending(x => x.Price);
+                    realEstateProperties = realEstateProperties.OrderByDescending(x => x.Price).ThenByDescending(i => i.Id).ToList();
                 }
             }
 
-            realEstateProperties.OrderByDescending(s => s.Id);
+            if (!string.IsNullOrEmpty(input.SortByDate))
+            {
+                if (input.SortByDate == "ascending")
+                {
+                    realEstateProperties = realEstateProperties.OrderBy(x => x.CreatedOn).ThenByDescending(i => i.Id).ToList();
+                }
+                else if (input.SortByDate == "descending")
+                {
+                    realEstateProperties = realEstateProperties.OrderByDescending(x => x.CreatedOn).ThenByDescending(i => i.Id).ToList();
+                }
+            }
 
             int skipProperty = 0;
             int takeProperty = int.MaxValue;
