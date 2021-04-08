@@ -44,30 +44,45 @@ export const Sort = (props) => {
         <div className="container">
             <div className="row">
                 <div className="py-3 px-3 d-md-flex align-items-center">
-                    <div>
+                    <div className="select-wrap">
                         <button className="btn btn-outline-success px-3" name="deal" value="" onClick={getDeal} >All</button>
+                    </div>
+                    <div className="select-wrap">
                         <button className="btn btn-outline-success px-3" name="deal" value="Rent" onClick={getDeal}>Rent</button>
+                    </div>
+                    <div className="select-wrap">
                         <button className="btn btn-outline-success px-3" name="deal" value="Sale" onClick={getDeal}>Sale</button>
                     </div>
-                    <div className="select-wrap col-2">
-                        <input type="number" className="form-control"  name="minPrice" placeholder="Min Price"  onBlur={getMinPrice} />
+                    <div className="col-sm-2">
+                        <div className="select-wrap">
+                            <input type="number" className="form-control" name="minPrice" placeholder="Min Price" onBlur={getMinPrice} />
+                        </div>
                     </div>
-                    <div className="select-wrap col-2">
-                        <input type="number" className="form-control"  name="maxPrice" placeholder="Max Price"  onBlur={getMaxPrice} />
+                    <div className="col-sm-2">
+                        <div className="select-wrap">
+                            <input type="number" className="form-control" name="maxPrice" placeholder="Max Price" onBlur={getMaxPrice} />
+                        </div>
                     </div>
-                    <div className="select-wrap ml-3">
-                        <select className="form-control-sort form-control-sort-sm d-block rounded-0" name="price" onClick={getPrice}>
-                            <option value="">Sort by Price</option>
-                            <option value="ascending">Ascending</option>
-                            <option value="descending">Descending</option>
-                        </select>
+
+                    <div className="col-sm-3">
+                        <div className="select-wrap">
+                            <span className="icon icon-arrow_drop_down"></span>
+                            <select name="price" className="form-control d-block rounded-0" onClick={getPrice}>
+                                <option value="">Sort by Price</option>
+                                <option value="ascending">Ascending</option>
+                                <option value="descending">Descending</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className="select-wrap ml-3">
-                        <select className="form-control-sort form-control-sort-sm d-block rounded-0" name="date" onClick={getDate}>
-                            <option value="">Sort by Date</option>
-                            <option value="ascending">Ascending</option>
-                            <option value="descending">Descending</option>
-                        </select>
+                    <div className="col-sm-3">
+                        <div className="select-wrap">
+                            <span className="icon icon-arrow_drop_down"></span>
+                            <select name="date" className="form-control d-block rounded-0" onClick={getDate}>
+                                <option value="">Sort by Date</option>
+                                <option value="ascending">Ascending</option>
+                                <option value="descending">Descending</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
