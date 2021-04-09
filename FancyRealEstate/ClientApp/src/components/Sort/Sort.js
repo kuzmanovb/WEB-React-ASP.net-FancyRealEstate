@@ -44,14 +44,16 @@ export const Sort = (props) => {
         <div className="container">
             <div className="row">
                 <div className="py-3 px-3 d-md-flex align-items-center">
-                    <div className="select-wrap">
-                        <button className="btn btn-outline-success px-3" name="deal" value="" onClick={getDeal} >All</button>
-                    </div>
-                    <div className="select-wrap">
-                        <button className="btn btn-outline-success px-3" name="deal" value="Rent" onClick={getDeal}>Rent</button>
-                    </div>
-                    <div className="select-wrap">
-                        <button className="btn btn-outline-success px-3" name="deal" value="Sale" onClick={getDeal}>Sale</button>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <div className="select-wrap">
+                            <button className={deal == "" ? "btn btn-outline-success px-3 active" : "btn btn-outline-success px-3"} name="deal" value="" onClick={getDeal} >All</button>
+                        </div>
+                        <div className="select-wrap">
+                            <button className={deal == "Rent" ? "btn btn-outline-success px-3 active" : "btn btn-outline-success px-3"} name="deal" value="Rent" onClick={getDeal}>Rent</button>
+                        </div>
+                        <div className="select-wrap">
+                            <button className={deal == "Sale" ? "btn btn-outline-success px-3 active" : "btn btn-outline-success px-3"} name="deal" value="Sale" onClick={getDeal}>Sale</button>
+                        </div>
                     </div>
                     <div className="col-sm-2">
                         <div className="select-wrap">
