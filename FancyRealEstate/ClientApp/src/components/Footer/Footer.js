@@ -26,9 +26,8 @@ export const Footer = () => {
                             <div className="col-md-6 col-lg-6">
                                 <ul className="list-unstyled">
                                     <li><Link to="/">Home</Link></li>
-                                    <li><Link to="/headImageCarousel">Buy</Link></li>
-                                    <li><Link to="#">Rent</Link></li>
-                                    <li><Link to="#">Properties</Link></li>
+                                    <li><Link to="/my-properties">My Properties</Link></li>
+                                    <li><Link to="/add-property">Add Property</Link></li>
                                 </ul>
                             </div>
                             <div className="col-md-6 col-lg-6">
