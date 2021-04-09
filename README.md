@@ -5,15 +5,19 @@
 ## :pencil: Description
 
 **_Description of “Home” page:_**
+
 On home page displayed all advertisements, grouped in pages. It is possible to be sorted by city, district, type of property, type of deal, price and date. Each advertisement, has a link to a page with a detailed description.
 
 **_Description of “Property Details” page:_**
+
 On this page the user receives detailed information about the advertisement, there are also links to similar advertisements.
 
 **_Description of “My Properties” page:_**
+
 This page can be accessed only by a registered user, it displays all the ads published by user. In this place you can manage your advertisements and add new advertisement.
 
 **_Description of “Add Property” page:_**
+
 This is the place where registered user is redirected from "My properties", when want add or change an advertisement.
 
 
