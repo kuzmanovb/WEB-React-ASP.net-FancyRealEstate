@@ -30,17 +30,10 @@ export const ImageFrame = (props) => {
                         <li className="pr-2 text-center">
                             <span className="property-specs">size</span>
                             <span className="property-specs-number">{props.data?.size} m<sup>2</sup></span>
-
                         </li>
                         <li className="pr-2 text-center">
                             <span className="property-specs">property type</span>
                             <span className="property-specs-number">{props.data?.propertyType}</span>
-
-                        </li>
-                        <li className="pr-2 text-center">
-                            <span className="property-specs">building type</span>
-                            <span className="property-specs-number">{props.data?.buildingType}</span>
-
                         </li>
                     </ul>
                 </div>
