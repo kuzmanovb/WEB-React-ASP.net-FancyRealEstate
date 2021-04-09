@@ -26,7 +26,7 @@ This is the place where registered user is redirected from "My properties", when
 
 ------------
 
-## 🖌️: Images
+## 🖌️ Images
 
 ![](https://res.cloudinary.com/kuzmanovb/image/upload/v1617959711/FancyRealEstate-FirstReactApp/Presentation/2021-04-09_7_j37otx.png)
 ![](https://res.cloudinary.com/kuzmanovb/image/upload/v1617959707/FancyRealEstate-FirstReactApp/Presentation/2021-04-09_lfv2bf.png)
