@@ -5,6 +5,7 @@ import './Dashboard.css';
 import { DashboardRow } from './DashboardRow/DashboardRow'
 import * as propertyService from '../../services/propertyService'
 import authService from '../api-authorization/AuthorizeService'
+import { Footer } from '../Footer/Footer'
 
 
 export const Dashboard = (props) => {
@@ -29,7 +30,7 @@ export const Dashboard = (props) => {
             propertyService.getByUserId({ "userId": user.sub, "sortByDateAscending": true }).then(res => setRealEstateProperties(res))
         }
 
-    }, [user, token ])
+    }, [user, token])
 
 
     const removeDeleteItem = (id) => {
@@ -39,42 +40,46 @@ export const Dashboard = (props) => {
 
 
     return (
-        <div className="mt-5 mb-5">
-            <div className="container">
+        <>
+            <div className="mt-5 mb-5">
+                <div className="container">
 
-                <div className="row">
-                    <div className="col">
-                        <div className="my-property font-weight-bold">My Properties</div>
-                        <p className="show-properties">Showing {realEstateProperties.length} Results</p>
+                    <div className="row">
+                        <div className="col">
+                            <div className="my-property font-weight-bold">My Properties</div>
+                            <p className="show-properties">Showing {realEstateProperties.length} Results</p>
+                        </div>
+                        <div className="col-6">
+                        </div>
+                        <div className="col">
+                            <Link to={{ pathname: "add-property", state: { "userId": user.sub, "token": token } }} >
+                                <Button outline color="primary" size="lg">Add Property</Button>
+                            </Link>
+                        </div>
                     </div>
-                    <div className="col-6">
-                    </div>
-                    <div className="col">
-                        <Link to={{ pathname: "add-property", state: { "userId": user.sub, "token": token } }} >
-                            <Button outline color="primary" size="lg">Add Property</Button>
-                        </Link>
-                    </div>
-                </div>
 
-                <div className="row bg-light mt-3 mb-3">
-                    <div className="col-6 text-center">
-                        PROPERTY
+                    <div className="row bg-light mt-3 mb-3">
+                        <div className="col-6 text-center">
+                            PROPERTY
                         </div>
-                    <div className="col-3 text-center">
-                        POSTED ON
+                        <div className="col-3 text-center">
+                            POSTED ON
                         </div>
-                    <div className="col-3 text-center">
-                        ACTIONS
+                        <div className="col-3 text-center">
+                            ACTIONS
                          </div>
+                    </div>
+
+                    {realEstateProperties.map((res) =>
+
+                        <DashboardRow key={res.id} data={res} token={token} userId={user.sub} history={props.history} checkDelete={removeDeleteItem} />
+                    )}
+
+
                 </div>
-
-                {realEstateProperties.map((res) =>
-
-                    <DashboardRow key={res.id} data={res} token={token} userId={user.sub} history={props.history} checkDelete={removeDeleteItem} />
-                )}
-
             </div>
-        </div>
+            <Footer />
+        </>
     );
 }
 
