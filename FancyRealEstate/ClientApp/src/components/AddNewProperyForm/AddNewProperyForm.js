@@ -247,7 +247,7 @@ export class AddNewProperyForm extends Component {
                                     </FormGroup>
                                 </Col>
                             </Row>
-                            <button type="submit" className="btn btn-success btn-lg btn-block" disabled={isSubmitting} >{this.state.update ? "Edit Property" : "Create Property"}</button>
+                            <Button type="submit" className="btn btn-success btn-lg btn-block" disabled={isSubmitting} >{this.state.update ? "Edit Property" : "Create Property"}</Button>
                         </Form>
                     )}
                 </Formik>

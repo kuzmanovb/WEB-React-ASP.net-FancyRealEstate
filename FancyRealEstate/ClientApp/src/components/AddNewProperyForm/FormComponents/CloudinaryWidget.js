@@ -30,7 +30,7 @@ export const CloudinaryWidget = (props) => {
         <Row>
             <Col md={3}></Col>
             <Col md={6}>
-                <button className="btn btn btn-outline-dark btn-lg btn-block" onClick={showWidget} onBlur={props.passBlur}>Add Images</button>
+                <Button className="btn btn-lg btn-block" outline color="primary" onClick={showWidget} onBlur={props.passBlur} >Add Images</Button>
             </Col>
         </Row>
     );
