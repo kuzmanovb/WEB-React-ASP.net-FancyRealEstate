@@ -37,7 +37,7 @@ This is the place where registered user is redirected from "My properties", when
 ![](https://res.cloudinary.com/kuzmanovb/image/upload/v1617925490/FancyRealEstate-FirstReactApp/Presentation/2021-04-09_2_u30wdt.png)
 -------------
 ![](https://res.cloudinary.com/kuzmanovb/image/upload/v1617925490/FancyRealEstate-FirstReactApp/Presentation/2021-04-09_3_i30220.png)
-**-------------**
+-------------
 ![](https://res.cloudinary.com/kuzmanovb/image/upload/v1617925488/FancyRealEstate-FirstReactApp/Presentation/2021-04-09_4_t3hfzc.png)
 
 
