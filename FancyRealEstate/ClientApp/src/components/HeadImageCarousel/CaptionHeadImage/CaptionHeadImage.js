@@ -4,8 +4,6 @@ import './CaptionHeadImage.css'
 
 export const CaptionHeadImage = (props) => {
 
-    console.log(props)
-
     return (
         <div className="text-head-image pad">
             <div className="row align-items-center justify-content-center text-center">
