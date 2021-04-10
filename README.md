@@ -29,7 +29,7 @@ This is the place where registered user is redirected from "My properties", when
 ## 🖌️ Images
 
 ![](https://res.cloudinary.com/kuzmanovb/image/upload/v1618057032/FancyRealEstate-FirstReactApp/Presentation/2021-04-10_2_jrjjrh.png)
-![](https://res.cloudinary.com/kuzmanovb/image/upload/v1617959707/FancyRealEstate-FirstReactApp/Presentation/2021-04-09_lfv2bf.png)
+![](https://res.cloudinary.com/kuzmanovb/image/upload/v1618057029/FancyRealEstate-FirstReactApp/Presentation/2021-04-10_1_f1vdks.png)
 ![](https://res.cloudinary.com/kuzmanovb/image/upload/v1617925490/FancyRealEstate-FirstReactApp/Presentation/2021-04-09_1_f9xaqe.png)
 ![](https://res.cloudinary.com/kuzmanovb/image/upload/v1617925490/FancyRealEstate-FirstReactApp/Presentation/2021-04-09_2_u30wdt.png)
 ![](https://res.cloudinary.com/kuzmanovb/image/upload/v1617925490/FancyRealEstate-FirstReactApp/Presentation/2021-04-09_3_i30220.png)
