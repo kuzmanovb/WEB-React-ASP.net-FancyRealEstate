@@ -4,6 +4,8 @@ import { Media } from 'reactstrap';
 import './DashboardRow.css'
 import { cloudinaryUrl } from '../../../services/cloudinaryUrl'
 import * as propertyService from '../../../services/propertyService'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 
 export const DashboardRow = (props) => {
@@ -27,6 +29,23 @@ export const DashboardRow = (props) => {
     props.checkDelete(props.data.id);
 
   }
+  
+  const confirmDelete = () => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure want delete this advertisement',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => deleteAd()
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+      ]
+    });
+  };
 
   const imageUrl = cloudinaryUrl() + props.data?.imageIds[0]
 
@@ -55,7 +74,7 @@ export const DashboardRow = (props) => {
             <Link to={{ pathname: "add-property", state: { "data": props.data, "userId": props.userId, "token": props.token } }} >
               <button type="button" className="btn btn-success mt-3" onClick={editAd}>Edit</button>
             </Link>
-            <button type="button" className="btn btn-danger mt-2" onClick={deleteAd}>Delete</button>
+            <button type="button" className="btn btn-danger mt-2" onClick={confirmDelete}>Delete</button>
 
           </div>
         </div>
