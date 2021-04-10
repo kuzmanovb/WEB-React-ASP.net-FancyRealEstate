@@ -14,6 +14,7 @@ export const Home = () => {
     const [city, setCity] = useState("")
     const [district, setDistrict] = useState("")
     const [propertyType, setPropertyType] = useState("")
+    const [buildingType, setBuildingType] = useState("")
     const [deal, setDeal] = useState("")
     const [price, setPrice] = useState("")
     const [date, setDate] = useState("")
@@ -25,12 +26,13 @@ export const Home = () => {
 
         propertyService.getAll(parametersForRequest).then(res => setProperties(res))
 
-    }, [page, city, district, propertyType, deal, date, price, minPrice, maxPrice])
+    }, [page, city, district, propertyType, buildingType, deal, date, price, minPrice, maxPrice])
 
-    const dataFromSearch = (sityName, districtName, type) => {
+    const dataFromSearch = (sityName, districtName, propertyTypeName, buildingTypeName) => {
         setCity(sityName)
         setDistrict(districtName)
-        setPropertyType(type)
+        setPropertyType(propertyTypeName)
+        setBuildingType(buildingTypeName)
     }
 
     const dataFromSort = (dealType, pricePrice, dateSort, minPriceValue, maxPriceValue) => {
@@ -46,7 +48,7 @@ export const Home = () => {
     }
 
     const parametersForRequest = {
-        "page": page, "city": city, "district": district, "propertyType": propertyType,
+        "page": page, "city": city, "district": district, "propertyType": propertyType, "buildingType": buildingType,
         "sortByPrice": price, "sortByDate": date, "deal": deal, "minPrice": minPrice, "maxPrice": maxPrice,
     }
 
