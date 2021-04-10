@@ -108,6 +108,11 @@
                 realEstateProperties = realEstateProperties.Where(x => x.PropertyType.Name == input.PropertyType).ToList();
             }
 
+            if (!string.IsNullOrEmpty(input.BuildingType))
+            {
+                realEstateProperties = realEstateProperties.Where(x => x.BuildingType.Name == input.BuildingType).ToList();
+            }
+
             if (!string.IsNullOrEmpty(input.Deal))
             {
                 realEstateProperties = realEstateProperties.Where(x => x.TypeOfDeal == (TypeOfDeal)Enum.Parse(typeof(TypeOfDeal), input.Deal)).ToList();
