@@ -97,7 +97,7 @@ export const AddressRow = (props) => {
                 <FormGroup>
                     <Label for="number">Str.Number</Label>
                     <Input type="number" name="number" id="number" value={number || ""} onChange={handleNumber} onBlur={props.passBlur} />
-                    {props.passTouched.number && props.passErrors.number ? <div className="text-danger">{props.passErrors.number}</div> : null}
+                    {props.passTouched.buildingNumber && props.passErrors.buildingNumber ? <div className="text-danger">{props.passErrors.buildingNumber}</div> : null}
                 </FormGroup>
             </Col>
         </Row>
