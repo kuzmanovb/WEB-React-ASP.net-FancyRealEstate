@@ -15,6 +15,10 @@
         [Required]
         public string Name { get; set; }
 
+        public int? CityId { get; set; }
+
+        public virtual City City { get; set; }
+
         public virtual ICollection<Address> Addresses { get; set; }
     }
 }
