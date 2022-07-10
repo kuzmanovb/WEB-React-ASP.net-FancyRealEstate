@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class District
+    public class Country
     {
-        public District()
+        public Country()
         {
-            this.Addresses = new HashSet<Address>();
+            this.Cities = new HashSet<City>();
         }
 
         public int Id { get; set; }
@@ -15,6 +15,6 @@
         [Required]
         public string Name { get; set; }
 
-        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<City> Cities { get; set; }
     }
 }

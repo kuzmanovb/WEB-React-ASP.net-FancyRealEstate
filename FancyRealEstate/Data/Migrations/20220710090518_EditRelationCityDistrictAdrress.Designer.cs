@@ -4,14 +4,16 @@ using FancyRealEstate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FancyRealEstate.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220710090518_EditRelationCityDistrictAdrress")]
+    partial class EditRelationCityDistrictAdrress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +31,9 @@ namespace FancyRealEstate.Data.Migrations
                     b.Property<string>("BuildingNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("DistrictId")
                         .HasColumnType("int");
 
@@ -36,6 +41,8 @@ namespace FancyRealEstate.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("DistrictId");
 
@@ -136,34 +143,13 @@ namespace FancyRealEstate.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("FancyRealEstate.Models.Country", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("FancyRealEstate.Models.District", b =>
@@ -553,18 +539,17 @@ namespace FancyRealEstate.Data.Migrations
 
             modelBuilder.Entity("FancyRealEstate.Models.Address", b =>
                 {
+                    b.HasOne("FancyRealEstate.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
                     b.HasOne("FancyRealEstate.Models.District", "District")
                         .WithMany("Addresses")
                         .HasForeignKey("DistrictId");
 
-                    b.Navigation("District");
-                });
+                    b.Navigation("City");
 
-            modelBuilder.Entity("FancyRealEstate.Models.City", b =>
-                {
-                    b.HasOne("FancyRealEstate.Models.Country", null)
-                        .WithMany("Cities")
-                        .HasForeignKey("CountryId");
+                    b.Navigation("District");
                 });
 
             modelBuilder.Entity("FancyRealEstate.Models.District", b =>
@@ -682,11 +667,6 @@ namespace FancyRealEstate.Data.Migrations
             modelBuilder.Entity("FancyRealEstate.Models.City", b =>
                 {
                     b.Navigation("Districts");
-                });
-
-            modelBuilder.Entity("FancyRealEstate.Models.Country", b =>
-                {
-                    b.Navigation("Cities");
                 });
 
             modelBuilder.Entity("FancyRealEstate.Models.District", b =>

@@ -7,8 +7,7 @@
     {
         public City()
         {
-            this.Cities = new HashSet<City>();
-            this.Addresses = new HashSet<Address>();
+            this.Districts = new HashSet<District>();
         }
 
         public int Id { get; set; }
@@ -16,8 +15,6 @@
         [Required]
         public string Name { get; set; }
 
-        public virtual ICollection<City> Cities { get; set; }
-
-        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<District> Districts { get; set; }
     }
 }

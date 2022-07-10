@@ -35,7 +35,6 @@
                 Street = input.Street,
                 BuildingNumber = input.BuildingNumber,
                 DistrictId = district.Id,
-                CityId = city.Id,
             };
 
             await this.db.Addresses.AddAsync(newAddress);
@@ -54,7 +53,6 @@
                     Street = x.Street,
                     BuildingNumber = x.BuildingNumber,
                     District = x.District.Name,
-                    City = x.City.Name,
                     RealEstatePropertyId = x.RealEstateProperties.Id,
                 })
                 .FirstOrDefault();
@@ -81,11 +79,6 @@
             if (currentAddreass.DistrictId != disrtictId)
             {
                 currentAddreass.DistrictId = disrtictId;
-            }
-
-            if (currentAddreass.CityId != cityId)
-            {
-                currentAddreass.CityId = cityId;
             }
 
             this.db.Update(currentAddreass);

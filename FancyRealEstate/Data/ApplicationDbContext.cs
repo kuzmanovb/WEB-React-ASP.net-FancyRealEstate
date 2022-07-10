@@ -16,17 +16,18 @@
 
         public DbSet<RealEstateProperty> RealEstateProperties { get; set; }
 
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<District> Districts { get; set; }
+
+        public DbSet<Address> Addresses { get; set; }
+
         public DbSet<PropertyType> PropertyTypes { get; set; }
 
         public DbSet<BuildingType> BuildingTypes { get; set; }
 
         public DbSet<Image> Images { get; set; }
-
-        public DbSet<District> Districts { get; set; }
-
-        public DbSet<City> Cities { get; set; }
-
-        public DbSet<Address> Addresses { get; set; }
-
     }
 }

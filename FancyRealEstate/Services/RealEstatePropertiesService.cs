@@ -93,10 +93,6 @@
                 realEstateProperties = realEstateProperties.Where(x => x.UserId == input.UserId).ToList();
             }
 
-            if (!string.IsNullOrEmpty(input.City))
-            {
-                realEstateProperties = realEstateProperties.Where(x => x.Address.City.Name == input.City).ToList();
-            }
 
             if (!string.IsNullOrEmpty(input.District))
             {
@@ -172,7 +168,6 @@
                     Price = p.Price,
                     Street = p.Address.Street,
                     District = p.Address.District.Name,
-                    City = p.Address.City.Name,
                     BuildingNumber = p.Address.BuildingNumber,
                     PropertyType = p.PropertyType.Name,
                     BuildingType = p.BuildingType.Name,
@@ -213,7 +208,6 @@
                     Price = p.Price,
                     Street = p.Address.Street,
                     District = p.Address.District.Name,
-                    City = p.Address.City.Name,
                     BuildingNumber = p.Address.BuildingNumber,
                     PropertyType = p.PropertyType.Name,
                     BuildingType = p.BuildingType.Name,
@@ -276,11 +270,6 @@
             if (currentProperty.Address.District.Name != input.District)
             {
                 currentProperty.Address.District.Name = input.District;
-            }
-
-            if (currentProperty.Address.City.Name != input.City)
-            {
-                currentProperty.Address.City.Name = input.City;
             }
 
             if (currentProperty.Address.BuildingNumber != input.BuildingNumber)
