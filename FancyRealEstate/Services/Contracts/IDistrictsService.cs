@@ -7,12 +7,12 @@
 
     public interface IDistrictsService
     {
-        Task<int> CreateDistrictAsync(string name);
+        Task<int> CreateDistrictAsync(string name, int cityId);
 
-        District GetDistrictByName(string name);
+        District GetDistrictByName(string name, int? cityId);
 
-        ICollection<string> GetAllDistrict();
+        ICollection<string> GetAllDistrict(int? cityId);
 
-        Task<bool> DeleteDistrictAsync(string name);
+        Task<bool> DeleteDistrictAsync(string name, int cityId);
     }
 }

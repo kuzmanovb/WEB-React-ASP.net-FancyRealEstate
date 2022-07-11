@@ -17,9 +17,9 @@
             this.db = db;
         }
 
-        public async Task<int> CreateDistrictAsync(string name)
+        public async Task<int> CreateDistrictAsync(string name, int cityId)
         {
-            var newDistrict = new District { Name = name };
+            var newDistrict = new District { Name = name, CityId = cityId };
 
             await this.db.Districts.AddAsync(newDistrict);
             await this.db.SaveChangesAsync();
@@ -27,23 +27,23 @@
             return newDistrict.Id;
         }
 
-        public ICollection<string> GetAllDistrict()
+        public ICollection<string> GetAllDistrict(int? cityId)
         {
-            var allDistrictName = this.db.Districts.OrderBy(x => x.Name).Select(d => d.Name).ToArray();
+            var allDistrictName = this.db.Districts.Where(x => cityId.HasValue ? x.CityId == cityId : true).OrderBy(x => x.Name).Select(d => d.Name).ToArray();
 
             return allDistrictName;
         }
 
-        public District GetDistrictByName(string name)
+        public District GetDistrictByName(string name, int? cityId)
         {
-            var district = this.db.Districts.FirstOrDefault(d => d.Name == name);
+            var district = this.db.Districts.Where(x => cityId.HasValue ? x.CityId == cityId : true).FirstOrDefault(d => d.Name == name);
 
             return district;
         }
 
-        public async Task<bool> DeleteDistrictAsync(string name)
+        public async Task<bool> DeleteDistrictAsync(string name, int cityId)
         {
-            var district = this.db.Districts.FirstOrDefault(d => d.Name == name);
+            var district = this.db.Districts.FirstOrDefault(d => d.Name == name && d.CityId == cityId);
 
             if (district != null)
             {
