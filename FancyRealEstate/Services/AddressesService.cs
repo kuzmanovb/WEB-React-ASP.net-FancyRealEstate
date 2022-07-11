@@ -1,5 +1,6 @@
 ﻿namespace FancyRealEstate.Services
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using FancyRealEstate.Data;
@@ -22,8 +23,8 @@
 
         public async Task<int> CreateAddressAsync(AddressInputDto input)
         {
-            var city = this.citiesService.GetCityByName(input.City);
-            var district = this.districtsService.GetDistrictByName(input.District);
+            var city = this.citiesService.GetCityByName(input.City, null);
+            var district = this.districtsService.GetDistrictByName(input.District, null);
 
             if (city == null || district == null)
             {
@@ -43,7 +44,7 @@
             return newAddress.Id;
         }
 
-        public AddressInfoDto GetAddressesById(int id)
+        public AddressInfoDto GetAddressById(int id)
         {
             var address = this.db.Addresses
                 .Where(a => a.Id == id)
@@ -63,8 +64,8 @@
         public async Task UpdateAddressAsync(AddressInfoDto input)
         {
             var currentAddreass = this.db.Addresses.FirstOrDefault(a => a.Id == input.Id);
-            var disrtictId = this.districtsService.GetDistrictByName(input.District).Id;
-            var cityId = this.citiesService.GetCityByName(input.City).Id;
+            var disrtictId = this.districtsService.GetDistrictByName(input.District, null).Id;
+            var cityId = this.citiesService.GetCityByName(input.City, null).Id;
 
             if (currentAddreass.Street != input.Street)
             {
@@ -97,6 +98,13 @@
             }
 
             return false;
+        }
+
+        public List<Address> GetAddressesByDistrictId(int districtId)
+        {
+            var addresses = this.db.Addresses.Where(x => x.DistrictId == districtId).ToList();
+
+            return addresses;
         }
     }
 }

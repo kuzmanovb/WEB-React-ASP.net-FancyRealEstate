@@ -1,5 +1,6 @@
 ﻿namespace FancyRealEstate.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using FancyRealEstate.DTOs;
     using FancyRealEstate.Services.Contracts;
@@ -12,17 +13,19 @@
     {
         private readonly ILogger<AddressesController> logger;
         private readonly IAddressesService addressesService;
+        private readonly IRealEstatePropertiesService realEstatePropertiesService;
 
-        public AddressesController(ILogger<AddressesController> logger, IAddressesService addressesService)
+        public AddressesController(ILogger<AddressesController> logger, IAddressesService addressesService, IRealEstatePropertiesService realEstatePropertiesService)
         {
             this.logger = logger;
             this.addressesService = addressesService;
+            this.realEstatePropertiesService = realEstatePropertiesService;
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var currentAddress = this.addressesService.GetAddressesById(id);
+            var currentAddress = this.addressesService.GetAddressById(id);
 
             if (currentAddress == null)
             {
@@ -49,7 +52,7 @@
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] AddressInfoDto input)
         {
-            var currentAddress = this.addressesService.GetAddressesById(input.Id);
+            var currentAddress = this.addressesService.GetAddressById(input.Id);
 
             if (currentAddress == null)
             {
@@ -64,6 +67,13 @@
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var realEstateProperty = this.realEstatePropertiesService.GetPropertiesWithPredicate(x => x.AddressId == id).FirstOrDefault();
+
+            if (realEstateProperty != null)
+            {
+                return this.Conflict(new { message = $"Can't delete addresse, because used in property {realEstateProperty.Id}. First delete districts." });
+            }
+
             var result = await this.addressesService.DeleteAddressAsync(id);
 
             if (result)
