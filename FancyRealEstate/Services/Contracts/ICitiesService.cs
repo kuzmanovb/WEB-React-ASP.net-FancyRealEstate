@@ -7,12 +7,12 @@
 
     public interface ICitiesService
     {
-        Task<int> CreateSityAsync(string name);
+        Task<int> CreateSityAsync(string name, int countryId);
 
-        City GetCityByName(string name);
+        City GetCityByName(string name, int? countryId);
 
-        ICollection<string> GetAllCityName();
+        ICollection<string> GetAllCityName(int? countryId);
 
-        Task<bool> DeleteCityAsync(string name);
+        Task<bool> DeleteCityAsync(string name, int countryId);
     }
 }

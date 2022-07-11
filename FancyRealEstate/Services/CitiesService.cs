@@ -17,9 +17,9 @@
             this.db = db;
         }
 
-        public async Task<int> CreateSityAsync(string name)
+        public async Task<int> CreateSityAsync(string name, int countryId)
         {
-            var newCity = new City { Name = name };
+            var newCity = new City { Name = name, CountryId = countryId };
 
             await this.db.AddAsync(newCity);
             await this.db.SaveChangesAsync();
@@ -27,21 +27,24 @@
             return newCity.Id;
         }
 
-        public ICollection<string> GetAllCityName()
+        public ICollection<string> GetAllCityName(int? countryId)
         {
-            var allCities = this.db.Cities.OrderBy(b => b.Name).Select(x => x.Name).ToArray();
+            var allCities = this.db.Cities
+                .Where(x => countryId.HasValue ? x.CountryId == countryId : true)
+                .OrderBy(b => b.Name).Select(x => x.Name)
+                .ToArray();
 
             return allCities;
         }
 
-        public City GetCityByName(string name)
+        public City GetCityByName(string name, int? countryId)
         {
-            var city = this.db.Cities.FirstOrDefault(c => c.Name == name);
+            var city = this.db.Cities.Where(x => countryId.HasValue ? x.CountryId == countryId : true).FirstOrDefault(c => c.Name == name);
 
             return city;
         }
 
-        public async Task<bool> DeleteCityAsync(string name)
+        public async Task<bool> DeleteCityAsync(string name, int countryId)
         {
             var city = this.db.Cities.FirstOrDefault(c => c.Name == name);
 
