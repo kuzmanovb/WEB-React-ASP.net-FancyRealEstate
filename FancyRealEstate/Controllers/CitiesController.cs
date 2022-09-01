@@ -23,7 +23,15 @@
         }
 
         [HttpGet]
-        public IActionResult GetAllCities(int? countryId)
+        public IActionResult GetAll()
+        {
+            var allCities = this.citiesService.GetAllCityName(null);
+
+            return this.Ok(allCities);
+        }
+
+        [HttpGet]
+        public IActionResult GetByCountry(int countryId)
         {
             var allCities = this.citiesService.GetAllCityName(countryId);
 

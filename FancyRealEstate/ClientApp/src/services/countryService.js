@@ -1,21 +1,21 @@
 import {url} from'./apiServer'
 
-const propertyTypeUrl = url + "propertyTypes"
+const countriesUrl = url + "countries"
 
 export const getAll= () =>{
-    return fetch(propertyTypeUrl + "/getall")
+    return fetch(countriesUrl + "/getall")
     .then(res => res.json())
     .catch(error => console.log(error))
 };
 
 export const getByName= (name) =>{
-    return fetch(propertyTypeUrl + `/getByName?name=${name}`)
+    return fetch(countriesUrl + `/getbyname?name=${name}`)
     .then(res => res.json())
     .catch(error => console.log(error))
 };
 
 export const create= (name) =>{
-    return fetch(propertyTypeUrl + `/create?name=${name}`,{
+    return fetch(countriesUrl + `/create?name=${name}`,{
         method: "POST"
     })
     .then(res => res.json())
@@ -23,7 +23,7 @@ export const create= (name) =>{
 };
 
 export const deleted= (name) =>{
-    return fetch(propertyTypeUrl + `/deleted?name=${name}`,{
+    return fetch(countriesUrl + `/deleted?name=${name}`,{
         method: "DELETE"
     })
     .then(res => res.json())

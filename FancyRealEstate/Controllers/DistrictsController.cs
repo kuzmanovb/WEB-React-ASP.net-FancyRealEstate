@@ -23,7 +23,16 @@
         }
 
         [HttpGet]
-        public IActionResult GettAll(int? cityId)
+        public IActionResult GetAll()
+        {
+            var allDistrict = this.districtsService.GetAllDistrict(null);
+
+            return this.Ok(allDistrict);
+
+        }
+
+        [HttpGet]
+        public IActionResult GetByCity(int? cityId)
         {
             var allDistrict = this.districtsService.GetAllDistrict(cityId);
 

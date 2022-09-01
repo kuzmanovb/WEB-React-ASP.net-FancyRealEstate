@@ -71,6 +71,7 @@ namespace FancyRealEstate
             services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
 
             // Application services
+            services.AddTransient<ICountriesService, CountriesService>();
             services.AddTransient<ICitiesService, CitiesService>();
             services.AddTransient<IDistrictsService, DistrictsService>();
             services.AddTransient<IAddressesService, AddressesService>();

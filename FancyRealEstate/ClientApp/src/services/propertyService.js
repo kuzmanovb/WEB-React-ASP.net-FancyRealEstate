@@ -4,7 +4,7 @@ const propertyUrl = url + "realEstateProperties"
 const sortedPropertyUrl = url + "sortedRealEstateProperies"
 
 export const createProperty = (value, token) => {
-    return fetch(propertyUrl, {
+    return fetch(propertyUrl + "/create", {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -19,7 +19,7 @@ export const createProperty = (value, token) => {
 };
 
 export const updateProperty = (value, token) => {
-    return fetch(propertyUrl, {
+    return fetch(propertyUrl + "/update", {
         method: "PUT",
         headers: {
             'Accept': 'application/json',
@@ -34,7 +34,7 @@ export const updateProperty = (value, token) => {
 };
 
 export const deletedProperty= (id, token) =>{
-    return fetch(propertyUrl + `/${id}`,{
+    return fetch(propertyUrl + `/softdelete?id=${id}`,{
         method: "DELETE",
         headers: {'Authorization': `Bearer ${token}`}
     })
@@ -43,7 +43,7 @@ export const deletedProperty= (id, token) =>{
 };
 
 export const getByUserId = (userId, sortByDateAscending) => {
-    return fetch(sortedPropertyUrl, {
+    return fetch(sortedPropertyUrl + "/getsorted", {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -56,7 +56,7 @@ export const getByUserId = (userId, sortByDateAscending) => {
 };
 
 export const getAll = (values) => {
-    return fetch(sortedPropertyUrl, {
+    return fetch(sortedPropertyUrl + "/getsorted", {
         method: "POST",
         headers: {
             'Accept': 'application/json',

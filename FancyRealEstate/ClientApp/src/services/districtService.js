@@ -4,27 +4,34 @@ const destrictUrl = url + "districts";
 
 export const getAll = () => {
 
-    return fetch(destrictUrl)
+    return fetch(destrictUrl + `/getall`)
         .then(res => res.json())
         .catch(error => console.log(error));
 };
 
-export const getByName = (name) => {
-    return fetch(destrictUrl + `/${name}`)
+export const getByCity = (cityId) => {
+
+    return fetch(destrictUrl + `/getall?cityId=${cityId}`)
+        .then(res => res.json())
+        .catch(error => console.log(error));
+};
+
+export const getByName = (name, cityId) => {
+    return fetch(destrictUrl + `/getByName?name=${name}&cityId=${cityId}`)
     .then(res => res.json())
     .catch(error => console.log(error));
  };
 
-export const create = (name) => {
-    return fetch(destrictUrl + `/${name}`,{
+export const create = (name, cityId) => {
+    return fetch(destrictUrl + `/create?name=${name}&cityId=${cityId}`,{
         method: "PUT",
     })
     .then(res => res.json())
     .catch(error => console.log(error));
  };
 
-export const deleted = (name) => { 
-    return fetch(destrictUrl + `/${name}`,{
+export const deleted = (name, cityId) => { 
+    return fetch(destrictUrl + `/deleted?name=${name}&cityId=${cityId}`,{
         method: "DELETE"
     })
     .then(res => res.json())

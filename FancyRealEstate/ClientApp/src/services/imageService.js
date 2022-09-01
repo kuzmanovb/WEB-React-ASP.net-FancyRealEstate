@@ -4,7 +4,7 @@ const imageUrl = url + "images"
 
 export const deleteImage = (cloudId) =>{
 
-    fetch(`${imageUrl}?cloudId=${cloudId}`, {
+    fetch(imageUrl + `/Delete?cloudId=${cloudId}`, {
         method: "DELETE"
     })
     .then(res => res.json())

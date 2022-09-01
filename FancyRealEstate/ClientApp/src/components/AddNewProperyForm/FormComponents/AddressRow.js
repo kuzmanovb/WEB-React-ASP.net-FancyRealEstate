@@ -2,21 +2,24 @@
 import React, { useState, useEffect } from 'react'
 import { Col, Row, FormGroup, Label, Input } from 'reactstrap';
 
+import * as countriesTypeService from '../../../services/countryService'
 import * as cityTypeService from '../../../services/cityService'
 import * as districtTypeService from '../../../services/districtService'
 
 
 export const AddressRow = (props) => {
 
+    const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
     const [districts, setDistricts] = useState([]);
+    const [country, setCountry] = useState("");
     const [city, setCity] = useState("");
     const [district, setDistrict] = useState("");
     const [street, setStreet] = useState("");
     const [number, setNumber] = useState("");
 
     useEffect(() => {
-
+        countriesTypeService.getAll().then(res => setCountries(res));
         cityTypeService.getAll().then(res => setCities(res));
         districtTypeService.getAll().then(res => setDistricts(res))
 
@@ -33,7 +36,7 @@ export const AddressRow = (props) => {
 
         sendData();
 
-    }, [city, district, street, number]);
+    }, [country, city, district, street, number]);
 
     const sendData = () => {
 
@@ -41,8 +44,15 @@ export const AddressRow = (props) => {
 
     }
 
+    const handleCountry = (e) => {
+        setCountry(e.target.value);
+        debugger;
+        cityTypeService.getAll().then(res => setCities(res));
+    }
+
     const handleCity = (e) => {
         setCity(e.target.value);
+        districtTypeService.getAll().then(res => setDistricts(res))
     }
 
     const handleDistrict = (e) => {
@@ -61,12 +71,26 @@ export const AddressRow = (props) => {
     return (
 
         <Row form>
+             <Col md={3}>
+                <FormGroup>
+                    <Label for="city">Country</Label>
+                    <Input type="select" name="country" id="city" value={city} onChange={handleCountry} onBlur={props.passBlur} >
+                        <option value="">Choose Country</option>
+                        {countries.map(s =>
+                            <option key={s} value={s}>{s}</option>
+                        )}
+
+                    </Input>
+                    {props.passTouched.city && props.passErrors.city ? <div className="text-danger">{props.passErrors.city}</div> : null}
+                </FormGroup>
+            </Col>
+            <Col md={3}></Col>
             <Col md={3}>
                 <FormGroup>
                     <Label for="city">City</Label>
                     <Input type="select" name="city" id="city" value={city} onChange={handleCity} onBlur={props.passBlur} >
                         <option value="">Choose City</option>
-                        {cities.map(s =>
+                        {cities?.map(s =>
                             <option key={s} value={s}>{s}</option>
                         )}
 
@@ -79,7 +103,7 @@ export const AddressRow = (props) => {
                     <Label for="district">District</Label>
                     <Input type="select" name="district" id="district" value={district} onChange={handleDistrict} onBlur={props.passBlur}>
                         <option value="">Choose District</option>
-                        {districts.map(d =>
+                        {districts?.map(d =>
                             <option key={d} value={d}>{d}</option>
                         )}
                     </Input>
