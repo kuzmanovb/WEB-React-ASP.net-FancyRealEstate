@@ -8,7 +8,9 @@
     using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
+
+    // path: api/realestateproperties/{action name}?parameters
     public class RealEstatePropertiesController : ControllerBase
     {
         private readonly ILogger<RealEstatePropertiesController> logger;
@@ -30,7 +32,7 @@
         }
 
         // Get soft deleted property "RealEstateProperties/id?isDeleted=true"
-        [HttpGet("{id}")]
+        [HttpGet]
         public IActionResult GetById(int id, bool isDeleted)
         {
 
@@ -75,7 +77,7 @@
         }
 
         [Authorize]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> SoftDelete(int id)
         {
             var result = await this.realEstatePropertiesService.DeletePropertyAsync(id);

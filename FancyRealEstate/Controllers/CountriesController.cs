@@ -6,7 +6,9 @@
     using System.Threading.Tasks;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
+
+    // path: api/countries/{action name}?parameters
     public class CountriesController : ControllerBase
     {
         private readonly ApplicationDbContext db;
@@ -25,7 +27,7 @@
             return this.Ok(contries);
         }
 
-        [HttpGet("name")]
+        [HttpGet]
         public IActionResult GetByName(string name)
         {
             var currentCountry = this.countriesService.GetCountryByName(name);
@@ -38,7 +40,7 @@
             return this.Ok(currentCountry);
         }
 
-        [HttpPost("name")]
+        [HttpPost]
         public async Task<IActionResult> Create(string name)
         {
 
@@ -52,7 +54,7 @@
             return this.BadRequest();
         }
 
-        [HttpDelete("name")]
+        [HttpDelete]
         public async Task<IActionResult> Delete (string name)
         {
             var result = await this.countriesService.DeleteCountryAsync(name);

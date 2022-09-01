@@ -5,8 +5,10 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
-    [Route("[controller]")]
     [ApiController]
+    [Route("api/[controller]/[action]")]
+
+    //path: api/images/{action name}?parameters
     public class ImagesController : ControllerBase
     {
         private readonly ILogger<DistrictsController> logger;

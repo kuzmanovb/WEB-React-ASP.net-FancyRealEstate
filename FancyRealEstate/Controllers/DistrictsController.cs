@@ -6,7 +6,9 @@
     using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
+
+    // path: api/districts/{action name}?parameters
     public class DistrictsController : ControllerBase
     {
         private readonly ILogger<DistrictsController> logger;
@@ -20,7 +22,7 @@
             this.addressesService = addressesService;
         }
 
-        [HttpGet("cityId")]
+        [HttpGet]
         public IActionResult GettAll(int? cityId)
         {
             var allDistrict = this.districtsService.GetAllDistrict(cityId);
@@ -29,7 +31,7 @@
 
         }
 
-        [HttpGet("{name, cityId}")]
+        [HttpGet]
         public IActionResult GetByName(string name, int? cityId)
         {
             var currentDistrict = this.districtsService.GetDistrictByName(name, cityId);
@@ -42,7 +44,7 @@
             return this.Ok(currentDistrict);
         }
 
-        [HttpPost("{name, cityId}")]
+        [HttpPost]
         public async Task<IActionResult> Create(string name, int cityId)
         {
             var currentDistrict = this.districtsService.GetDistrictByName(name, cityId);
@@ -62,7 +64,7 @@
             return this.BadRequest();
         }
 
-        [HttpDelete("{name, cityId}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(string name, int cityId)
         {
             var currentDistrict = this.districtsService.GetDistrictByName(name, cityId);

@@ -6,7 +6,9 @@
     using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
+
+    // path: api/buildingtypes/{action name}?parameters
     public class BuildingTypesController : ControllerBase
     {
         private readonly ILogger<BuildingTypesController> logger;
@@ -26,7 +28,7 @@
             return this.Ok(buildingTypes);
         }
 
-        [HttpGet("{name}")]
+        [HttpGet]
         public IActionResult GetByName(string name)
         {
             var currentBuildingType = this.buildingTypesService.GetBuildingTypeByName(name);
@@ -39,7 +41,7 @@
             return this.Ok(currentBuildingType);
         }
 
-        [HttpPost("{name}")]
+        [HttpPost]
         public async Task<IActionResult> Create(string name)
         {
             var currentBuildingType = this.buildingTypesService.GetBuildingTypeByName(name);
@@ -59,7 +61,7 @@
             return this.BadRequest();
         }
 
-        [HttpDelete("{name}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(string name)
         {
             var result = await this.buildingTypesService.DeleteBuildingTypeAsync(name);

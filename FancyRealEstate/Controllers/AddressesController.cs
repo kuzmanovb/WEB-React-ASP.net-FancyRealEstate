@@ -8,7 +8,9 @@
     using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
+
+    // path: api/addresses/{action name}?parameters
     public class AddressesController : ControllerBase
     {
         private readonly ILogger<AddressesController> logger;
@@ -22,7 +24,7 @@
             this.realEstatePropertiesService = realEstatePropertiesService;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public IActionResult Get(int id)
         {
             var currentAddress = this.addressesService.GetAddressById(id);
@@ -64,7 +66,7 @@
             return this.Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             var realEstateProperty = this.realEstatePropertiesService.GetPropertiesWithPredicate(x => x.AddressId == id).FirstOrDefault();

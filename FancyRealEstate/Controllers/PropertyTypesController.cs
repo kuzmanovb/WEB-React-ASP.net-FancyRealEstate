@@ -6,7 +6,9 @@
     using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
+
+    // path: api/propertytypes/{action name}?parameters
     public class PropertyTypesController : ControllerBase
     {
         private readonly ILogger<PropertyTypesController> logger;
@@ -27,7 +29,7 @@
 
         }
 
-        [HttpGet("{name}")]
+        [HttpGet]
         public IActionResult GetByName(string name)
         {
             var currentPropertyType = this.properyTypesService.GetPropertyTypeByName(name);
@@ -40,7 +42,7 @@
             return this.Ok(currentPropertyType);
         }
 
-        [HttpPost("{name}")]
+        [HttpPost]
         public async Task<IActionResult> Create(string name)
         {
             var currentPropertyType = this.properyTypesService.GetPropertyTypeByName(name);
@@ -60,7 +62,7 @@
             return this.BadRequest();
         }
 
-        [HttpDelete("{name}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(string name)
         {
 

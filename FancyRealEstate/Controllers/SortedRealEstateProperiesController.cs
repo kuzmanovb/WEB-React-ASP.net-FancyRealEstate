@@ -6,7 +6,9 @@
     using Microsoft.Extensions.Logging;
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
+
+    // path: api/sortedrealestateproperies/{action name}?parameters
     public class SortedRealEstateProperiesController : ControllerBase
     {
         private const int NumberPropertyToPage = 9;
