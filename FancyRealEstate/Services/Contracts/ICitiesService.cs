@@ -13,6 +13,8 @@
 
         ICollection<string> GetAllCityName(int? countryId);
 
+        ICollection<string> GetCitiesNameByCountry(string countryName);
+
         Task<bool> DeleteCityAsync(string name, int countryId);
     }
 }

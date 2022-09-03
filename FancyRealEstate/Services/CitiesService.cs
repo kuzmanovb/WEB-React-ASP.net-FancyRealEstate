@@ -58,5 +58,14 @@
 
             return false;
         }
+
+        public ICollection<string> GetCitiesNameByCountry(string countryName)
+        {
+            var currentCountry = this.db.Countries.FirstOrDefault(x => x.Name == countryName);
+
+            var citiesInCountry = this.db.Cities.Where(x => x.CountryId == currentCountry.Id).Select(x => x.Name).ToArray();
+
+            return citiesInCountry;
+        }
     }
 }

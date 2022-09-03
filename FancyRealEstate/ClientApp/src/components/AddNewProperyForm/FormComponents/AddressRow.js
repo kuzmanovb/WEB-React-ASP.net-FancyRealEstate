@@ -20,10 +20,14 @@ export const AddressRow = (props) => {
 
     useEffect(() => {
         countriesTypeService.getAll().then(res => setCountries(res));
-        cityTypeService.getAll().then(res => setCities(res));
-        districtTypeService.getAll().then(res => setDistricts(res))
-
     }, []);
+
+    //useEffect(() => {
+    //    countriesTypeService.getAll().then(res => setCountries(res));
+    //    cityTypeService.getAll().then(res => setCities(res));
+    //    districtTypeService.getAll().then(res => setDistricts(res))
+
+    //}, []);
 
     useEffect(() => {
         setCity(props.passProps?.city)
@@ -47,7 +51,7 @@ export const AddressRow = (props) => {
     const handleCountry = (e) => {
         setCountry(e.target.value);
         debugger;
-        cityTypeService.getAll().then(res => setCities(res));
+        cityTypeService.getByCountry(e.target.value).then(res => setCities(res));
     }
 
     const handleCity = (e) => {

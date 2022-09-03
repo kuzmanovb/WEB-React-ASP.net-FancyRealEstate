@@ -8,8 +8,8 @@ export const getAll = () =>{
     .catch(error => console.log(error))
 };
 
-export const getByCountry = (countryId) => {
-    return fetch(cityUrl + `/getByCountry?countryId=${countryId}`)
+export const getByCountry = (countryName) => {
+    return fetch(cityUrl + `/getByCountry?countryName=${countryName}`)
         .then(res => res.json())
         .catch(error => console.log(error))
 };

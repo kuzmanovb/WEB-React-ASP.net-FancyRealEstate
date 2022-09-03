@@ -31,9 +31,9 @@
         }
 
         [HttpGet]
-        public IActionResult GetByCountry(int countryId)
+        public IActionResult GetByCountry(string countryName)
         {
-            var allCities = this.citiesService.GetAllCityName(countryId);
+            var allCities = this.citiesService.GetCitiesNameByCountry(countryName);
 
             return this.Ok(allCities);
         }
