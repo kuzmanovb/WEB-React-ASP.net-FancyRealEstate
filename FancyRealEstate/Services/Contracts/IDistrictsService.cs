@@ -7,14 +7,16 @@
 
     public interface IDistrictsService
     {
-        Task<int> CreateDistrictAsync(string name, int cityId);
+        Task<int> CreateDistrictAsync(string name, string cityName);
 
-        District GetDistrictByName(string name, int? cityId);
+        District GetDistrictByName(string name);
 
-        ICollection<string> GetAllDistrict(int? cityId);
+        ICollection<string> GetAllDistrict();
 
         ICollection<string> GetDistrictsNameByCity(string cityName);
 
-        Task<bool> DeleteDistrictAsync(string name, int cityId);
+        Task<bool> DeleteDistrictAsync(string name, string cityName);
+
+        bool IsHasSameDistrictInCity(string name, string cityName);
     }
 }

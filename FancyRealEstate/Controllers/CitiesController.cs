@@ -84,7 +84,7 @@
         {
             var disrtrictsInCity = this.districtsService.GetDistrictsNameByCity(name);
 
-            if (disrtrictsInCity != null)
+            if (disrtrictsInCity.Count > 0)
             {
                 return this.Conflict(new { message = $"Can't delete city {name}, because used in city districts. First delete districts." });
             }

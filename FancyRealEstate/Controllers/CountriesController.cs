@@ -11,12 +11,13 @@
     // path: api/countries/{action name}?parameters
     public class CountriesController : ControllerBase
     {
-        private readonly ApplicationDbContext db;
         private readonly ICountriesService countriesService;
+        private readonly ICitiesService citiesService;
 
-        public CountriesController(ICountriesService countriesService)
+        public CountriesController(ICountriesService countriesService, ICitiesService citiesService)
         {
             this.countriesService = countriesService;
+            this.citiesService = citiesService;
         }
 
         [HttpGet]
@@ -57,6 +58,13 @@
         [HttpDelete]
         public async Task<IActionResult> Delete (string name)
         {
+            var citiesInCountry = this.citiesService.GetCitiesNameByCountry(name);
+
+            if (citiesInCountry.Count > 0)
+            {
+                return this.Conflict(new { message = $"Can't delete country {name}, because used in cities. First delete cities." });
+            }
+
             var result = await this.countriesService.DeleteCountryAsync(name);
 
             if (result)
