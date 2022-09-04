@@ -32,9 +32,9 @@
         }
 
         [HttpGet]
-        public IActionResult GetByCity(int? cityId)
+        public IActionResult GetByCity(string cityName)
         {
-            var allDistrict = this.districtsService.GetAllDistrict(cityId);
+            var allDistrict = this.districtsService.GetDistrictsNameByCity(cityName);
 
             return this.Ok(allDistrict);
 

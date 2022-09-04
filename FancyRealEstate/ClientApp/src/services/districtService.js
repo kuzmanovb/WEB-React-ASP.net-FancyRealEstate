@@ -9,9 +9,9 @@ export const getAll = () => {
         .catch(error => console.log(error));
 };
 
-export const getByCity = (cityId) => {
+export const getByCity = (cityName) => {
 
-    return fetch(destrictUrl + `/getall?cityId=${cityId}`)
+    return fetch(destrictUrl + `/getbycity?cityName=${cityName}`)
         .then(res => res.json())
         .catch(error => console.log(error));
 };

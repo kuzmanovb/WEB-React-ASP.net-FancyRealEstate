@@ -55,5 +55,12 @@
 
             return false;
         }
+
+        public ICollection<string> GetDistrictsNameByCity(string cityName)
+        {
+            var districtsInCity = this.db.Districts.Where(x => x.City.Name == cityName).Select(x => x.Name).ToArray();
+
+            return districtsInCity;
+        }
     }
 }

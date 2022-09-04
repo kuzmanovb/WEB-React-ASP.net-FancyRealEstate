@@ -22,14 +22,8 @@ export const AddressRow = (props) => {
         countriesTypeService.getAll().then(res => setCountries(res));
     }, []);
 
-    //useEffect(() => {
-    //    countriesTypeService.getAll().then(res => setCountries(res));
-    //    cityTypeService.getAll().then(res => setCities(res));
-    //    districtTypeService.getAll().then(res => setDistricts(res))
-
-    //}, []);
-
     useEffect(() => {
+        setCountry(props.passProps?.country)
         setCity(props.passProps?.city)
         setDistrict(props.passProps?.district)
         setStreet(props.passProps?.street)
@@ -50,13 +44,12 @@ export const AddressRow = (props) => {
 
     const handleCountry = (e) => {
         setCountry(e.target.value);
-        debugger;
         cityTypeService.getByCountry(e.target.value).then(res => setCities(res));
     }
 
     const handleCity = (e) => {
         setCity(e.target.value);
-        districtTypeService.getAll().then(res => setDistricts(res))
+        districtTypeService.getByCity(e.target.value).then(res => setDistricts(res))
     }
 
     const handleDistrict = (e) => {
@@ -75,10 +68,10 @@ export const AddressRow = (props) => {
     return (
 
         <Row form>
-             <Col md={3}>
+             <Col md={4}>
                 <FormGroup>
-                    <Label for="city">Country</Label>
-                    <Input type="select" name="country" id="city" value={city} onChange={handleCountry} onBlur={props.passBlur} >
+                    <Label for="country">Country</Label>
+                    <Input type="select" name="country" id="country" value={country} onChange={handleCountry} onBlur={props.passBlur} >
                         <option value="">Choose Country</option>
                         {countries.map(s =>
                             <option key={s} value={s}>{s}</option>
@@ -88,12 +81,12 @@ export const AddressRow = (props) => {
                     {props.passTouched.city && props.passErrors.city ? <div className="text-danger">{props.passErrors.city}</div> : null}
                 </FormGroup>
             </Col>
-            <Col md={3}></Col>
-            <Col md={3}>
+           
+            <Col md={4}>
                 <FormGroup>
                     <Label for="city">City</Label>
                     <Input type="select" name="city" id="city" value={city} onChange={handleCity} onBlur={props.passBlur} >
-                        <option value="">Choose City</option>
+                        <option value="">{cities.length > 0 ? "Choose City" : ""}</option>
                         {cities?.map(s =>
                             <option key={s} value={s}>{s}</option>
                         )}
@@ -102,11 +95,11 @@ export const AddressRow = (props) => {
                     {props.passTouched.city && props.passErrors.city ? <div className="text-danger">{props.passErrors.city}</div> : null}
                 </FormGroup>
             </Col>
-            <Col md={3}>
+            <Col md={4}>
                 <FormGroup>
                     <Label for="district">District</Label>
                     <Input type="select" name="district" id="district" value={district} onChange={handleDistrict} onBlur={props.passBlur}>
-                        <option value="">Choose District</option>
+                        <option value="">{cities.length > 0 ? "Choose District" : ""}</option>
                         {districts?.map(d =>
                             <option key={d} value={d}>{d}</option>
                         )}

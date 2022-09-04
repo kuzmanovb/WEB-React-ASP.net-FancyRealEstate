@@ -13,6 +13,8 @@
 
         ICollection<string> GetAllDistrict(int? cityId);
 
+        ICollection<string> GetDistrictsNameByCity(string cityName);
+
         Task<bool> DeleteDistrictAsync(string name, int cityId);
     }
 }
