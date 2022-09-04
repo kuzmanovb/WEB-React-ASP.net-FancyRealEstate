@@ -42,17 +42,15 @@ export const BuildingTypeForm = (props) => {
         return false
     }
 
-
     const handleBuildingType = (e) => {
 
         setBuildingType(e.target.value);
 
     }
 
-
     return (
         <FormGroup tag="fieldset" onChange={handleBuildingType} onBlur={props.passBlur}>
-            <legend className="col-form-label"><b>Buildin Type</b></legend>
+            <legend className="col-form-label"><b>Building Type</b></legend>
             {buildingTypes.map(b =>
                 <FormGroup check inline key={b} >
                     <Label for="buildingType">
