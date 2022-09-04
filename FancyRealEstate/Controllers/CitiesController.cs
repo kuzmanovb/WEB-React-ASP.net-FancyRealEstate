@@ -14,18 +14,20 @@
         private readonly ILogger<CitiesController> logger;
         private readonly ICitiesService citiesService;
         private readonly IDistrictsService districtsService;
+        private readonly ICountriesService countriesService;
 
-        public CitiesController(ILogger<CitiesController> logger, ICitiesService citiesService, IDistrictsService districtsService)
+        public CitiesController(ILogger<CitiesController> logger, ICitiesService citiesService, IDistrictsService districtsService, ICountriesService countriesService)
         {
             this.logger = logger;
             this.citiesService = citiesService;
             this.districtsService = districtsService;
+            this.countriesService = countriesService;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allCities = this.citiesService.GetAllCityName(null);
+            var allCities = this.citiesService.GetAllCityName();
 
             return this.Ok(allCities);
         }
@@ -39,9 +41,9 @@
         }
 
         [HttpGet]
-        public IActionResult GetByName(string name, int? countryId)
+        public IActionResult GetByName(string name)
         {
-            var currentCity = this.citiesService.GetCityByName(name, countryId);
+            var currentCity = this.citiesService.GetCityByName(name);
 
             if (currentCity == null)
             {
@@ -52,16 +54,22 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string name, int countryId)
+        public async Task<IActionResult> Create(string name, string countryName)
         {
-            var currentCity = this.citiesService.GetCityByName(name, countryId);
-
-            if (currentCity != null)
+            var curentCountry = this.countriesService.GetCountryByName(name);
+            if (curentCountry == null)
             {
-                return this.Conflict(new { message = $"City with name '{name}' was already found." });
+                return this.Conflict(new { message = $"Country with name '{countryName}' not existe." });
             }
 
-            var cityId = await this.citiesService.CreateSityAsync(name, countryId);
+            var isHasCity = this.citiesService.IsHasSameCityInCountry(name, countryName);
+
+            if (isHasCity)
+            {
+                return this.Conflict(new { message = $"City with name '{name}' in {countryName} already existe." });
+            }
+
+            var cityId = await this.citiesService.CreateSityAsync(name, countryName);
 
             if (cityId != 0)
             {
@@ -72,18 +80,16 @@
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(string name, int countryId)
+        public async Task<IActionResult> Delete(string name, string countryName)
         {
-            var currentCity = this.citiesService.GetCityByName(name, countryId);
-
-            var disrtrictsInCity = this.districtsService.GetAllDistrict(currentCity.Id);
+            var disrtrictsInCity = this.districtsService.GetDistrictsNameByCity(name);
 
             if (disrtrictsInCity != null)
             {
                 return this.Conflict(new { message = $"Can't delete city {name}, because used in city districts. First delete districts." });
             }
 
-            var result = await this.citiesService.DeleteCityAsync(name, countryId);
+            var result = await this.citiesService.DeleteCityAsync(name, countryName);
 
             if (result)
             {

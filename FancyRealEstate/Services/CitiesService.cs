@@ -17,9 +17,15 @@
             this.db = db;
         }
 
-        public async Task<int> CreateSityAsync(string name, int countryId)
+        public async Task<int> CreateSityAsync(string name, string countryName)
         {
-            var newCity = new City { Name = name, CountryId = countryId };
+            var currentCountry = this.db.Countries.FirstOrDefault(x => x.Name == countryName);
+            if (currentCountry == null)
+            {
+                return 0;
+            }
+
+            var newCity = new City { Name = name, CountryId = currentCountry.Id };
 
             await this.db.AddAsync(newCity);
             await this.db.SaveChangesAsync();
@@ -27,26 +33,32 @@
             return newCity.Id;
         }
 
-        public ICollection<string> GetAllCityName(int? countryId)
+        public ICollection<string> GetAllCityName()
         {
             var allCities = this.db.Cities
-                .Where(x => countryId.HasValue ? x.CountryId == countryId : true)
                 .OrderBy(b => b.Name).Select(x => x.Name)
                 .ToArray();
 
             return allCities;
         }
 
-        public City GetCityByName(string name, int? countryId)
+        public City GetCityByName(string name)
         {
-            var city = this.db.Cities.Where(x => countryId.HasValue ? x.CountryId == countryId : true).FirstOrDefault(c => c.Name == name);
+            var city = this.db.Cities.FirstOrDefault(x => x.Name == name);
 
             return city;
         }
 
-        public async Task<bool> DeleteCityAsync(string name, int countryId)
+        public ICollection<string> GetCitiesNameByCountry(string countryName)
         {
-            var city = this.db.Cities.FirstOrDefault(c => c.Name == name);
+            var citiesInCountry = this.db.Cities.Where(x => x.Country.Name == countryName).Select(x => x.Name).ToArray();
+
+            return citiesInCountry;
+        }
+
+        public async Task<bool> DeleteCityAsync(string name, string countryName)
+        {
+            var city = this.db.Cities.FirstOrDefault(x => x.Name == name && x.Country.Name == countryName);
 
             if (city != null)
             {
@@ -59,11 +71,18 @@
             return false;
         }
 
-        public ICollection<string> GetCitiesNameByCountry(string countryName)
+        public bool IsHasSameCityInCountry(string name, string countryName)
         {
-            var citiesInCountry = this.db.Cities.Where(x => x.Country.Name == countryName).Select(x => x.Name).ToArray();
+            var currentCity = this.db.Cities.FirstOrDefault(x => x.Name == name && x.Country.Name == countryName);
 
-            return citiesInCountry;
+            if (currentCity == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

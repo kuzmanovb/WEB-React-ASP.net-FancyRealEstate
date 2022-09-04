@@ -23,7 +23,7 @@
 
         public async Task<int> CreateAddressAsync(AddressInputDto input)
         {
-            var city = this.citiesService.GetCityByName(input.City, null);
+            var city = this.citiesService.GetCityByName(input.City);
             var district = this.districtsService.GetDistrictByName(input.District, null);
 
             if (city == null || district == null)
@@ -65,7 +65,7 @@
         {
             var currentAddreass = this.db.Addresses.FirstOrDefault(a => a.Id == input.Id);
             var disrtictId = this.districtsService.GetDistrictByName(input.District, null).Id;
-            var cityId = this.citiesService.GetCityByName(input.City, null).Id;
+            var cityId = this.citiesService.GetCityByName(input.City).Id;
 
             if (currentAddreass.Street != input.Street)
             {
