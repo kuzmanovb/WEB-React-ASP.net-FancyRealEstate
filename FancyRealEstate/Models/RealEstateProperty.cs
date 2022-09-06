@@ -9,6 +9,7 @@
         public RealEstateProperty()
         {
             this.Images = new HashSet<Image>();
+            this.Features = new HashSet<Feature>();
         }
 
         public int Id { get; set; }
@@ -68,5 +69,7 @@
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public virtual ICollection<Feature> Features { get; set; }
     }
 }
