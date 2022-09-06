@@ -77,6 +77,7 @@ namespace FancyRealEstate
             services.AddTransient<IAddressesService, AddressesService>();
             services.AddTransient<IBuildingTypesService, BuildingTypesService>();
             services.AddTransient<IProperyTypesService, ProperyTypesService>();
+            services.AddTransient<IFeatureService, FeatureService>();
             services.AddTransient<IImagesService, ImagesService>();
             services.AddTransient<IRealEstatePropertiesService, RealEstatePropertiesService>();
 
