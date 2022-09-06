@@ -13,20 +13,23 @@
         private readonly ApplicationDbContext db;
         private readonly ICitiesService citiesService;
         private readonly IDistrictsService districtsService;
+        private readonly ICountriesService countriesService;
 
-        public AddressesService(ApplicationDbContext db, ICitiesService citiesService, IDistrictsService districtsService)
+        public AddressesService(ApplicationDbContext db, ICitiesService citiesService, IDistrictsService districtsService, ICountriesService countriesService)
         {
             this.db = db;
             this.citiesService = citiesService;
             this.districtsService = districtsService;
+            this.countriesService = countriesService;
         }
 
         public async Task<int> CreateAddressAsync(AddressInputDto input)
         {
+            var country = this.countriesService.GetCountryByName(input.Country);
             var city = this.citiesService.GetCityByName(input.City);
             var district = this.districtsService.GetDistrictByName(input.District);
 
-            if (city == null || district == null)
+            if (city == null || district == null || country == null)
             {
                 return 0;
             }
@@ -36,6 +39,8 @@
                 Street = input.Street,
                 BuildingNumber = input.BuildingNumber,
                 DistrictId = district.Id,
+                CityId = city.Id,
+                CountryId = country.Id,
             };
 
             await this.db.Addresses.AddAsync(newAddress);
@@ -51,9 +56,11 @@
                 .Select(x => new AddressInfoDto
                 {
                     Id = x.Id,
+                    Country = x.Country.Name,
+                    City = x.City.Name,
+                    District = x.District.Name,
                     Street = x.Street,
                     BuildingNumber = x.BuildingNumber,
-                    District = x.District.Name,
                     RealEstatePropertyId = x.RealEstateProperties.Id,
                 })
                 .FirstOrDefault();
@@ -66,6 +73,7 @@
             var currentAddreass = this.db.Addresses.FirstOrDefault(a => a.Id == input.Id);
             var disrtictId = this.districtsService.GetDistrictByName(input.District).Id;
             var cityId = this.citiesService.GetCityByName(input.City).Id;
+            var countryId = this.countriesService.GetCountryByName(input.Country).Id;
 
             if (currentAddreass.Street != input.Street)
             {
@@ -80,6 +88,16 @@
             if (currentAddreass.DistrictId != disrtictId)
             {
                 currentAddreass.DistrictId = disrtictId;
+            }
+
+            if (currentAddreass.CityId != cityId)
+            {
+                currentAddreass.CityId = cityId;
+            }
+
+            if (currentAddreass.CountryId != countryId)
+            {
+                currentAddreass.CountryId = countryId;
             }
 
             this.db.Update(currentAddreass);

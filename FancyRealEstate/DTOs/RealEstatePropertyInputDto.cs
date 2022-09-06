@@ -22,6 +22,8 @@
 
         public string City { get; set; }
 
+        public string Country { get; set; }
+
         public string BuildingNumber { get; set; }
 
         public string PropertyType { get; set; }

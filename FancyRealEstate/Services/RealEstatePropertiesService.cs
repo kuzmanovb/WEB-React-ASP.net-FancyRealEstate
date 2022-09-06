@@ -39,6 +39,7 @@
                 BuildingNumber = input.BuildingNumber,
                 District = input.District,
                 City = input.City,
+                Country = input.Country,
             };
 
             var addressId = await this.addressesService.CreateAddressAsync(newAddress);
@@ -167,6 +168,8 @@
                     Year = p.Year,
                     Price = p.Price,
                     Street = p.Address.Street,
+                    City = p.Address.City.Name,
+                    Country = p.Address.Country.Name,
                     District = p.Address.District.Name,
                     BuildingNumber = p.Address.BuildingNumber,
                     PropertyType = p.PropertyType.Name,
