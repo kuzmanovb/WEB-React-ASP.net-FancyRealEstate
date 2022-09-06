@@ -34,7 +34,7 @@
             var currentFeature = this.featureService.GetFeatureByName(name);
             if (currentFeature == null)
             {
-                return this.Conflict(new { message = $"Feature with name '{name}' already existed." });
+                return this.Conflict(new { message = $"Feature with name '{name}' already exist." });
             }
 
             var featureId = this.featureService.CreateFeatureAsync(name);

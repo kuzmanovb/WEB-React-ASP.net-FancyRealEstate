@@ -61,14 +61,14 @@
             var curentCity = this.citiesService.GetCityByName(cityName);
             if (curentCity == null)
             {
-                return this.Conflict(new { message = $"City with name '{cityName}' not existe." });
+                return this.Conflict(new { message = $"City with name '{cityName}' not exist." });
             }
 
             var isHasDistrict = this.districtsService.IsHasSameDistrictInCity(name, cityName);
 
             if (isHasDistrict)
             {
-                return this.Conflict(new { message = $"District with name '{name}' in {cityName} already existe." });
+                return this.Conflict(new { message = $"District with name '{name}' in {cityName} already exist." });
             }
 
             var districtId = await this.districtsService.CreateDistrictAsync(name, cityName);

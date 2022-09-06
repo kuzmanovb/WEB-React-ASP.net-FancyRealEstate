@@ -59,14 +59,14 @@
             var curentCountry = this.countriesService.GetCountryByName(name);
             if (curentCountry == null)
             {
-                return this.Conflict(new { message = $"Country with name '{countryName}' not existe." });
+                return this.Conflict(new { message = $"Country with name '{countryName}' not exist." });
             }
 
             var isHasCity = this.citiesService.IsHasSameCityInCountry(name, countryName);
 
             if (isHasCity)
             {
-                return this.Conflict(new { message = $"City with name '{name}' in {countryName} already existe." });
+                return this.Conflict(new { message = $"City with name '{name}' in {countryName} already exist." });
             }
 
             var cityId = await this.citiesService.CreateSityAsync(name, countryName);
