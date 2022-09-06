@@ -14,22 +14,22 @@ export const getByCountry = (countryName) => {
         .catch(error => console.log(error))
 };
 
-export const getByName = (name, countryId) =>{
-    return fetch(cityUrl + `/getByName?name=${name}&countryId=${countryId}`)
+export const getByName = (name) =>{
+    return fetch(cityUrl + `/getByName?name=${name}`)
     .then(res => res.json())
     .catch(error => console.log(error))
 };
 
-export const create = (name, countryId) =>{
-    return fetch(cityUrl + `/create?name=${name}&countryId=${countryId}`,{
+export const create = (name, countryName) =>{
+    return fetch(cityUrl + `/create?name=${name}&countryName=${countryName}`,{
         method: "POST"
     })
     .then(res => res.json())
     .catch(error => console.log(error))
 };
 
-export const deleted = (name, countryId) =>{
-    return fetch(cityUrl + `/deleted?name=${name}&countryId=${countryId}`,{
+export const deleted = (name, countryName) =>{
+    return fetch(cityUrl + `/deleted?name=${name}&countryName=${countryName}`,{
         method: "DELETE"
     })
     .then(res => res.json())

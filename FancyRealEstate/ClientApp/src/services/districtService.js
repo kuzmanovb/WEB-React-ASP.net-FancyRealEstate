@@ -16,22 +16,22 @@ export const getByCity = (cityName) => {
         .catch(error => console.log(error));
 };
 
-export const getByName = (name, cityId) => {
-    return fetch(destrictUrl + `/getByName?name=${name}&cityId=${cityId}`)
+export const getByName = (name) => {
+    return fetch(destrictUrl + `/getByName?name=${name}`)
     .then(res => res.json())
     .catch(error => console.log(error));
  };
 
-export const create = (name, cityId) => {
-    return fetch(destrictUrl + `/create?name=${name}&cityId=${cityId}`,{
-        method: "PUT",
+export const create = (name, cityName) => {
+    return fetch(destrictUrl + `/create?name=${name}&cityName=${cityName}`,{
+        method: "POST",
     })
     .then(res => res.json())
     .catch(error => console.log(error));
  };
 
-export const deleted = (name, cityId) => { 
-    return fetch(destrictUrl + `/deleted?name=${name}&cityId=${cityId}`,{
+export const deleted = (name, cityName) => { 
+    return fetch(destrictUrl + `/deleted?name=${name}&cityName=${cityName}`,{
         method: "DELETE"
     })
     .then(res => res.json())
