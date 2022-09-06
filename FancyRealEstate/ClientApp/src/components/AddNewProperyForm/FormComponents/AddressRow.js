@@ -24,27 +24,31 @@ export const AddressRow = (props) => {
 
     useEffect(() => {
         setCountry(props.passProps?.country)
+        if (props.passProps?.country) {
+            cityTypeService.getByCountry(props.passProps?.country).then(res => setCities(res));
+        }
         setCity(props.passProps?.city)
+        if (props.passProps?.city) {
+            districtTypeService.getByCity(props.passProps?.city).then(res => setDistricts(res))
+        }
         setDistrict(props.passProps?.district)
         setStreet(props.passProps?.street)
         setNumber(props.passProps?.buildingNumber)
+
     }, [props.passProps]);
 
     useEffect(() => {
-
         sendData();
-
     }, [country, city, district, street, number]);
 
     const sendData = () => {
-
-        props.addressData(city, district, street, number);
-
+        props.addressData(country, city, district, street, number);
     }
 
     const handleCountry = (e) => {
         setCountry(e.target.value);
         cityTypeService.getByCountry(e.target.value).then(res => setCities(res));
+        setDistricts([])
     }
 
     const handleCity = (e) => {
@@ -68,7 +72,7 @@ export const AddressRow = (props) => {
     return (
 
         <Row form>
-             <Col md={4}>
+            <Col md={4}>
                 <FormGroup>
                     <Label for="country">Country</Label>
                     <Input type="select" name="country" id="country" value={country} onChange={handleCountry} onBlur={props.passBlur} >
@@ -78,10 +82,10 @@ export const AddressRow = (props) => {
                         )}
 
                     </Input>
-                    {props.passTouched.city && props.passErrors.city ? <div className="text-danger">{props.passErrors.city}</div> : null}
+                    {props.passTouched.country && props.passErrors.country ? <div className="text-danger">{props.passErrors.country}</div> : null}
                 </FormGroup>
             </Col>
-           
+
             <Col md={4}>
                 <FormGroup>
                     <Label for="city">City</Label>

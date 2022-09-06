@@ -16,6 +16,7 @@ import * as imageService from '../../services/imageService'
 
 const validationSchema = Yup.object().shape({
 
+    country: Yup.string().min(2).required("You have choose country"),
     city: Yup.string().min(2).required("You have choose city"),
     district: Yup.string().min(2).required("You have choose district"),
     street: Yup.string().min(4).required("Please imput street name"),
@@ -35,13 +36,13 @@ const validationSchema = Yup.object().shape({
 
 });
 
-
 export class AddNewProperyForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
             userId: "",
             id: "0",
+            country: "",
             city: "",
             district: "",
             street: "",
@@ -62,8 +63,9 @@ export class AddNewProperyForm extends Component {
     }
 
     componentDidUpdate() {
-
+      
         if (this.props.location?.state?.data !== undefined && !this.state.update) {
+            debugger;
             this.setState((s) => ({ id: s.id + this.props.location?.state?.data.id }));
             this.setState((s) => ({ year: s.year + this.props.location?.state?.data.year }));
             this.setState((s) => ({ size: s.size + this.props.location?.state?.data.size }));
@@ -76,7 +78,6 @@ export class AddNewProperyForm extends Component {
             this.setState({ update: true });
 
         }
-        console.log(this.state.imageIds)
 
         if (this.state.userId === "") {
 
@@ -85,7 +86,9 @@ export class AddNewProperyForm extends Component {
     }
 
 
-    addressDataFronChild = (city, district, street, number) => {
+    addressDataFronChild = (country, city, district, street, number) => {
+        debugger;
+        this.setState({ country: country });
         this.setState({ city: city });
         this.setState({ district: district });
         this.setState({ street: street });
@@ -146,6 +149,7 @@ export class AddNewProperyForm extends Component {
                             propertyService.updateProperty(values, this.props.location?.state?.token);
                         }
                         else {
+                            debugger;
                             propertyService.createProperty(values, this.props.location?.state?.token);
                         }
 
@@ -228,16 +232,16 @@ export class AddNewProperyForm extends Component {
                                 {this.state.imageIds.map((i) => (
                                     <div key={i} className="col-sm-6 col-md-4 col-lg-3">
                                         <img src={cloudinaryUrl() + i} className="img-fluid" alt="" style={{ margin: '15px' }} />
-                                        { this.state.imageIds.length > 1 &&
+                                        {this.state.imageIds.length > 1 &&
                                             <Button color="danger" value={i} onClick={this.deleteImage}>Delete Image</Button>
                                         }
                                     </div>
                                 ))}
                             </Row>
-                            { this.state.imageIds.length < 8 &&
+                            {this.state.imageIds.length < 8 &&
                                 <CloudinaryWidget imagesIdData={this.imagesIdDateFromChild} passTouched={touched} passErrors={errors} />
                             }
-                             {touched.imageIds && errors.imageIds ? <div className="text-danger text-center">{errors.imageIds}</div> : null}
+                            {touched.imageIds && errors.imageIds ? <div className="text-danger text-center">{errors.imageIds}</div> : null}
                             <Row>
                                 <Col>
                                     <FormGroup>
