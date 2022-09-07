@@ -12,6 +12,8 @@
 
         ICollection<string> GetAllFeaturesName();
 
+        ICollection<Feature> GetAllFeatures();
+
         Task<bool> DeleteFeatureAsync(string name);
     }
 }

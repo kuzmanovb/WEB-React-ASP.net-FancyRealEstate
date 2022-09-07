@@ -20,14 +20,16 @@
         private readonly IAddressesService addressesService;
         private readonly IProperyTypesService properyTypesService;
         private readonly IBuildingTypesService buildingTypesService;
+        private readonly IFeatureService featureService;
         private readonly IImagesService imagesService;
 
-        public RealEstatePropertiesService(ApplicationDbContext db, IAddressesService addressesService, IProperyTypesService properyTypesService, IBuildingTypesService buildingTypesService, IImagesService imagesService)
+        public RealEstatePropertiesService(ApplicationDbContext db, IAddressesService addressesService, IProperyTypesService properyTypesService, IBuildingTypesService buildingTypesService, IFeatureService featureService, IImagesService imagesService)
         {
             this.db = db;
             this.addressesService = addressesService;
             this.properyTypesService = properyTypesService;
             this.buildingTypesService = buildingTypesService;
+            this.featureService = featureService;
             this.imagesService = imagesService;
         }
 
@@ -45,6 +47,7 @@
             var addressId = await this.addressesService.CreateAddressAsync(newAddress);
             var buildingTypeId = this.buildingTypesService.GetBuildingTypeByName(input.BuildingType).Id;
             var propertyTypeId = this.properyTypesService.GetPropertyTypeByName(input.PropertyType).Id;
+            var features = this.featureService.GetAllFeatures().Where(x => input.Features.Contains(x.Name)).ToList();
 
             var newRealEstateProperty = new RealEstateProperty
             {
@@ -60,6 +63,7 @@
                 TypeOfDeal = (TypeOfDeal)Enum.Parse(typeof(TypeOfDeal), input.TypeOfDeal, true),
                 IsPromotion = input.IsPromotion,
                 UserId = input.UserId,
+                Features = features,
                 Internet = input.Features.Contains("internet"),
                 Heating = input.Features.Contains("heating"),
                 SecuritySystem = input.Features.Contains("securitySystem"),
@@ -176,6 +180,7 @@
                     BuildingType = p.BuildingType.Name,
                     Description = p.Description,
                     TypeOfDeal = p.TypeOfDeal.ToString(),
+                    Features = p.Features.Select(x => x.Name).ToArray(),
                     IsPromotion = p.IsPromotion,
                     SellerFullName = p.User.FirstName + " " + p.User.LastName,
                     SellerPhoneNumber = p.User.PhoneNumber,
@@ -238,106 +243,28 @@
 
         public async Task UpdatePropertyAsync(RealEstatePropertyInputDto input)
         {
-            var currentProperty = this.db.RealEstateProperties.FirstOrDefault(p => p.Id == input.Id);
+            var currentProperty = this.db.RealEstateProperties.Where(p => p.Id == input.Id).First();
 
-            if (currentProperty.Size != input.Size)
+            currentProperty.Size = input.Size;
+            currentProperty.Floor = input.Floor;
+            currentProperty.TotalNumberOfFloor = input.TotalNumberOfFloor;
+            currentProperty.Year = input.Year;
+            currentProperty.Price = input.Price;
+            currentProperty.Address.Street = input.Street;
+            currentProperty.Address.District.Name = input.District;
+            currentProperty.Address.BuildingNumber = input.BuildingNumber;
+            currentProperty.Description = input.Description;
+            currentProperty.TypeOfDeal = (TypeOfDeal)Enum.Parse(typeof(TypeOfDeal), input.TypeOfDeal, true);
+            foreach (var item in currentProperty.Features)
             {
-                currentProperty.Size = input.Size;
+                currentProperty.Features.Remove(item);
             }
 
-            if (currentProperty.Floor != input.Floor)
-            {
-                currentProperty.Floor = input.Floor;
-            }
+            var currentFeatures = this.featureService.GetAllFeatures().Where(x => input.Features.Contains(x.Name)).ToList();
 
-            if (currentProperty.TotalNumberOfFloor != input.TotalNumberOfFloor)
+            foreach (var item in currentFeatures)
             {
-                currentProperty.TotalNumberOfFloor = input.TotalNumberOfFloor;
-            }
-
-            if (currentProperty.Year != input.Year)
-            {
-                currentProperty.Year = input.Year;
-            }
-
-            if (currentProperty.Price != input.Price)
-            {
-                currentProperty.Price = input.Price;
-            }
-
-            if (currentProperty.Address.Street != input.Street)
-            {
-                currentProperty.Address.Street = input.Street;
-            }
-
-            if (currentProperty.Address.District.Name != input.District)
-            {
-                currentProperty.Address.District.Name = input.District;
-            }
-
-            if (currentProperty.Address.BuildingNumber != input.BuildingNumber)
-            {
-                currentProperty.Address.BuildingNumber = input.BuildingNumber;
-            }
-
-            if (currentProperty.PropertyType.Name != input.PropertyType)
-            {
-                currentProperty.PropertyType.Name = input.PropertyType;
-            }
-
-            if (currentProperty.BuildingType.Name != input.BuildingType)
-            {
-                currentProperty.BuildingType.Name = input.BuildingType;
-            }
-
-            if (currentProperty.Description != input.Description)
-            {
-                currentProperty.Description = input.Description;
-            }
-
-            if (Enum.GetName(typeof(TypeOfDeal), currentProperty.TypeOfDeal) != input.TypeOfDeal)
-            {
-                currentProperty.TypeOfDeal = (TypeOfDeal)Enum.Parse(typeof(TypeOfDeal), input.TypeOfDeal, true);
-            }
-
-            if (currentProperty.IsPromotion != input.IsPromotion)
-            {
-                currentProperty.IsPromotion = input.IsPromotion;
-            }
-
-            if (input.Features.Contains("internet"))
-            {
-                currentProperty.Internet = input.Features.Contains("internet");
-            }
-
-            if (input.Features.Contains("heating"))
-            {
-                currentProperty.Heating = input.Features.Contains("heating");
-            }
-
-            if (input.Features.Contains("securitySystem"))
-            {
-                currentProperty.SecuritySystem = input.Features.Contains("securitySystem");
-            }
-
-            if (input.Features.Contains("airCondition"))
-            {
-                currentProperty.AirCondition = input.Features.Contains("airCondition");
-            }
-
-            if (input.Features.Contains("garage"))
-            {
-                currentProperty.Garage = input.Features.Contains("garage");
-            }
-
-            if (input.Features.Contains("elevator"))
-            {
-                currentProperty.Elevator = input.Features.Contains("elevator");
-            }
-
-            if (input.Features.Contains("renovated"))
-            {
-                currentProperty.Renovated = input.Features.Contains("renovated");
+                currentProperty.Features.Add(item);
             }
 
             foreach (var cloudId in input.ImageIds)

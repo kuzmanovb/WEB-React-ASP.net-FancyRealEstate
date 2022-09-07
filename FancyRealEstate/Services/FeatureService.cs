@@ -60,5 +60,12 @@
 
             return false;
         }
+
+        public ICollection<Feature> GetAllFeatures()
+        {
+            var features = this.db.Features.ToList();
+
+            return features;
+        }
     }
 }
