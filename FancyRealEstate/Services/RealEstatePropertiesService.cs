@@ -47,7 +47,7 @@
             var addressId = await this.addressesService.CreateAddressAsync(newAddress);
             var buildingTypeId = this.buildingTypesService.GetBuildingTypeByName(input.BuildingType).Id;
             var propertyTypeId = this.properyTypesService.GetPropertyTypeByName(input.PropertyType).Id;
-            var features = this.featureService.GetAllFeatures().Where(x => input.Features.Contains(x.Name)).ToList();
+            var features = this.featureService.GetAllFeatures()?.Where(x => input.Features.Contains(x.Name)).ToList();
 
             var newRealEstateProperty = new RealEstateProperty
             {
@@ -64,13 +64,6 @@
                 IsPromotion = input.IsPromotion,
                 UserId = input.UserId,
                 Features = features,
-                Internet = input.Features.Contains("internet"),
-                Heating = input.Features.Contains("heating"),
-                SecuritySystem = input.Features.Contains("securitySystem"),
-                AirCondition = input.Features.Contains("airCondition"),
-                Garage = input.Features.Contains("garage"),
-                Elevator = input.Features.Contains("elevator"),
-                Renovated = input.Features.Contains("renovated"),
                 CreatedOn = DateTime.UtcNow,
             };
 
@@ -98,7 +91,11 @@
                 realEstateProperties = realEstateProperties.Where(x => x.UserId == input.UserId).ToList();
             }
 
-
+            if (!string.IsNullOrEmpty(input.City))
+            {
+                realEstateProperties = realEstateProperties.Where(x => x.Address.City.Name == input.City).ToList();
+            }
+            
             if (!string.IsNullOrEmpty(input.District))
             {
                 realEstateProperties = realEstateProperties.Where(x => x.Address.District.Name == input.District).ToList();
@@ -185,13 +182,6 @@
                     SellerFullName = p.User.FirstName + " " + p.User.LastName,
                     SellerPhoneNumber = p.User.PhoneNumber,
                     SellerEmail = p.User.Email,
-                    Internet = p.Internet,
-                    Heating = p.Heating,
-                    SecuritySystem = p.SecuritySystem,
-                    AirCondition = p.AirCondition,
-                    Garage = p.Garage,
-                    Elevator = p.Elevator,
-                    Renovated = p.Renovated,
                     CreatedOn = p.CreatedOn.ToString("dd-MM-yyyy"),
                     DaysAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
                     ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
@@ -225,13 +215,7 @@
                     SellerFullName = p.User.FirstName + " " + p.User.LastName,
                     SellerPhoneNumber = p.User.PhoneNumber,
                     SellerEmail = p.User.Email,
-                    Internet = p.Internet,
-                    Heating = p.Heating,
-                    SecuritySystem = p.SecuritySystem,
-                    AirCondition = p.AirCondition,
-                    Garage = p.Garage,
-                    Elevator = p.Elevator,
-                    Renovated = p.Renovated,
+                    Features = p.Features.Select(x => x.Name).ToList(),
                     CreatedOn = p.CreatedOn.ToString("dd-MM-yyyy"),
                     DaysAgo = Math.Round((DateTime.UtcNow - p.CreatedOn).TotalDays),
                     ImageIds = p.Images.Where(i => i.RealEstatePropertyId == p.Id).Select(x => x.CloudId).ToArray(),
