@@ -47,21 +47,10 @@
 
         public string SellerEmail { get; set; }
 
-        public bool Internet { get; set; }
-
-        public bool Heating { get; set; }
-
-        public bool SecuritySystem { get; set; }
-
-        public bool AirCondition { get; set; }
-
-        public bool Garage { get; set; }
-
-        public bool Elevator { get; set; }
-
         public bool Renovated { get; set; }
 
         public ICollection<string> ImageIds { get; set; }
+
         public ICollection<string> Features { get; set; }
 
         public int PropertiesCount { get; set; }

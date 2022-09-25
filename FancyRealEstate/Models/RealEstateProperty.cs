@@ -46,20 +46,6 @@
 
         public virtual BuildingType BuildingType { get; set; }
 
-        public bool Internet { get; set; }
-
-        public bool Heating { get; set; }
-
-        public bool SecuritySystem { get; set; }
-
-        public bool AirCondition { get; set; }
-
-        public bool Garage { get; set; }
-
-        public bool Elevator { get; set; }
-
-        public bool Renovated { get; set; }
-
         public virtual ICollection<Image> Images { get; set; }
 
         public DateTime CreatedOn { get; set; }

@@ -4,6 +4,12 @@
 
     public class RealEstatePropertyInputDto
     {
+        public RealEstatePropertyInputDto()
+        {
+            this.ImageIds = new List<string>();
+            this.Features = new List<string>();
+        }
+
         public int Id { get; set; }
 
         public int Size { get; set; }
